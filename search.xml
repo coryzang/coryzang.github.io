@@ -8,7 +8,7 @@
       <link href="/posts/3401943996/"/>
       <url>/posts/3401943996/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本章记录安装butterfly之后，博客基本功能的建设，包括模块、页面以及必要插件的安装及设置。本章节充分参考[教学文档](<a href="https://butterfly.js.org/posts/dc584b87/#Front-matter">Butterfly 安裝文檔(二) 主題頁面 | Butterfly</a>)。<br>按照上面的文档，逐一设立。</p><h2 id="友链设置"><a href="#友链设置" class="headerlink" title="友链设置"></a>友链设置</h2><p>Hexo博客目录中的source&#x2F;_data（如果沒有 _data 文件夾，請自行创建），创建一個文件link.yml。修改即可。</p><h3 id="友链界面设置"><a href="#友链界面设置" class="headerlink" title="友链界面设置"></a>友链界面设置</h3><p>由 2.2.0 起，友情链接界面可以由用戶自己自定义，只需要在友情链接的md档设置就行，以普通的Markdown格式书写。</p><h2 id="图库"><a href="#图库" class="headerlink" title="图库"></a>图库</h2><p>图库也可以按照上面的文档进行设置，注意的是 在Source目录下设置一级子目录，而不要在图库目录下再设置子目录，必坑！</p><h2 id="Hexo-abbrlink插件"><a href="#Hexo-abbrlink插件" class="headerlink" title="Hexo-abbrlink插件"></a>Hexo-abbrlink插件</h2><p>Hexo默认的静态URL格式是 :year&#x2F;:month&#x2F;:day&#x2F;:title，也就是按照年、月、日、标题来生成固定链接的。如<a href="http://xxx.yy.com/2020/07/06/hello-world">http://xxx.yy.com/2020/07/06/hello-world</a></p><p>这种默认配置的缺点就是一般文件名是中文，导致url链接里有中文出现，这会造成很多问题，也不利于seo，另外就是年月日都会有分隔符。</p><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。</p><p>搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p><p>使用 hexo-abbrlink 插件可以完美解决，具体使用方法如下：</p><h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><h5 id="安装npm包："><a href="#安装npm包：" class="headerlink" title="安装npm包："></a>安装npm包：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure><p>修改_config.yml文件中的配置项（记得把原来的permalink:删除掉）:</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置永久链接</span></span><br><span class="line">permalink: posts/:abbrlink.html  <span class="comment"># 此处可以自己设置，也可以直接使用 :/abbrlink</span></span><br><span class="line">abbrlink:</span><br><span class="line">    alg: crc16   <span class="comment">#算法： crc16(default) and crc32</span></span><br><span class="line">    rep: dec     <span class="comment">#进制： dec(default) and hex</span></span><br></pre></td></tr></table></figure><h5 id="关于插件设置"><a href="#关于插件设置" class="headerlink" title="关于插件设置"></a>关于插件设置</h5><p>Abbrlink插件拥有两项设置选项:</p><p>alg: 算法(目前支持crc16和crc32算法，默认值是crc16)<br>rep: 形式(生成的链接可以是十六进制格式也可以是十进制格式，默认值是十进制格式)<br>示例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">crc16 &amp; hex</span><br><span class="line">https://test.com/posts/55c6.html</span><br><span class="line">crc16 &amp; dec</span><br><span class="line">https://test.com/posts/43212.html</span><br><span class="line"></span><br><span class="line">crc32 &amp; hex</span><br><span class="line">https://test.com/posts/6ec16a2c.html</span><br><span class="line">crc32 &amp; dec</span><br><span class="line">https://test.com/posts/1521457752.html</span><br></pre></td></tr></table></figure><p>注意在生成之前就要改好算法和形式。不然后面再改的话会导致链接不统一。我就踩过坑，但后来是一个文章一个文章删除abbrlink:的值才改过来的，还好我文章不是很多。</p><p>话说最近看到了Hexo-abbrlink2这个插件，可以从1.html开始编。</p><p>我试用了一下，会导致文章重复，正在研究如何解决。如果能从1开始编写的话，这样更容易看得出写了多少篇文章，当前上传和修改的是哪一篇。后面再研究。</p><p>PS：刚使用这个插件后，阅读人数和评论都会变为0，介意慎用！综上所述，这插件适合新站！</p><h2 id="豆瓣插件"><a href="#豆瓣插件" class="headerlink" title="豆瓣插件"></a>豆瓣插件</h2><h3 id="豆瓣ID"><a href="#豆瓣ID" class="headerlink" title="豆瓣ID"></a>豆瓣ID</h3><p>在豆瓣右上角点击 “个人主页” ，这时候地址栏的URL大概是这样：<a href="https://www.douban.com/people/xxxxxx/">https://www.douban.com/people/xxxxxx/</a> ，其中的”xxxxxx”就是你的个人ID了。</p><h3 id="安装插件-1"><a href="#安装插件-1" class="headerlink" title="安装插件"></a>安装插件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure><h3 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h3><p>在博客根目录下的_config.yml文件末尾添加：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">douban:</span><br><span class="line">  user: superi</span><br><span class="line">  <span class="built_in">builtin</span>: <span class="literal">true</span></span><br><span class="line">  book:</span><br><span class="line">    title: <span class="string">&#x27;那些书们&#x27;</span></span><br><span class="line">    quote: <span class="string">&#x27;过去一切时代的精华尽在书中&#x27;</span></span><br><span class="line">    meta: <span class="literal">true</span></span><br><span class="line">    comments: <span class="literal">true</span></span><br><span class="line">    top_img: /img/jr.jpg</span><br><span class="line">    aside: <span class="literal">true</span></span><br><span class="line">  movie:</span><br><span class="line">    title: <span class="string">&#x27;那些电影&#x27;</span></span><br><span class="line">    quote: <span class="string">&#x27;电影终于满足了按照世界本身的形象来重新创造世界的观念和愿望&#x27;</span></span><br><span class="line">    meta: <span class="literal">true</span></span><br><span class="line">    comments: <span class="literal">true</span></span><br><span class="line">    top_img: /img/jr.jpg</span><br><span class="line">    aside: <span class="literal">true</span></span><br><span class="line">  game:</span><br><span class="line">    title: <span class="string">&#x27;那些游戏&#x27;</span></span><br><span class="line">    quote: <span class="string">&#x27;游戏的真正成功之处就在于恰到好处地激活了受众体内的快乐因子——内啡肽&#x27;</span></span><br><span class="line">    meta: <span class="literal">true</span></span><br><span class="line">    comments: <span class="literal">true</span></span><br><span class="line">    top_img: /img/jr.jpg</span><br><span class="line">    aside: <span class="literal">true</span></span><br><span class="line">  <span class="built_in">timeout</span>: 10000 </span><br></pre></td></tr></table></figure><p> 参数说明见<a href="%5Bhexo%E7%BE%8E%E5%8C%96%EF%BC%88%E8%B1%86%E7%93%A3%E9%98%85%E8%AF%BB%E3%80%81%E7%94%B5%E5%BD%B1%E3%80%81%E5%B8%B8%E7%94%A8%E7%BD%91%E7%AB%99%E6%90%9C%E7%B4%A2%E9%A1%B5%EF%BC%89_cungudafa%E7%9A%84%E5%8D%9A%E5%AE%A2-CSDN%E5%8D%9A%E5%AE%A2_hexo-douban%5D(https://blog.csdn.net/cungudafa/article/details/105773983)">这里</a></p><h3 id="启用生成"><a href="#启用生成" class="headerlink" title="启用生成"></a>启用生成</h3><p> <code>-bgm</code>代表的是<code>book、game、movie</code>三个参数，选择你需要生成的页面。或者直接 hexo douban<br> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure><br> 强调：由于<code>hexo douban</code>的简写也是<code>hexo d</code>，与<code>hexo deploy</code>的简写指令<code>hexo d</code>冲突，因此在进行二者部署的时候，只能都打全名而不能打简写形式。<br> 最后，修改你的主题配置_config.butterfly.yml，配置到目录，完成！</p><h2 id="音乐插件Aplayer"><a href="#音乐插件Aplayer" class="headerlink" title="音乐插件Aplayer"></a>音乐插件Aplayer</h2><p> 这里说一点题外话，butterfly作者的文档误导人。看了很多其他人的页面也不得其法。管用的方法是这样的是从一个[小博主](<a href="https://satparamita.top/p/3330145c.html">Next主题设置-安装DaoVoice和Aplayer | SatParamita六到彼岸</a>)那里看来的</p><h3 id="安装Aplayer"><a href="#安装Aplayer" class="headerlink" title="安装Aplayer"></a>安装Aplayer</h3> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-tag-aplayer</span><br></pre></td></tr></table></figure><h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3>  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% aplayer <span class="string">&quot;title&quot;</span>  <span class="string">&quot;author&quot;</span> <span class="string">&quot;url&quot;</span> [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;  </span><br></pre></td></tr></table></figure><p><code>&quot;title&quot; &quot;author&quot; &quot;url&quot;</code>按顺序必填，其余选填。这里lrc必须是txt格式。</p><p>注意： 如果使用网络音乐，可以进入<a href="https://music.xf1433.com/">音乐外链网站</a>获取音乐链接。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% aplayer <span class="string">&quot;花儿纳吉&quot;</span> <span class="string">&quot;洛萱&quot;</span> <span class="string">&quot;https://sharefs.ali.kugou.com/202110202136/4bf5427ae89feacb1c10fd2db1c212cc/G202/M00/1C/01/Cg4DAF5QC-CAQbPvADlpgRlSql4871.mp3&quot;</span> <span class="string">&quot;https://satparamita.top/images/my.jpg&quot;</span> <span class="string">&quot;width:100%&quot;</span> <span class="string">&quot;lrc:花儿纳吉-洛萱.txt&quot;</span> %&#125;  </span><br></pre></td></tr></table></figure><p>当然，也可以插入本地音乐，需要自定义头像，下载歌词。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer <span class="string">&quot;花儿纳吉&quot;</span> <span class="string">&quot;洛萱&quot;</span> <span class="string">&quot;./file/洛萱 - 花儿纳吉.mp3&quot;</span> <span class="string">&quot;https://satparamita.top/images/my.jpg&quot;</span> <span class="string">&quot;width:100%&quot;</span> <span class="string">&quot;lrc:花儿纳吉-洛萱.txt&quot;</span> %&#125; </span><br></pre></td></tr></table></figure><p><strong>注意</strong>:音乐和歌词文件都放在与文章同级的文件夹里，上例里文件夹名为file。</p><h4 id="重头戏：-Aplayer可以建立歌单。"><a href="#重头戏：-Aplayer可以建立歌单。" class="headerlink" title="重头戏：  Aplayer可以建立歌单。"></a>重头戏：  Aplayer可以建立歌单。</h4><p>两种做法的例子，无论怎样做，都需要在音乐页面中的footer标识aplayer为true。</p><h5 id="第一种：-这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。"><a href="#第一种：-这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。" class="headerlink" title="第一种： 这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。"></a>第一种： 这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">---  </span><br><span class="line">title:  <span class="comment">#为了标题中出现，可以不填  </span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;music&quot;</span> <span class="comment">#必须有  </span></span><br><span class="line">  </span><br><span class="line">---  </span><br><span class="line">  </span><br><span class="line">&#123;% aplayerlist %&#125;  </span><br><span class="line">&#123;  </span><br><span class="line"> <span class="string">&quot;narrow&quot;</span>: <span class="literal">false</span>,  </span><br><span class="line"> <span class="string">&quot;autoplay&quot;</span>: <span class="literal">false</span>,  </span><br><span class="line"> <span class="string">&quot;mode&quot;</span>: <span class="string">&quot;circulation&quot;</span>,  </span><br><span class="line"> <span class="string">&quot;showlrc&quot;</span>: 3,  </span><br><span class="line"> <span class="string">&quot;mutex&quot;</span>: <span class="literal">true</span>,   </span><br><span class="line"> <span class="string">&quot;theme&quot;</span>: <span class="string">&quot;#33a3dc&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;preload&quot;</span>: <span class="string">&quot;metadata&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;listmaxheight&quot;</span>: <span class="string">&quot;420px&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;music&quot;</span>: [  </span><br><span class="line"> &#123;   </span><br><span class="line"> <span class="string">&quot;title&quot;</span>: <span class="string">&quot;花儿纳吉&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;author&quot;</span>: <span class="string">&quot;洛萱&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;url&quot;</span>: <span class="string">&quot;/assets/洛萱、Mario - 花儿纳吉.mp3&quot;</span> ,  </span><br><span class="line"> <span class="string">&quot;pic&quot;</span>: <span class="string">&quot;https://satparamita.top/images/my.jpg&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;lrc&quot;</span>: <span class="string">&quot;/assets/lrc/花儿纳吉-洛萱.lrc&quot;</span>   </span><br><span class="line"> &#125;,  </span><br><span class="line"> &#123;   </span><br><span class="line"> <span class="string">&quot;title&quot;</span>: <span class="string">&quot;故园情&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;author&quot;</span>: <span class="string">&quot;重小烟&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;url&quot;</span>: <span class="string">&quot;https://sharefs.ali.kugou.com/202110202226/8ac7afd5dbda58ffe35399be77e4364e/KGTX/CLTX001/bbd71ef535bdac9d124f31c8315d06eb.mp3&quot;</span> ,  </span><br><span class="line"> <span class="string">&quot;pic&quot;</span>: <span class="string">&quot;https://satparamita.top/images/mine.jpg&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;lrc&quot;</span>: <span class="string">&quot;/assets/lrc/故园情-重小烟.lrc&quot;</span>   </span><br><span class="line"> &#125;  </span><br><span class="line"> ]  </span><br><span class="line">&#125;  </span><br><span class="line">&#123;% endaplayerlist %&#125;</span><br></pre></td></tr></table></figure><h5 id="第二种是支持网络音乐台的。这种方法需要启用meting。"><a href="#第二种是支持网络音乐台的。这种方法需要启用meting。" class="headerlink" title="第二种是支持网络音乐台的。这种方法需要启用meting。"></a>第二种是支持网络音乐台的。这种方法需要启用meting。</h5><h6 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h6><p>在站点配置文件里添加：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">aplayer:</span><br><span class="line">  meting: <span class="literal">true</span></span><br><span class="line">  asset_inject: <span class="literal">true</span> <span class="comment">#  true可能会影响其它功能</span></span><br></pre></td></tr></table></figure><p>在音乐页面中写入： 例子文件</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;<span class="built_in">link</span> rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css&quot;</span>&gt;  </span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js&quot;</span>&gt;&lt;/script&gt;  </span><br><span class="line">&lt;!-- require MetingJS --&gt;  </span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js&quot;</span>&gt;&lt;/script&gt;  </span><br><span class="line">  </span><br><span class="line">&lt;meting-js  </span><br><span class="line"> server=<span class="string">&quot;netease&quot;</span>  </span><br><span class="line"> <span class="built_in">type</span>=<span class="string">&quot;song&quot;</span>  </span><br><span class="line"> <span class="built_in">id</span>=<span class="string">&quot;29747554&quot;</span>&gt;   </span><br><span class="line">&lt;/meting-js&gt;</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本章记录安装butterfly之后，博客基本功能的建设，包括模块、页面以及必要插件的安装及设置。本章节充分参考[教学文档](<a href="https://butterfly.js.org/posts/dc584b87/#Front-matter">Butterfly 安裝文檔(二) 主題頁面 | Butterfly</a>)。<br>按照上面的文档，逐一设立。</p><h2 id="友链设置"><a href="#友链设置" class="headerlink" title="友链设置"></a>友链设置</h2><p>Hexo博客目录中的source&#x2F;_data（如果沒有 _data 文件夾，請自行创建），创建一個文件link.yml。修改即可。</p><h3 id="友链界面设置"><a href="#友链界面设置" class="headerlink" title="友链界面设置"></a>友链界面设置</h3><p>由 2.2.0 起，友情链接界面可以由用戶自己自定义，只需要在友情链接的md档设置就行，以普通的Markdown格式书写。</p><h2 id="图库"><a href="#图库" class="headerlink" title="图库"></a>图库</h2><p>图库也可以按照上面的文档进行设置，注意的是 在Source目录下设置一级子目录，而不要在图库目录下再设置子目录，必坑！</p><h2 id="Hexo-abbrlink插件"><a href="#Hexo-abbrlink插件" class="headerlink" title="Hexo-abbrlink插件"></a>Hexo-abbrlink插件</h2><p>Hexo默认的静态URL格式是 :year&#x2F;:month&#x2F;:day&#x2F;:title，也就是按照年、月、日、标题来生成固定链接的。如<a href="http://xxx.yy.com/2020/07/06/hello-world">http://xxx.yy.com/2020/07/06/hello-world</a></p><p>这种默认配置的缺点就是一般文件名是中文，导致url链接里有中文出现，这会造成很多问题，也不利于seo，另外就是年月日都会有分隔符。</p><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。</p><p>搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p><p>使用 hexo-abbrlink 插件可以完美解决，具体使用方法如下：</p><h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><h5 id="安装npm包："><a href="#安装npm包：" class="headerlink" title="安装npm包："></a>安装npm包：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure><p>修改_config.yml文件中的配置项（记得把原来的permalink:删除掉）:</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置永久链接</span></span><br><span class="line">permalink: posts/:abbrlink.html  <span class="comment"># 此处可以自己设置，也可以直接使用 :/abbrlink</span></span><br><span class="line">abbrlink:</span><br><span class="line">    alg: crc16   <span class="comment">#算法： crc16(default) and crc32</span></span><br><span class="line">    rep: dec     <span class="comment">#进制： dec(default) and hex</span></span><br></pre></td></tr></table></figure><h5 id="关于插件设置"><a href="#关于插件设置" class="headerlink" title="关于插件设置"></a>关于插件设置</h5><p>Abbrlink插件拥有两项设置选项:</p><p>alg: 算法(目前支持crc16和crc32算法，默认值是crc16)<br>rep: 形式(生成的链接可以是十六进制格式也可以是十进制格式，默认值是十进制格式)<br>示例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">crc16 &amp; hex</span><br><span class="line">https://test.com/posts/55c6.html</span><br><span class="line">crc16 &amp; dec</span><br><span class="line">https://test.com/posts/43212.html</span><br><span class="line"></span><br><span class="line">crc32 &amp; hex</span><br><span class="line">https://test.com/posts/6ec16a2c.html</span><br><span class="line">crc32 &amp; dec</span><br><span class="line">https://test.com/posts/1521457752.html</span><br></pre></td></tr></table></figure><p>注意在生成之前就要改好算法和形式。不然后面再改的话会导致链接不统一。我就踩过坑，但后来是一个文章一个文章删除abbrlink:的值才改过来的，还好我文章不是很多。</p><p>话说最近看到了Hexo-abbrlink2这个插件，可以从1.html开始编。</p><p>我试用了一下，会导致文章重复，正在研究如何解决。如果能从1开始编写的话，这样更容易看得出写了多少篇文章，当前上传和修改的是哪一篇。后面再研究。</p><p>PS：刚使用这个插件后，阅读人数和评论都会变为0，介意慎用！综上所述，这插件适合新站！</p><h2 id="豆瓣插件"><a href="#豆瓣插件" class="headerlink" title="豆瓣插件"></a>豆瓣插件</h2><h3 id="豆瓣ID"><a href="#豆瓣ID" class="headerlink" title="豆瓣ID"></a>豆瓣ID</h3><p>在豆瓣右上角点击 “个人主页” ，这时候地址栏的URL大概是这样：<a href="https://www.douban.com/people/xxxxxx/">https://www.douban.com/people/xxxxxx/</a> ，其中的”xxxxxx”就是你的个人ID了。</p><h3 id="安装插件-1"><a href="#安装插件-1" class="headerlink" title="安装插件"></a>安装插件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure><h3 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h3><p>在博客根目录下的_config.yml文件末尾添加：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">douban:</span><br><span class="line">  user: superi</span><br><span class="line">  <span class="built_in">builtin</span>: <span class="literal">true</span></span><br><span class="line">  book:</span><br><span class="line">    title: <span class="string">&#x27;那些书们&#x27;</span></span><br><span class="line">    quote: <span class="string">&#x27;过去一切时代的精华尽在书中&#x27;</span></span><br><span class="line">    meta: <span class="literal">true</span></span><br><span class="line">    comments: <span class="literal">true</span></span><br><span class="line">    top_img: /img/jr.jpg</span><br><span class="line">    aside: <span class="literal">true</span></span><br><span class="line">  movie:</span><br><span class="line">    title: <span class="string">&#x27;那些电影&#x27;</span></span><br><span class="line">    quote: <span class="string">&#x27;电影终于满足了按照世界本身的形象来重新创造世界的观念和愿望&#x27;</span></span><br><span class="line">    meta: <span class="literal">true</span></span><br><span class="line">    comments: <span class="literal">true</span></span><br><span class="line">    top_img: /img/jr.jpg</span><br><span class="line">    aside: <span class="literal">true</span></span><br><span class="line">  game:</span><br><span class="line">    title: <span class="string">&#x27;那些游戏&#x27;</span></span><br><span class="line">    quote: <span class="string">&#x27;游戏的真正成功之处就在于恰到好处地激活了受众体内的快乐因子——内啡肽&#x27;</span></span><br><span class="line">    meta: <span class="literal">true</span></span><br><span class="line">    comments: <span class="literal">true</span></span><br><span class="line">    top_img: /img/jr.jpg</span><br><span class="line">    aside: <span class="literal">true</span></span><br><span class="line">  <span class="built_in">timeout</span>: 10000 </span><br></pre></td></tr></table></figure><p> 参数说明见<a href="%5Bhexo%E7%BE%8E%E5%8C%96%EF%BC%88%E8%B1%86%E7%93%A3%E9%98%85%E8%AF%BB%E3%80%81%E7%94%B5%E5%BD%B1%E3%80%81%E5%B8%B8%E7%94%A8%E7%BD%91%E7%AB%99%E6%90%9C%E7%B4%A2%E9%A1%B5%EF%BC%89_cungudafa%E7%9A%84%E5%8D%9A%E5%AE%A2-CSDN%E5%8D%9A%E5%AE%A2_hexo-douban%5D(https://blog.csdn.net/cungudafa/article/details/105773983)">这里</a></p><h3 id="启用生成"><a href="#启用生成" class="headerlink" title="启用生成"></a>启用生成</h3><p> <code>-bgm</code>代表的是<code>book、game、movie</code>三个参数，选择你需要生成的页面。或者直接 hexo douban<br> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure><br> 强调：由于<code>hexo douban</code>的简写也是<code>hexo d</code>，与<code>hexo deploy</code>的简写指令<code>hexo d</code>冲突，因此在进行二者部署的时候，只能都打全名而不能打简写形式。<br> 最后，修改你的主题配置_config.butterfly.yml，配置到目录，完成！</p><h2 id="音乐插件Aplayer"><a href="#音乐插件Aplayer" class="headerlink" title="音乐插件Aplayer"></a>音乐插件Aplayer</h2><p> 这里说一点题外话，butterfly作者的文档误导人。看了很多其他人的页面也不得其法。管用的方法是这样的是从一个[小博主](<a href="https://satparamita.top/p/3330145c.html">Next主题设置-安装DaoVoice和Aplayer | SatParamita六到彼岸</a>)那里看来的</p><h3 id="安装Aplayer"><a href="#安装Aplayer" class="headerlink" title="安装Aplayer"></a>安装Aplayer</h3> <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-tag-aplayer</span><br></pre></td></tr></table></figure><h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3>  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% aplayer <span class="string">&quot;title&quot;</span>  <span class="string">&quot;author&quot;</span> <span class="string">&quot;url&quot;</span> [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;  </span><br></pre></td></tr></table></figure><p><code>&quot;title&quot; &quot;author&quot; &quot;url&quot;</code>按顺序必填，其余选填。这里lrc必须是txt格式。</p><p>注意： 如果使用网络音乐，可以进入<a href="https://music.xf1433.com/">音乐外链网站</a>获取音乐链接。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% aplayer <span class="string">&quot;花儿纳吉&quot;</span> <span class="string">&quot;洛萱&quot;</span> <span class="string">&quot;https://sharefs.ali.kugou.com/202110202136/4bf5427ae89feacb1c10fd2db1c212cc/G202/M00/1C/01/Cg4DAF5QC-CAQbPvADlpgRlSql4871.mp3&quot;</span> <span class="string">&quot;https://satparamita.top/images/my.jpg&quot;</span> <span class="string">&quot;width:100%&quot;</span> <span class="string">&quot;lrc:花儿纳吉-洛萱.txt&quot;</span> %&#125;  </span><br></pre></td></tr></table></figure><p>当然，也可以插入本地音乐，需要自定义头像，下载歌词。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer <span class="string">&quot;花儿纳吉&quot;</span> <span class="string">&quot;洛萱&quot;</span> <span class="string">&quot;./file/洛萱 - 花儿纳吉.mp3&quot;</span> <span class="string">&quot;https://satparamita.top/images/my.jpg&quot;</span> <span class="string">&quot;width:100%&quot;</span> <span class="string">&quot;lrc:花儿纳吉-洛萱.txt&quot;</span> %&#125; </span><br></pre></td></tr></table></figure><p><strong>注意</strong>:音乐和歌词文件都放在与文章同级的文件夹里，上例里文件夹名为file。</p><h4 id="重头戏：-Aplayer可以建立歌单。"><a href="#重头戏：-Aplayer可以建立歌单。" class="headerlink" title="重头戏：  Aplayer可以建立歌单。"></a>重头戏：  Aplayer可以建立歌单。</h4><p>两种做法的例子，无论怎样做，都需要在音乐页面中的footer标识aplayer为true。</p><h5 id="第一种：-这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。"><a href="#第一种：-这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。" class="headerlink" title="第一种： 这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。"></a>第一种： 这种是将音乐文件放在本地的例子，但这样，会导致music文件夹非常大。</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">---  </span><br><span class="line">title:  <span class="comment">#为了标题中出现，可以不填  </span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;music&quot;</span> <span class="comment">#必须有  </span></span><br><span class="line">  </span><br><span class="line">---  </span><br><span class="line">  </span><br><span class="line">&#123;% aplayerlist %&#125;  </span><br><span class="line">&#123;  </span><br><span class="line"> <span class="string">&quot;narrow&quot;</span>: <span class="literal">false</span>,  </span><br><span class="line"> <span class="string">&quot;autoplay&quot;</span>: <span class="literal">false</span>,  </span><br><span class="line"> <span class="string">&quot;mode&quot;</span>: <span class="string">&quot;circulation&quot;</span>,  </span><br><span class="line"> <span class="string">&quot;showlrc&quot;</span>: 3,  </span><br><span class="line"> <span class="string">&quot;mutex&quot;</span>: <span class="literal">true</span>,   </span><br><span class="line"> <span class="string">&quot;theme&quot;</span>: <span class="string">&quot;#33a3dc&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;preload&quot;</span>: <span class="string">&quot;metadata&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;listmaxheight&quot;</span>: <span class="string">&quot;420px&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;music&quot;</span>: [  </span><br><span class="line"> &#123;   </span><br><span class="line"> <span class="string">&quot;title&quot;</span>: <span class="string">&quot;花儿纳吉&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;author&quot;</span>: <span class="string">&quot;洛萱&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;url&quot;</span>: <span class="string">&quot;/assets/洛萱、Mario - 花儿纳吉.mp3&quot;</span> ,  </span><br><span class="line"> <span class="string">&quot;pic&quot;</span>: <span class="string">&quot;https://satparamita.top/images/my.jpg&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;lrc&quot;</span>: <span class="string">&quot;/assets/lrc/花儿纳吉-洛萱.lrc&quot;</span>   </span><br><span class="line"> &#125;,  </span><br><span class="line"> &#123;   </span><br><span class="line"> <span class="string">&quot;title&quot;</span>: <span class="string">&quot;故园情&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;author&quot;</span>: <span class="string">&quot;重小烟&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;url&quot;</span>: <span class="string">&quot;https://sharefs.ali.kugou.com/202110202226/8ac7afd5dbda58ffe35399be77e4364e/KGTX/CLTX001/bbd71ef535bdac9d124f31c8315d06eb.mp3&quot;</span> ,  </span><br><span class="line"> <span class="string">&quot;pic&quot;</span>: <span class="string">&quot;https://satparamita.top/images/mine.jpg&quot;</span>,   </span><br><span class="line"> <span class="string">&quot;lrc&quot;</span>: <span class="string">&quot;/assets/lrc/故园情-重小烟.lrc&quot;</span>   </span><br><span class="line"> &#125;  </span><br><span class="line"> ]  </span><br><span class="line">&#125;  </span><br><span class="line">&#123;% endaplayerlist %&#125;</span><br></pre></td></tr></table></figure><h5 id="第二种是支持网络音乐台的。这种方法需要启用meting。"><a href="#第二种是支持网络音乐台的。这种方法需要启用meting。" class="headerlink" title="第二种是支持网络音乐台的。这种方法需要启用meting。"></a>第二种是支持网络音乐台的。这种方法需要启用meting。</h5><h6 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h6><p>在站点配置文件里添加：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">aplayer:</span><br><span class="line">  meting: <span class="literal">true</span></span><br><span class="line">  asset_inject: <span class="literal">true</span> <span class="comment">#  true可能会影响其它功能</span></span><br></pre></td></tr></table></figure><p>在音乐页面中写入： 例子文件</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;<span class="built_in">link</span> rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css&quot;</span>&gt;  </span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js&quot;</span>&gt;&lt;/script&gt;  </span><br><span class="line">&lt;!-- require MetingJS --&gt;  </span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js&quot;</span>&gt;&lt;/script&gt;  </span><br><span class="line">  </span><br><span class="line">&lt;meting-js  </span><br><span class="line"> server=<span class="string">&quot;netease&quot;</span>  </span><br><span class="line"> <span class="built_in">type</span>=<span class="string">&quot;song&quot;</span>  </span><br><span class="line"> <span class="built_in">id</span>=<span class="string">&quot;29747554&quot;</span>&gt;   </span><br><span class="line">&lt;/meting-js&gt;</span><br></pre></td></tr></table></figure><h2 id="侧栏评论"><a href="#侧栏评论" class="headerlink" title="侧栏评论"></a>侧栏评论</h2><p>当侧栏评论无法抓取数据时，要记得把lean的那个服务器地址最后的“&#x2F;”取消即可。</p>]]></content>
       
       
       <categories>
@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -54,11 +54,236 @@
     
     
     <entry>
+      <title>永远不想再谈她</title>
+      <link href="/posts/2165550462/"/>
+      <url>/posts/2165550462/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>永远</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>就回来---看看我们从前的麽样</title>
+      <link href="/posts/3832592660/"/>
+      <url>/posts/3832592660/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/11/pcyPAH8rdVbG1qs.png" alt="f.png"></p><p>照片的故事：一朵不知名的花，只是喜欢她开的端正，就拍下来吧，野百合也有她的春天~~~~~</p><p> </p><p>晚上回家，同住一个小区的GC的人今天买了很多螃蟹，唐师傅做了我爱吃的猪血和排骨，算是给我送行，谢谢！</p><p>快要回家了，心反而平静下来了~~~~</p><p> </p><p>阿咪的身体还是不是很好，很叫我担心~~~一想到这里，心理就很痛，很怜惜她，如果我在她身边就好了，有人督促着她按时吃药，看病，可以好好的照顾她。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>本月运势</title>
+      <link href="/posts/3602202616/"/>
+      <url>/posts/3602202616/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/K7RFzLbTrEOg9iI.jpg" alt="brad-west-v0mxJBlj5Gc-unsplash.jpg"><br>今天开车去银行的路上，打开了收音机听1180德州中文台，正在讲各个星座的本月运势，我一直对这个不是很相信，但是今天的内容却真的很准狠准！</p><p>内容大概是这样的：</p><p>牡羊座的人，11月份的运势一般般，财运方面没有特别大的意外指出，也没有特别大的意外收入，不过本月事情会很多，会有很多毫无头绪的事情纷至沓来，即使是休假也不得清闲，不过情感方面，因为事情繁多，会累的人疲于奔命，所以也不会有太大的情感方面的收获～～～～～</p><p>11月份牧羊座的人会在纷乱之余，努力地想要整理未来的思路和发展的方向～～～</p><p>哦，很准，特别是“本月事情会很多，即使是休假也不得清闲”，以及“11月份牧羊座的人会在纷乱之余，努力地想要整理未来的思路和发展的方向～～～”</p><p> </p><p>今天在Chase碰见一个讲中文的台湾mm，冷不丁一看以为老墨呢，冷艳冷艳的，不过服务态度非常好，帮我申请加急得业务办理，好人呢</p><p> </p><p>今天下午把车收起来，最近在开一部复古的克莱斯勒，蛮不爽的，不仅外形复古，连驾驶也复古，方向盘是原始的两圈半回正的，每次倒车都要打好几圈，哈哈</p><p> </p><p>不说了，回去吃饭了～～～阿咪，昨天累你跟着我白忙活了半天，对不起了，谁知道携程会是这样子的，明明有票，却发信来告知我没票了，订不到，真的岂有此理，害得我精神进展，也累的你帮我白白定了半天的票，呵呵</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行李</title>
+      <link href="/posts/3265098123/"/>
+      <url>/posts/3265098123/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/25/VQmAnxiuMhNw6zJ.jpg" alt="karim-manjra-oNDRCGrqaYc-unsplash.jpg"><br>快回去了，虽然一大堆事情交不出去要带着回去做，但毕竟能够回去，也是很开心。</p><p>行李早就打好了，随之准备出发了，可是朋友带东西的电话一个接一个地来，呵呵，没办法，谁叫咱人缘好呢</p><p>不得已，打好的行李一遍遍的拆开，放进去各种各样稀奇古怪的东西，然后面对自己的衣物叹气，礼物已经装满一个箱子了，还有一个箱子中装的是自己的衣物，不得已，思来想去，只好把厚重一点的衣服取出来，先开始拿出来的一件伦敦雾的风衣，带不了了，可是国内的气温比这里低很多，还是穿着吧，</p><p>一直以来做长途飞机都喜欢穿非常随便的衣服，旅途中会感觉到舒适些，为了适应风衣，取出一条西裤，和一件衬衣，唉，穿的这么板正，就等着飞机上难受吧~~~</p><p>再接着是把回家穿的休闲服放下，国内的家里也有，穿那些吧</p><p>不知道明天还有没有要带东西的电话进来，我已经招架不住了，呵呵</p><p>Chase的卡坏掉了，估计是消磁了，害得我没有钱用了， 周一去看看到底啥原因吧，唉</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>回国的行程定了</title>
+      <link href="/posts/674089191/"/>
+      <url>/posts/674089191/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>阿咪，高兴么，我终于可以回去见你了！！</p><p>11月6日，7：25~12：05 Co1814 休斯敦到纽约</p><p>11月6日  15：30~11月7日 18：00 纽约到北京</p><p>19：30 北京和平区酒店住宿</p><p>21：00携程会将第二天机票送到酒店前台</p><p>11月8日 7：10~8:10 北京到东营</p><p>8号~11号之间在两边老人家里住住，看看老人，请哥哥姐姐们一起回来一起吃吃饭联络一下感情。</p><p>11号会抽半天时间回去打扫我们自己的房子，开始我们甜蜜的二人世界哦！！</p><p>你找个合适的时间请你要好的朋友同事们一起，咱们请他们吃饭，感谢在我不在的日子他们对你的照顾</p><p>21号，会启程回休斯敦，其实想一下，我们单独在一起的时间也不是很多~~~~ </p><p>whatever，已经开始提前倒时差了，很兴奋！</p><p>家里如何了，等我回去大展身手来个大扫除吧！</p><p>你记得周日去医院哦，还有就是看看你爸爸妈妈需要什么，给我说一下，三哥需要什么也告诉我哦</p><p>吻你</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>阿咪往事录---手抄龙和葱油饼都是“暖”生的</title>
+      <link href="/posts/2458045878/"/>
+      <url>/posts/2458045878/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>公园2007年10月31日北京时间下午2点～4：00间，阿咪在没有任何外交通知的情况下，擅自挑衅，引发第n次家庭大战，原因是这样的，阿咪借调试宽带为名，将小生笔记本中珍藏的游戏悉数删除，是可忍孰不可忍！特别是今天在QQ中向小生做检讨时不深刻，不严肃，为了维护人间正义，为了维护世界和平，阿蒙勇敢的站出来，用博客做武器，在网上掀起声讨阿咪的浪潮！！！！</p><p>其实还没有完全想好怎么写阿咪，不过为了打击侵略者的嚣张气焰，写她的几个糗事，以观其后效，哼哼</p><p> 这个故事其实是由三个故事构成的，为了凑篇幅拼在一起：</p><p>1、手抄龙，阿咪是四川人，不过很少回去，05年的时候阿蒙和阿咪谈恋爱曾经带阿咪和他的父母回去一次，因为阿蒙常年在外飘荡的缘故，对成都还算熟悉，也带未来的丈母娘和阿咪去春熙路几个著名饭店和锦里品尝了成都的小吃，其中也有著名的龙抄手—其实就是北方人说的馄饨。</p><p>论说这个龙抄手这个名字应该比较好记，可是，今年7月带阿咪去云南蜜月的时候，在丽江古城口，也有一家店叫做“龙抄手”，店面古香古色，为了配合古意，门口的牌匾也是将手抄龙从右到左写的，结果阿咪就站在古城门口郎朗有声地宣布：“咦，手抄龙？做什么的？”</p><p>慌得小生一把捂住阿咪的嘴巴，落荒而逃，唉，“不学无术”的阿咪呀</p><p>2、葱油饼，上次小生回国休假前，在网上给阿咪说馋葱油饼了，阿咪一脸不屑地：“嗨，等你回来，我做给你吃”，从此葱油饼就时时出现在小生的脑海里面，可是知道休假结束，那张可望不可即的葱油饼也只是挂在阿咪嘴上，从没有出现在俺家的饭桌上～～～～吹牛不上税呀～～～</p><p>3、暖生的，阿咪是个顽固派，她要是认定的事情，不管真理如何，反正就是她正确，阿咪从小跟丈母娘按照湖北话，卵暖不分，偏偏小生爱看动物世界，经常和阿咪就卵生动物，还是暖生动物吵嘴。明明我对，可她偏不认输，没办法，不讲理的阿咪哦～～～～</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>天下尽可去得-----好兄弟就是好兄弟</title>
+      <link href="/posts/1560003447/"/>
+      <url>/posts/1560003447/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最喜欢看《天龙八部》，萧峰、段誉、虚竹三人，往复天地间，壮骨豪情，羡杀旁人，也喜欢看《纵横四海》，兄弟两个笑傲红尘，洒脱做人。</p><p>很幸运，我一直有这样的友情相伴，特别是这次去加国见到了Ran，Ran比我小五岁，是一个很年轻有为的帅哥，也是我的哥们，在加国的工作搭档。</p><p>Ran毕业仅仅2年便做上了部门主管的位子，很有能力，特别是他做事首先会为对方考虑，使对方不窘迫，这点很难能可贵。</p><p>这次去加国，兄弟见面分外亲切，只在宾馆住了一晚，Ran就搬着我的行李去了他家。这一周中，我们发现了彼此很多共同的兴趣和爱好。</p><p>我们从事同样的工作，工作中优势也是相同的，但是我相对熟悉专业和国内资源，Ran相对熟悉语言和有更多的创造力。</p><p>我们在汽车中放的音乐基本都是一样的，吃饭的口味基本相同，都是左撇子，都是同龄人里面相对不错的一类人。</p><p>这个星期，我们一起出差，一起和客户谈判，一起一起做饭，一起玩儿世界上最刺激的室内过山车，一起在车库外零下的温度中点上抽烟，一起品尝全加拿大最棒的奶昔。一起谈谈过去的初恋和现在的感情～～～</p><p>我们也约定了，过一两年，我们兄弟联手回国闯荡一番，应该会是风生水起吧</p><p>呵呵</p><p>不想写了，只想简单的说几句大白话，就这样了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>阿咪~~~你打死我算了-----近乡情怯</title>
+      <link href="/posts/1339557446/"/>
+      <url>/posts/1339557446/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最近一段时间非常忙，饭局也很多很多，吃完了不运动，肚子已经突出了一大块，体重也前所未有的稳定在了76公斤~~~~</p><p>想到快要回去见阿咪了，就忍不住的懊悔，不该贪嘴吃那么多，不该偷懒不去锻炼，不该生活没有规律，半夜起来偷吃虾和鸡肉块~~~~~</p><p>一想到阿咪出来前的教导：再胖下去就不要回来见我，我就悲从心来~~~~~</p><p>怎么办，就剩下一周了~~~~~</p><p><img src="https://i.loli.net/2021/10/11/1cGiJobfdM9rBVC.jpg" alt="483eae81f35ad46e22a03.jpeg"></p><p>阿咪，你打死我算了~要不我给你转一首歌词吧，你看这样如何，这次你不笑我的大肚腩，我以后也不会笑你黄脸婆（我知道你就算老了，也是很美很美的，不光是心里美哦，不过呢，万一你100多岁了，一不小心变成黄脸婆，我也不会嫌弃你）</p><p>怎么样？</p><p> </p><p>嘿嘿，看歌词吧</p><p> </p><p>你怎么可以这样糊涂 竟打算给我你的全部 放弃了整座森林 </p><p>只为了一棵矮椰树 如何让你明白让你懂 说到长相斯守就头痛 朝朝暮暮守著一棵树 </p><p>不敢担保自己承受得住 如果有一天我有了大肚腩 你对我是否意兴阑珊 </p><p>如果有一天你成了黄脸婆 我是否会嫌你又老又罗嗦 </p><p>如果有一天我有了大肚腩 你是否会爱我依然 如果有一天你身材走了样 我是否还会为你摘下星星月亮 </p><p>这时代瞬间万变 谈恋爱像吃快餐一样方便 因为没有勇气相信永远 只好向你承诺我会 </p><p>珍惜眼前 如果有一天我有了大肚腩 你对我是否意兴阑珊 </p><p>如果有一天你成了黄脸婆 我是否会嫌你又老又罗嗦 如果有一天我有了大肚腩 你是否会爱我依然 </p><p>如果有一天你身材走了样 我是否还会为你摘下星星月亮 wooho 如果不小心我们白头偕老 </p><p>上帝保佑我们恩爱依然 当我们老掉了牙 花白了头发 让我当月亮来温暖你 皱皱的脸庞 如果有<br>一天我有了大肚腩 不要紧啦 拿来当枕头睡哟</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>回来了</title>
       <link href="/posts/2089918366/"/>
       <url>/posts/2089918366/</url>
       
         <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>回来了，经过了10多个小时的飞行和等待</p><p>很想你，家里的暖气有了么，你最怕冷了，不知道有没有受冷，以前我想的不周到，没有提前引出暖气的管线来，叫你受累了，回去以后一定好好把这个问题解决了</p><p>最近吃的如何？睡觉呢？</p><p>我上火了，加拿大北部太冷了，下雪了，虽然不停喝水，但嘴巴还是干干的，终于受不住冷，买了一件伦敦雾的风衣，200多块美刀，好贵！</p><p>这一次收获很多，不过现在很累，改天给你说吧</p><p>我要睡觉去了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>出差加国。封博一周</title>
+      <link href="/posts/3500806234/"/>
+      <url>/posts/3500806234/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/11/efDzTnUB2qiclj4.jpg" alt="483eae815b400cc979dbf.jpeg"></p><p>照片的故事：《前进？调头？》，直白，没有构思，坐在车里对着前面的路面无意识按动快门，前进或者掉头，或许也只是在着快门按动的一瞬间决定的，因为从车里拍出去有点不清楚，也有点暗) </p><p> </p><p>10几个小时后，会启程去西雅图，转去埃德蒙顿。在此期间，一句话博客将记录我的日常琐事，博客正文将暂停更新。</p><p>一周以后请回来看：</p><p>《我的大学回忆录》之糗事全集—-106宿舍四大恶人的真人活幕剧</p><p>《我的大学回忆录》之小生的初恋—-重磅呀，这段尘封的往事绝对独家首次披露，想当初阿咪用尽了老虎凳、美人计都没有从小生嘴里套出来呀～～～（还在犹豫要不要写出来）</p><p>《阿咪往事录—我和阿咪不得不说的故事》系列—-隆重推出，为满足部分读者对阿咪同学的好奇心，为英特纳雄耐尔早日实现，小生勇敢拿起如椽大笔，真实还原那段刻骨铭心的岁月。</p><p> </p><p>很感谢部分博友对《魔域桃源》的评价–“清澈”，感谢生活能够叫我收获到这些闪光的美好片段，并且将它拼剪成一部小小的短片，也很高兴大家可以喜欢。</p><p>我很希望可以和阿咪一起永远拥有这么单纯和快乐的生活。也祝愿博友们心想事成！</p>]]></content>
       
       
       <categories>
@@ -104,11 +329,86 @@
     
     
     <entry>
+      <title>大学回忆录&lt;3&gt;-----月饼记</title>
+      <link href="/posts/3260228892/"/>
+      <url>/posts/3260228892/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>下面这张图片是路易斯湖的一张远景，海蓝的天，洁白的云朵和远处的雪山连成一片，近处清澈的泛白的湖水一层层的荡漾开去，很美，远不是我的镜头可以表现出来的，很想下周去加拿大的时候和Ran一起重游旧地，不知道工作之余有没有机会。</p><p><img src="https://i.loli.net/2021/10/11/oEQL8Hd29AfTw5m.jpg" alt="483eae811ad3f15ed600e.jpeg"></p><p>ok，回到本文的正题吧，还是讲一段106宿舍的趣事吧，不过这次的主角，不是我们四大恶人，而是月饼，真的是月饼！</p><p>话说，大一的时候刚开学的时候是9月份，军训完没有多久就是中秋节了，我们学校有个传统：每年中秋都会给新生挨宿舍送爱心牌月饼，每个新生4块月饼，老生就没有这个待遇。这个爱心牌月饼凝聚着食堂全体大师傅们的深情厚谊和浓郁芬芳的汗水。</p><p>不过聊胜于无，虽然对这种送上门的连包装都没有的“便宜货”不敢抱什么希望，但是毕竟叫我们心头还是暖和了一下。</p><p>那年中秋月圆，106的四大恶人依据惯例晚上召开卧谈会，话题无外是，老二又在畅谈他的商业计划，老三又看上了哪个学姐(可不是么，新生都经过军训后，晒得嘿黑黑的，那时大一的女孩子还没有进化到可以熟练使用各种化学药品进行易容的地步)。</p><p>因为小生白天的时候踢球体力消耗比较大，聊着聊着就饿了，想起来还有月饼这回子事情，就顺手从床下脸盆里面摸出一个月饼做宵夜（月饼没有包装，一个人分4个月饼，没有地方放，老大看小生脸盆干净，就拿报纸一铺都放在了小生脸盆里面）</p><p>小生吱吱呀呀的啃了老半天，其他几头饿狼也都忍不住肚子叫了起来，</p><p>老大开腔道：小生，你小子太不江湖了，吃月饼也不说一声，敢吃独食儿，老实交代，啥馅儿的？</p><p>就听小生一声长叹：“老大，我含了快10分钟了，月饼皮都没有软呢，我咋知道啥馅儿呀。”</p><p>老二：“KAO，这么硬的月饼，吃下去会死人的，不会是校长看我们这批新生不顺眼，叫我们效仿古人吞金而亡吧”</p><p>老三：“KAO，生意精你太财迷了，死都选择吞金，I服了U！小生，扔一个过来，我看看，我就不信邪这个月饼这么牛X”</p><p>黑暗中，小生想也没有想，直接把嘴里含了半天都“威武不屈”的月饼给老三丢了过去，就听黑暗中一声惨叫：</p><p>“杀人啦！我叫你丢月饼，你为啥用铅球砸我”</p><p>“冤枉，我向毛爷爷保证，我给你丢的还是那个我用口水软化过的，要是脸盆的新月饼，一准砸死你，你还不谢我救你一命！”</p><p>“那就谢谢哦！”老三摸索着差点要了他命的月饼，突然叹了一口气：“唉，要是当年江姐他们能分到这块月饼，估计早就越狱成功了” </p><p>那年的月饼是什么馅儿的，后来成为学校当年的热门竞猜题目，据说我们这一级的新生中只有一个人吃完了那块月饼，但当人们问起他月饼是什么馅儿的时候，他总是将眼光投向遥远的天际，微笑着不语~~~~~~</p><p>（本集故事完，下一集请看《大学回忆录&lt;4&gt;—-饮食男女》）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 大学回忆录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>大学回忆录&lt;2&gt;----春心萌动的岁月（4）</title>
+      <link href="/posts/955705481/"/>
+      <url>/posts/955705481/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/11/G4RJag6FsyMOHle.jpg" alt="483eae813665c88f39dc8.jpeg"></p><p>这张照片的名字叫做《路》，其实意境很浅，只是画面中色彩还算丰富，所以就拍了下来</p><p>万花筒般的爱情—–万人迷的爱情</p><p>我们经常怀疑，周星驰同学在《行运一条龙》里面扮演的那个情圣的角色是不是参考了我们宿舍的万人迷。</p><p>虽然没有女孩子扑在万人迷脚下告白那么离谱，但我们确实也领教了万人迷的走马灯般的恋爱故事。</p><p>留在记忆中比较深刻的就是，万人迷女友的更新速度大概是二周一个，但是万人迷有一个好处，在这一周当中，他绝对扮演一个痴情男友的角色，痴情的要命。</p><p>而且沾万人迷的光，我们宿舍的联谊宿舍最多，不过那是小生对计算机着迷，都没有怎么利用这个好机会，还有沾光的就是，因为经常有女生来找万人迷帮忙，比如换灯泡、扛行李之类的光荣任务，万人迷不在的情况下，我们也能代劳几次，而且经常可以得到一些零食之类的酬劳，嘿嘿。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 大学回忆录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>近期行程安排--如果一切都没有变动</title>
       <link href="/posts/3912296503/"/>
       <url>/posts/3912296503/</url>
       
         <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/11/DW5LHSA9JbXcRj6.jpg" alt="483eae8136412a09b6bb6.jpeg"></p><p>（照片背后的故事：这张照片拍摄于06年加拿大温哥华维多利亚港，其实只是一只停在防浪堤路灯杆上的不知名的小鸟，构图动了一点心思，蓝色背景衬托的小鸟更加突出，摄影的手法比较嫩，创意方面还算是不错）</p><p>本周会在休斯顿停留一周，去沃茨堡和等迈阿密的人过来谈事情，或者我要去一次那里；</p><p> After that,周一或者周二去加拿大，历时一周，安排了5个会议，3个城市，周日前赶回；</p><p>继续在休斯顿，进行工作交接，准备休假；</p><p>如果时间没有变动，我会在11.6号（北美时间）返回国内休假，</p><p>7号晚7点左右首都机场降落，8点左右入住某5星酒店（自己宠爱一下自己，太累了！终于可以在祖国的土地上睡一个安稳觉了，当然，因为时差关系很难睡着吧）；</p><p>第二天早上五点半出发去机场，8点半飞机降落到阿蒙的城市了！</p><p>万岁！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>普天同庆-----阿咪今天生日</title>
+      <link href="/posts/4160429873/"/>
+      <url>/posts/4160429873/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>至尊宝遇到了那个给他三颗痣的紫霞，从此紫霞就是他心中永远的爱人，而我遇到了你，阿咪，你给了我全新的人生态度，给了我你的幸运，你是我的爱侣！爱你！</p><p> </p><p>亲爱的阿咪：</p><p>首先要祝你生日快乐！希望长大一岁的你更加健康美丽，拥有更美好的未来！</p><p>今年不能回去给你过生日了，只有在这里遥祝方四小姐年年有今日，岁岁有今朝了！（不能在你生日给你礼物了，就罚我坐在鲜花中间送一个微笑给你吧，呵呵）</p><p>阿咪，知道么，认识你以后我才开始从一个大孩子向一个男人开始转变，没有你，我永远停留在自己的狭小世界顾影自怜，没有你，我不可能知道天井外面的世界是多么丰富多彩！</p><p>谢谢阿咪，谢谢你用你开朗的性格和宽容的心态接纳我，忍耐我！一定很辛苦吧，一定忍受了很多苦吧，对不起，阿咪，我知道以前的我是多么的自私和穷窘，一定深深地刺伤了你。我真的很后悔，也希望自己可以尽快的成熟和强大起来，保护阿咪，给阿咪支撑一片美丽的天空！我真的希望自己可以变成一个魔法师，叫我的爱人可以生活在美好的童话世界，阿咪，我会努力的，会努力满足你的每一个愿望！</p><p> </p><p> </p><p>阿咪，答应我，一定要好好的保养自己的身体，为了你也为了我，更为了我们的宝宝，要好好锻炼身体哦，我希望可以和你一起渡过100岁的生日！说好了哦！</p><p> </p><p>最后，我想感谢你，感谢你在我不在的日子里为我做的一切，为我的家人做的一切，辛苦了！</p><p>记得替我向四位老人祝好！问哥哥姐姐们好！</p><p>我快回国了，很快就可以回到你的身边了，高兴么，呵呵，我已经很期待了！</p><p> </p><p>爱你的老公</p>]]></content>
       
       
       <categories>
