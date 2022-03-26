@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -198,6 +198,281 @@
         <tags>
             
             <tag> 文迪习作 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>给孩子做了一个古希腊文明的集中介绍</title>
+      <link href="/posts/3317178576/"/>
+      <url>/posts/3317178576/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>文迪的语文课学了古希腊神话的一篇文章。为了激发她对古希腊文明的兴趣，我重拾PPT，利用自己经常玩的《刺客信条 奥德赛》的资料，做了一个激发她兴趣的视频。</p><p>其实，古希腊距离我们已经很远，如果只是去读一些文字资料，那么却也比较容易陷入走马观花的局面。而运用影音形式可以创造一个更为震撼的虚拟世界的印象，可以更好地触动她。</p><p>也顺便上传到了B站</p><iframe src="//player.bilibili.com/player.html?aid=336259884&bvid=BV1mR4y1J7Ga&cid=430944217&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><p>也顺便买了DK的文明，已经探索系列的古希腊文明 文迪看得津津有味</p><p>关于古希腊的音像资料，还有一部分存在百度网盘，有机会继续给她看</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>杂记</title>
+      <link href="/posts/1124952030/"/>
+      <url>/posts/1124952030/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>今天学做了南乳蒸肉。学做新菜主要是因为文迪，这个小姑娘虽然年纪不大，但是很会吃–她能很灵敏的分辨出食物的配料，对我烹制的菜肴，每每都会给出很中肯的评价，有时还会根据她的感觉，给我做菜的“点拨”。</p><p>只可惜，我一直是疏于烹饪的，所以，做来做去，总是那几道菜，心里觉得很内疚，怕亏待了孩子。</p><p>我时常学几道新菜，可总得不到文迪的肯定。今天看到冰箱有一块带皮的猪肉，想起小时候，妈妈给我做的腐乳蒸肉，就自己摸索着做了一次。</p><ul><li>不成功的地方，配料多了，腐乳和糖都弄多了，用不了，有点浪费。</li><li>需要改进的地方，肉煮熟以后，要冷冻一个小时以上，这样比较好切，我是冷藏了一个小时，结果肉切的比较厚。薄薄的更容易入味！</li></ul><p><img src="https://i.loli.net/2021/10/14/3tgB1o4SW9u6p5c.jpg" alt="qingzheng_wuhuarou-002.jpg"></p><p>今天看到美国油价不断上涨，也已经受到一些朋友的询价了。</p><p>晚上，煮几个茶叶蛋给文迪当宵夜。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 美食 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>烹调心得</title>
+      <link href="/posts/2770878949/"/>
+      <url>/posts/2770878949/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="西红柿红汤"><a href="#西红柿红汤" class="headerlink" title="西红柿红汤"></a>西红柿红汤</h3><p>有了砂锅以后，不断尝试西红柿红汤的做法。最近琢磨出来一点窍门：</p><ul><li>西红柿要多一些，有番茄酱更好</li><li>将一半的西红柿炒至，出了红油以后，分一半出来，留一下一半和其他菜品在砂锅中炖煮，等到快出锅的时候，再放入留出来的那一半，注意，需要调一下味道。</li></ul><h3 id="炖羊肉"><a href="#炖羊肉" class="headerlink" title="炖羊肉"></a>炖羊肉</h3><p>羊肉不需要久炖，一个小时就差不多。清炖羊肉不需要大料，也不需要酱油，只需要一点盐，盐也不要早放，早放了就缩了。</p><h3 id="红焖羊肉"><a href="#红焖羊肉" class="headerlink" title="红焖羊肉"></a>红焖羊肉</h3><p>要注意控油！</p><p>一定要注意少盐少油，要特别注意！</p><p><img src="https://i.loli.net/2021/10/13/hOpatTQ2cRxfWY4.jpg" alt="src_http___bpic.588ku.com_element_origin_min_pic_19_03_07_55a2e07a3d96204ab3f0fa9a1b5212a5.jpg_refer_http___bpic.588ku.jpeg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 美食 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>家中“动物园”</title>
+      <link href="/posts/1960065262/"/>
+      <url>/posts/1960065262/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>我家像一个“动物园”。家怎么会像动物园呢？请听我娓娓道来吧。</p><p>我的妈妈像一只猫。因为她像小猫一样，有时温柔，有时很凶猛。平时她温柔又慈爱，但谁要是惹着她了，那后果一定不堪设想。首先，她会使出她的“同类”的拿手好戏–狮吼功来对付对方，然后拿一双铜铃般的眼睛死死地盯着对方。所以千万别惹我妈妈。有时，妈妈还会捉“老鼠”。</p><p>我的爸爸有时像老鼠，有时像大老虎。当爸爸遇见了妈妈，就像老鼠遇见了猫，吓得一声也不敢出。但是，只要是看见了我，他就像一直大老虎。每当我学习的时候，他一定是在我背后虎视眈眈地盯着我，吓得我出了一身冷汗。</p><p>他吃饭的时候狼吞虎咽，吃的虎背熊腰的。</p><p>这就是我的家中“动物园”。</p><p><img src="https://i.loli.net/2021/10/12/fbtskQLlzBhSG7o.jpg" alt="t01d677a395eb545e14.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Yello-Peach </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文迪习作 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如果有一天</title>
+      <link href="/posts/3484318391/"/>
+      <url>/posts/3484318391/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>电，是我们生活中必不可少的东西。电灯、电视、电脑、电冰箱……这些东西都要用电。</p><p>但是，你想过吗？要是停两天的电，要怎么办？我就亲身经历过。今年的夏天，我们家电费交少了，但只能周六交电费。于是我们家停了两天的电。最可怕的事情是：没法开空调！爸爸光着膀子，使劲扇扇子；我用我的手摇小风扇解暑，手都抽筋了；两只小猫像小狗一样，不停地吐舌头，趴在阴凉地里。</p><p>那我怎么吃饭？我们出去吃饭，吃完饭的时候用饭店的灯把作业写完。回到家，我们就练“猫眼功”，天黑就睡觉。我们家是智能马桶，停电了，只能用手一盆盆地冲水。</p><p>如果会停电一周、一月、一年呢？那简直不敢想。要是每天都出去吃，钱不够，而且还要买衣服，天啊！简直像世界末日！</p><p>我们一定要节约用电，也不要依赖电，这样停电时会好受点。</p><p><img src="https://i.loli.net/2021/10/12/xcUkQ15h6iTB4ew.png" alt="17qq.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Yello-Peach </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文迪习作 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>家风</title>
+      <link href="/posts/693940481/"/>
+      <url>/posts/693940481/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>一个特别冷的一天，我们到了比我家干净许多的爷爷奶奶家。爷爷得了心脏病，他脸上的皱纹多了许多，身子也瘦了许多。他用慈祥的目光看着我，我心里也暖洋洋的。</p><p>我们家的家风就是“孝为先”，而后学习。我这次回去，也是为了给爷爷分药，查爷爷的血压记录，照顾爷爷。</p><p>我对照着药物比例给爷爷分药，我将一片“达比加群脂”放进分药器，我双手用力，将药品分成两半放进药盒。</p><p>我把血压计开到记忆模式，用纸质版血压记录表一个个对照，查出好几处爷爷没写、乱写的地方。爷爷真不让人省心！</p><p>我是诸城臧氏那一支，在乾隆到同治年间，共出三百多名人才。我也要继续好好学习，成为国家人才。</p><p><img src="https://i.loli.net/2021/10/12/45ch2YVijSIn69o.jpg" alt="微信图片_20211012145759.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Yello-Peach </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文迪习作 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo部署Github遇到的坑</title>
+      <link href="/posts/3416624181/"/>
+      <url>/posts/3416624181/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>真傻，在部署Hexo到Github上的时候，因为不懂得Github的基本东西，比如什么是Branch，结果部署了无数次，都部署在了master这个branch下面，自然是刷不出页面。<br>折腾了4个小时，看了无数技术文章，都没有解决，知道看到百度上</p><blockquote><p>概述 2020年10月1日后,Github会将所有新建的仓库的默认分支从master修改为main,这就导致了一些旧仓库主分支是master,新仓库主分支是main的问题,这在有时候会带来一些麻烦,…</p></blockquote><p>才突然发现，我一直都是部署在master下面，自然刷不出页面。在depoy下面改为main，问题解决！</p><p>解决过程如下</p><ol><li><p>安裝 <a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>.</p></li><li><p>清空 <code>_config.yml</code> 的現有資料，並新增以下組態:</p><p>deploy:<br>   type: git<br>repo: <a href="https://github.com/">https://github.com/</a><username>&#x2F;<project>  # example, <a href="https://github.com/hexojs/hexojs.github.io">https://github.com/hexojs/hexojs.github.io</a><br>branch: gh-pages  #把这里改为你的分支就好了！</p></li><li><p>執行 <code>hexo clean &amp;&amp; hexo deploy</code> 。</p></li><li><p>瀏覽 <code>&lt;GitHub 用戶名&gt;.github.io</code> 檢查你的網站能否運作。</p></li></ol><p>唉，我真傻~~<br><img src="https://i.loli.net/2021/10/09/jR6FYibZJpU3m4k.jpg" alt="v2-f0dd987dd76a730c46f44d6bf40a3c1f_1440w.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown 文本居中、右对齐、左对齐</title>
+      <link href="/posts/3997823372/"/>
+      <url>/posts/3997823372/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>&lt;center&gt;居中&lt;/center&gt; &lt;p align=&quot;right&quot;&gt;右对齐&lt;/p&gt; &lt;p align=&quot;left&quot;&gt;左对齐&lt;/p&gt;</code></pre><p>以下是演示</p><center>居中</center>     <p align="right">右对齐</p>     <p align="left">左对齐</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown的图片布置及图床</title>
+      <link href="/posts/4173854687/"/>
+      <url>/posts/4173854687/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/09/BcY6oeJvOFx1RAy.jpg" alt="BcY6oeJvOFx1RAy.jpg"></p><h2 id="Markdown图片布置"><a href="#Markdown图片布置" class="headerlink" title="Markdown图片布置"></a>Markdown图片布置</h2><p>Markdown语言是基于简单明了，所以，对于图片的控制并不十分灵活。我们可以使用这样的方式进行图片插入和布置</p><ul><li><strong>方法一</strong></li></ul><p>Markdown 图片语法格式如下：</p><pre><code>![alt 属性文本](图片地址)![alt 属性文本](图片地址 &quot;可选标题&quot;)</code></pre><p>使用实例：</p><pre><code>![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png) ![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png &quot;RUNOOB&quot;)</code></pre><p>当然，你也可以像网址那样对图片网址使用变量:</p><pre><code>这个链接用 1 作为网址变量 [RUNOOB][1].然后在文档的结尾为变量赋值（网址） [1]: http://static.runoob.com/images/runoob-logo.png</code></pre><ul><li><strong>方法二</strong></li></ul><p>Markdown 还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的 <img> 标签。</p><pre><code>&lt;img src=&quot;http://static.runoob.com/images/runoob-logo.png&quot; width=&quot;50%&quot;&gt;</code></pre><p>设置图片大小</p><pre><code>&lt;img src=&quot;图片地址&quot; width=&quot;XXX&quot; height=&quot;XXX&quot; /&gt;</code></pre><p>设置图片居中（靠左或者靠右都可以改动）</p><pre><code>&lt;div align=center&gt;&lt;img src=&quot;图片地址&quot; width=&quot;XXX&quot; height=&quot;XXX&quot; /&gt;&lt;/div&gt;</code></pre><p> 实现文字环绕图片布局</p><pre><code>&lt;div style=&quot;width:400px;&quot;&gt;&lt;div style=&quot;float:left; clear: both;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;/images/w11.jpg&quot; width=&quot;120&quot; alt=&quot;&quot; hspace=&quot;8&quot;&gt;&lt;br /&gt; 图像标题 &lt;/div&gt; CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局&lt;/div&gt;</code></pre><p>以下是实例：</p><div style="width:800px;">          <div style="float:left; clear: both;" align="center">          <img src="https://tenfei03.cfp.cn/creative/vcg/800/new/VCG41N1210205351.jpg" width="400" alt="" hspace="8"><br /> 图像标题          </div>     CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局CSS文字环绕图片布局    </div>    <h2 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h2><p>图床可以使用<a href="https://sm.ms/">Image Upload - SM.MS - Simple Free Image Hosting</a> 来上传文件并获取图片的地址。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于Pure主题下Hexo博文的文件头</title>
+      <link href="/posts/2262316626/"/>
+      <url>/posts/2262316626/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="文件头模板"><a href="#文件头模板" class="headerlink" title="文件头模板"></a>文件头模板</h2><h3 id="标准文件头"><a href="#标准文件头" class="headerlink" title="标准文件头"></a>标准文件头</h3><p>以此篇文章为例，Pure主题下的文件头是这样的:</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 关于Pure主题下Hexo博文的文件头 # 这里是文件头</span><br><span class="line">categories: 软件技术 # 这里是分类目录名称</span><br><span class="line">tags: [Hexo, Pure主题, 文件头, 模板] # 这里是标签</span><br><span class="line">date: 2021-10-07 21:47:15 # 这里是时间</span><br><span class="line">author: 黄桃老乖 # 这里是作者</span><br><span class="line">thumbnail: https://i.loli.net/2021/10/08/Dt2WmiQ4XBa8U3C.png #这里是缩略图</span><br><span class="line">---</span><br></pre></td></tr></table></figure><p>这里使用了一个<a href="http://www.markdown.cn/">Markdown</a>)语句，即代码方式的应用。你也可以用<code>```</code> 包裹一段代码，并指定一种语言（也可以不指定），或者用四个空格来引出一段代码区域。</p><h3 id="复杂文件头"><a href="#复杂文件头" class="headerlink" title="复杂文件头"></a>复杂文件头</h3><p>此外，还有一种更为复杂的文件头模板，不过对于Pure主题，能识别出来的和上面的标准模式是一样的。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 《让子弹飞》的隐喻及造反教科书</span><br><span class="line">date: 2010-12-31 00:13:15</span><br><span class="line">author: 黄桃老乖</span><br><span class="line">img: /source/images/rangzidanfei.jpg</span><br><span class="line">top: true</span><br><span class="line">cover: true</span><br><span class="line">coverImg: /images/p1512536659.jpg</span><br><span class="line">toc: false</span><br><span class="line">mathjax: false</span><br><span class="line">summary: 这是你自定义的文章摘要内容，如果这个属性有值，文章卡片摘要就显示这段文字，否则程序会自动截取文章的部分内容作为摘要</span><br><span class="line">categories: 看电影</span><br><span class="line">tags: [剧情, 喜剧, 动作, 西部]</span><br><span class="line">---</span><br></pre></td></tr></table></figure><h2 id="博客文件的命名规则"><a href="#博客文件的命名规则" class="headerlink" title="博客文件的命名规则"></a>博客文件的命名规则</h2><p>因为<a href="https://hexo.io/zh-cn/">Hexo</a>生成的是静态页面，对于博客文章的命名规则就是以文章的标题进行命名，所以这样被命名的文件名如果仅仅是中文标题，文件名就会显得很乱，不便于排序。<br>所以，为了便于管理，采用以下原则命名，<strong>即日期+文章关键词，比如说20211007hexo的方式来进行命名，这样会有序很多。如果一天当中有多篇博文，可以命名为2021100701hexo。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一部充满了政治隐喻的勇者斗恶龙</title>
+      <link href="/posts/4057090047/"/>
+      <url>/posts/4057090047/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/10/DiyfZ3eg8jJBQGb.jpg" alt="p2671234359.jpg"></p><p>这是匪典型的美国大片 勇者斗恶龙 穿插了大量政治隐喻</p><p>火山灰来自中国和北韩 真是好地方</p><p>外星人在俄罗斯 真是好想象 在俄罗斯雪层之下，暗喻苏俄从僵死到复苏~</p><p>和一般的美国电影不一样，这部片子强调家庭牺牲，这种价值观更类似于战争背景下的特殊时期的价值观需求，这种价值观开始在美国大片中进行正面宣扬，这是比较罕见，</p><p>更别说长白钉的长相了</p><p>不过多解读了，一部很不普世价值的美国片，一部政治隐喻浓厚的美国片</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
             
         </tags>
       
