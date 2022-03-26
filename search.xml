@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -46,6 +46,206 @@
         <tags>
             
             <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>柏杨走了</title>
+      <link href="/posts/2200550267/"/>
+      <url>/posts/2200550267/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/7DjXaBvilUPICJH.jpg" alt="柏杨"><br>知名作家柏杨今天(29日)凌晨一时十二分，病逝台湾新店耕莘医院，享寿八十九岁。</p><p>“不为君王唱赞歌，只为苍生说人话”。这是柏杨在封笔前留下的最后的话。廉颇老矣，风骨依稀。他的话语曾经犀利如刀，《丑陋的中国人》使他成了一个时代的符号，让中华人(柏杨语)对传统文化的反思得以充分发酵。而今他逝去了，尘归尘，土归土。</p><p> </p><p>有两个人的书对我的启发和帮助最大，一是柏老，</p><p>另一个是南怀瑾大师</p><p>柏老的文字犀利幽默、跳脱飞扬，南师的文字，睿智沉稳，内蕴深厚</p><p>我是同时启读两人著作的，一激一正，读来相辅相成，记得那时读两位大师的著作几乎卷不离手，吃饭、厕所、甚至睡觉前都要念读一段~~</p><p>可惜 柏杨之后，再无柏杨</p><p><img src="https://i.loli.net/2021/10/09/2YQGpst6kOIWvTc.jpg" alt="511c90de44beee94c00e2_000.jpeg"></p><blockquote><p>照片的故事：美国德州休斯顿FM1962附近的一个乔治公园内的景色，照片其实没有什么好说的，值得一提的是，我是用诺基亚N73手机的镜头拍下来的，颗粒感和偏色歪打正着的使这张照片有了另一种美感</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>累，到极点</title>
+      <link href="/posts/3939380594/"/>
+      <url>/posts/3939380594/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/09/hRC8pYcnSvMOPId.jpg" alt="511c90de44bf028bdf3c4_000.jpeg"></p><blockquote><p>照片的故事：从丽江到泸沽湖的路上，中途吃饭在等餐的时候，走到田埂上，顺手抓拍的一张，有人说，注意细节才可以享受到生活之美，或许如此吧</p></blockquote><p>很累，持续一个多礼拜了，自从烟台回来就一直陷入公事的海洋中不能自拔，工作还是顺利的一塌糊涂，每天都在刷新自己创造的行业内个人记录，随之而来的是资金配套、发货交运以及产品质量等等琐事，手里的人用的越来越顺了，不断的鼓励他们，给他们一些新鲜的事情去接触，慢慢的感觉下属的自信心不断地在增强～～～，我自己也不断的累计着自信和经验，明显得感觉到每天的自我升值，是个开心的事情，不过貌似有哲人说过，只要不跳槽，就不会体现个人的新价值，真的如此？跳或者不跳，是个问题！</p><p>这周，部门里面有两个年轻的同事结婚了，很巧，两对新人都选择了同一天，而且本人还作为证婚人上台破天荒的念了结婚证，呵呵，真想用英语念～～～～<img src="http://blogimg.sinajs.cn/images/control/face/003.gif" alt="累，到极点" title="累，到极点"><br> <br>不好的事情就是，声带彻底的出了问题，一方面是由于休息不好，一方面是工作太累，白天说话太多，基本上一个月的电话费在2000多以上（中国移动），如果加上美国T-mobile的电话，一年贡献给全世界通讯业的钱数应该接近4万块了吧～～～～，计算每天有一半的工作时间是在讲电话（手机、座机），我一直在反思并寻求更好的解决方案，也许是到了提升自己工作的一个瓶颈～～～，健身卡办了也很少去，没有时间～～<br> <br>今晚，一个很好的朋友知道我最近工作压力大，特别拽着我去放松，想了半天去了一个很不起眼但是生意火爆的海鲜馆，体验平价海鲜，味道真的很不错，海鲜这个东西其实只要新鲜，小店往往比大饭店更来得惬意，饭毕接着去了一个我出国前比较favor的酒吧–萤火虫，去的时候可能偏早，酒吧里面只有相熟的老板，聊了几句喝了一点啤酒就去了蜚声已久的0546慢摇吧，呵呵。</p><p>朋友看来是抱着不醉不归的心态了，上来就点了红酒塔和半打啤酒，要不是我拦着，估计伏特加也上来了，随着强劲的音乐舒展心情，放松身体，很享受～～～～，朋友是个有趣的人，比我Aggressive的多，看见单身的pp女童子就上去搭讪，呵呵，我则沉浸在音乐、酒精和尼古丁中，缓释自己的压力～</p><p>就在朋友出去搭讪的时候座位空着，我居然很郁闷地被美女搭讪问可不可以座下，更失败的是我想都没想就很一根筋的回答：不好意思，美女，这是我朋友的座位～</p><p>这件事情的后果是，朋友发誓这辈子都不再和我一起泡吧，失败失败～～～</p><p>回来以后还是和美国那边在联系一些事情，五一就要到了，现在还不知道五一的计划如何，原本武义的温泉渡假，这是我个人私藏的一个经典，那里的温泉度假酒店给我留下很美好的印象，看看吧，五一过后回去徐州和江浙一带走走，也许那个时候会去吧～～～～</p><p>睡了，如果过几天嗓子还是不好，准备去医院看看</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>工作，没什么好抱怨的</title>
+      <link href="/posts/248597863/"/>
+      <url>/posts/248597863/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>工作，依旧不容片刻喘气，和以前的国外的生活正好相反，白天是东半球的工作时间，夜晚要赶地球另一端的工作时间</p><p>本本的桌面上都是本月27号~30号之间的工作备忘，每一条都是一项工作，每一张便签都来自不同的工作指向。</p><p>没什么好抱怨的，这是我选择的工作。</p><p>但，越是忙碌，越是思念，真的希望每一天都有你在身边相伴，希望每个清晨睁开眼看到的第一个人就是你！</p><p>未来，幸福，我们，约定</p><p><img src="https://i.loli.net/2021/10/09/dHzBnjCIW21T8Mo.jpg" alt="511c90de44bc856d7c30b_000.jpeg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>原来我有爱</title>
+      <link href="/posts/1311029413/"/>
+      <url>/posts/1311029413/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>我终于知道这是一场<br>命运里注定的安排<br>原本眼眶之外这个世界<br>全都是一片的黑白<br>一场冰冷的过往<br>已经看的很平凡<br>寂寞和压力一直随我为伴<br>陪我渡过每一个夜晚<br>什么时候什么原因<br>你和我经典的相遇<br>全都开始成为是我每天<br>重播的录影带<br>无法洗清的影响<br>不停塞进我脑海<br>才明白已经逃脱不开<br>内心的澎湃<br>原来我有爱<br>早已深深埋在我心海<br>好多的话不知如何说出来<br>只怕一旦离开<br>从此以后<br>天各一方<br>原来我有爱<br>抓不稳最重要的一拍<br>痛快的爱真那麽精采<br>那又何必在乎担心害怕<br>天涯和海角<br>原来我有爱</p><p><img src="https://i.loli.net/2021/10/09/qAw5QcIEbVnLxCr.jpg" alt="511c90de44bbc5abadc78_000.jpeg"></p><blockquote><p>照片故事：06年安徽花山唐模的一条雨后的小巷，偶然路过这，喜欢这样幽静古朴的风貌，随后用傻瓜相机摄影手法很不晒，但意境却是不错，长巷~）</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>4月25，以后就是“家庆日”</title>
+      <link href="/posts/2281788386/"/>
+      <url>/posts/2281788386/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/09/LGHS6QRi1zp3oYA.jpg" alt="496eaea040aa1665279be.jpeg"></p><p>今天是娜的生日，娜宝22岁了，祝愿她快乐健康，积极乐观！</p><p>小乖，遇到你，是天意，也是我的幸运！很感谢你，在我人生最难过的时候的出现，除了你和我的家人，没有人在乎我的心里有多苦，我的生活有多累，你的关爱和体贴，温暖了我的生命~~</p><p>很抱歉，我不能在这个日子里陪在你身边，但是，小乖，相信我，明年的这个日子，一直到我们100岁的这个日子，我都不会再缺席了，我会一直陪在你身边！</p><p><img src="https://i.loli.net/2021/10/09/Rjzd4s6LmMZvD2S.jpg" alt="496eaea05ad105847ef44.jpeg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>跳槽其实也没有什么意思</title>
+      <link href="/posts/2268320488/"/>
+      <url>/posts/2268320488/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/09/9GiB8TLtXRSlKfH.jpg" alt="511c90de44ba00446fb9e_000.jpeg"></p><blockquote><p>照片的故事：2006年4月参加中石化的一个研讨会，顺便去了黄山，恰巧遇上了云海，就随手咔嚓了一张，相机不是很好，傻瓜机，但是很喜欢照片中层峦在雾中若隐若现的感觉，人生大抵也是如此吧~</p></blockquote><p> <br>这几天一直在忙，忙着很多事情，容不得人停下来喘口气，晚上和兄弟公司的一个朋友一起吃素斋，聊起来人的价值。</p><p>朋友一个劲的鼓动我跳槽过去，他所在的公司，我熟悉的一塌糊涂—从总经理到最下面的员工，现在这家公司已经成长成一个大型企业，它的成长是快速和可喜的，非常出色。</p><p>我笑着问，好呀，你估计我过去的话什么待遇，朋友也笑，说，怎么也是副总以上，拿年薪吧，起薪不知道多少，但是一年十几万是有了吧。</p><p>我笑了，但没有说什么，比期望值少了些，特别是在这猪肉都飞涨的年代。</p><p>现在的我有一点举棋不定，已经是美国公司的总经理职务了，作为一个打工者已经做到最高的位子，在国内的母公司，或许职务还有上升的空间，但薪水可能也就这样了，公司老板总的来说对我很不错，我想来想去，找不到跳槽的理由，看看身边同业的公司，薪水无非也就是10~20万不等，如果外派出去，薪水也许会好些，但是那种压力和孤独是巨大的。</p><p>今天和朋友说，不知道上升的空间在哪里，也许只有真的要出去创业才可以么，以前有个很好的朋友，他已经是很成功的商人了，他曾经对我说，你早晚会发现没有空间了，只有出去创业才是办法，希望你越早明白这个道理越好，那时听到了这句话，并没有很深的感触，2年下来，才发现朋友的话真的是要应验了么？</p><p>可是选择创业，也许意味着更多的动荡和不确定因素，说实话，以前从未畏惧过动荡和惧怕未来，但自从遇到她，心里就对家和稳定多了一份牵挂，希望自己可以有那么一段时间的稳定期，能够打牢家庭和感情的基础~~~</p><p>呵呵，也不知道自己胡说了什么，感觉现在脑子很钝，整日忙于商业上的事情，思考的深度和语言的逻辑性都差了很多，</p><p>不过，事业和家庭都不想放弃，都想做到完美，有点贪心了，是吧</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酒量是怎麽练成的----也说我的喝酒</title>
+      <link href="/posts/2655748828/"/>
+      <url>/posts/2655748828/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>一个人的酒量到底是怎么练成的？</p><p>可能是天生的，可能是后来酒场多了拼出来的吧，但是大概没有人会像我这样开始喝酒的吧。</p><p>记得小时候，没有什么机会喝酒，家里大人不让，也对酒没有什么特别的好奇，蛮乖的，可是到了小学一年级的时候，学校成立乐器队，因为我那时瘦小，就分给了一个最轻快的乐器—笛子，轻快倒是轻快了，等叫我吹的时候，老师很郁闷的发现我的肺活量不够，为此我亲爱的音乐启蒙老师王老师用了一个极其天才的办法教我—-给我一个酒瓶子，叫我对着瓶嘴吹，什么时候可以把酒瓶子吹响了什么时候正式教我笛子。</p><p>也许这是一个正确的办法，但问题的关键是酒瓶总是有点酒气在里面，好像还有一点残酒，大概是衡水白干吧，70度的那种，吹着吹着我就不知不觉的适应了酒的气息，再后来，白酒瓶子摔破了，我就改吹啤酒瓶子，吹了大概一个月多吧，才算合格摸到了笛子，但自那以后我对酒已经初步适应了。</p><p>再后来一直没有喝酒的机会，大学偶尔和兄弟几个出去喝啤酒消暑，因为都是学生的缘故，大家都不怎么能喝，我仗着此前的底子在哥几个里面还算酒量凑活，但是对于白酒的认识还仅限于小学时吹瓶子的气息的概念上，工作以后，到销售部实习，主任带我出去见客户，因为客户的偏好关系，喝的是二锅头之类的烈酒，我当时不知道，初入职场也放不开，只是听见主任给我鼓励：没事，小伙子，喝这么点酒没有问题！然后我就把面前的白酒咕嘟灌了一大口进去，印象中觉得一溜火线从肚子一直冲到头顶，再后来发生的事情就完全没有了印象，用文言文说就是“立仆”。</p><p>大概是第一次喝白酒的经历给我的教训太多惨痛，此后对白酒一直不喜欢，02年的时候有机会到了百年老酒–江苏双沟酒厂去投标，中标后回请酒厂的领导，还见到了传说中的评酒师，就像令狐冲遇到祖千秋一样，我也碰到了一个肯教我品酒和喝酒的前辈，蒙他看重，颇是教我了一些品酒的妙处，但我这个徒弟实在对酒缺乏兴趣，所学知识大抵都忘光光了，只是当时对酒的历史有些许的兴趣，但这个兴趣后来也无疾而终了，手边还存有那个时期的一篇酒后涂鸦：<a href="http://blog.sina.com.cn/s/blog_483eae810100023k.html">酒后歪谈女人与饮酒</a>，也辑录在这个博客的前几篇文字里面。</p><p>再后来，酒量随着喝酒的频次就越练越好，虽然白酒很少去碰，但是最高峰的时候酒量还保持在大瓶啤酒十瓶以上。</p><p>对啤酒的喜爱，也可能源于自小在青岛长大的关系，这些年走南闯北，也喝过不少种类的啤酒，印象最深刻的是喝过东营这边的一种黑生啤酒（名字就是黑生），馥郁香醇，个人比较喜欢喝的口味清淡的啤酒主要有雪花和崂山啤酒。若干年前，曾经在青啤门口喝过刚下线不到5分钟的啤酒，更是芽香四溢，沁人心脾，至今难忘。</p><p>虽然对白酒没有兴趣，但是很喜欢竹叶青和汾酒，竹叶青准确的说是配制酒，上好的竹叶青有幸喝过几次，都是在夏天，喝完通体舒畅，凉快异常，不过后来，一个很好的老中医郑重地劝告我，以我的体质，不要再喝竹叶青，以免伤害关节，不得已作罢。</p><p>最近泡吧，看到很多人都喜欢芝华士和百龄坛这两种酒，说实话，我是闻之头痛，只是个人好恶而已。</p><p>伏特加类的酒，倒是颇对胃口，越是高度的越过瘾，入口时那种强烈的感觉和对心脾瞬间的温暖，叫人能够联想到俄罗斯人热情和直爽的性格。</p><p>最近这一年，因为独自在外，又总是开车的缘故，喝酒的频次越来越少，酒量也是越来越下滑，以至于现在一瓶啤酒就已经面红耳赤，很多的商业场合都是半杯白酒甚至一瓶啤酒都喝不下去了~~~<br><img src="https://i.loli.net/2021/10/09/wD6uZEP85Avx2Ck.jpg" alt="accf9ad18a8fcc35dfaeda6a9179f6cd.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《三国之见龙卸甲》</title>
+      <link href="/posts/2380429311/"/>
+      <url>/posts/2380429311/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/09/hYdT6X1tvG7oKA3.jpg" alt="511c90de44b5ede0f4472_000.jpeg"></p><p>前几天，看了<a href="https://movie.douban.com/subject/1947091/">三国之见龙卸甲 (豆瓣) (douban.com)</a>—很巧，是由我的偶像刘德华扮演我的另一个偶像赵子龙的商业片。</p><p>整个片子，人文的色彩比较浓，集中描写了赵子龙的勇敢和坚毅，片子中的赵子龙更多的被刻画成一个孤单英雄。</p><p>个人认为并没有真实的反映出历史上赵子龙的“勇”、“谋”并重，以及他统领千军万马的那种霸气和才能。可能是限于编剧的能力，既没有拍出《宾虚》的那种个人英雄主义，也没有感受到《特洛伊》的那种宏大。</p><p>动荡争锋的三国、忠信勇毅的各色武将并没有在这部商业片子中表现的淋漓尽致，只有期待吴宇森导演能够在他的《赤壁》弥补这些缺憾吧。</p><p>整个故事是根据&lt;三国演义&gt;中第92回<a href="http://homepage6.googlepages.com/SGYY_092.htm">&lt;赵子龙力斩五将，诸葛亮智取三城&gt;</a>一段而改编,原文374个字.&lt;三国演义&gt;本是小说,对于历史多少有夸张的描写.至于改编自小说的剧本,这里面的就更谈不上真实的历史了.</p><p> 以前看《三国》的时候，倒真的没有注意凤鸣山这段文字，不过历史比较可信的是，年近70的赵云在箕谷中的最后一战的确是败了，也确实是按照诸葛亮的安排，领一队军士佯做主攻吸引魏兵，掩护诸葛亮主力在街亭一带的活动，这本就是一场实力悬殊的战斗，失利早在出兵之时就被注定，可惜赵云的这次失利并不值得—马谡在街亭的拒守被曹魏所击破，北伐大业不但没有成功，主力蜀兵也险些遭到合围。</p><p>史载街亭失守后，诸葛亮曾经对比了一下，街亭失守，主力蜀兵溃不成军，士兵将领争先奔逃，而赵云在箕谷面对优势曹魏军队失利后，全军而退，井然有序，部队的建置依旧在，主要原因就是，赵云在失利撤退时，亲自押后断尾，魏兵惧其晓勇，始终不敢过分逼近。</p><p> </p><p>三国尽去，诸事已付笑谈，抛却真正的历史不谈，只看这部片子硬伤也是不少，士兵的造型近似明朝时期的高丽军队，子龙亮相长坂坡并不是原著中白马银枪，剧中惊鸿一瞥的武侯战车也令人齿冷。子龙最经典的战役–长坂坡凭一人之力，在曹营中杀得七进七出，伤了曹操50多员战将，力夺青虹宝剑，在这部片子中也只有短短的一进一出，失色不少，在剧情方面，掺进的赵云在常山的感情戏有点突兀，也许编剧是想丰富一下子龙的英雄形象，但是实际效果却是让我感觉多次一举。</p><p> </p><p>幸好，这部片子中有洪金宝和刘德华的压阵，多少为这部片子赚回了一些分数，总体来说，这部三国题材的片子分量太轻，即便是作为一个个人英雄主义的片子，剧情依然显得太过不切实际和缺乏说服力。</p><p> </p><p>期待《赤壁》</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
             
         </tags>
       
