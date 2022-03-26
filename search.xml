@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -46,6 +46,158 @@
         <tags>
             
             <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>制作了孩子们的个人主页</title>
+      <link href="/posts/2134573993/"/>
+      <url>/posts/2134573993/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>这几天给外甥女和温蒂同学都做了一个个人主页。用的是Notion做的。<br>外甥女的，包含的东西较多，可以记账、课表、卡路里等等。温蒂同学的就比较实用，主要是课表、学习资料以及读书、电影的不同模块。</p><p>用notion做这样的事情，比较舒服。</p><p>PS：雷柏的鼠标很不结实，坏了，找了商家，同意换一个</p><p>又，明天新年，温蒂同学的新年台历正好今天到，真不错！</p><p><img src="https://s2.loli.net/2021/12/31/A3IdU5ncXSDhiaW.png" alt="Screenshot 2021-12-27 184356.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Notion </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>爸爸出院了</title>
+      <link href="/posts/1914714147/"/>
+      <url>/posts/1914714147/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/Pt3JXeyvCF5sNMw.png" alt="R-C.png"></p><p>爸爸在住院了十多天以后，终于顺利出院了，这次没有做积极的治疗，只是稳定了心脏的情况，换装了需要换装的ICD设备。</p><p>不过，看到爸爸的心情还是开心的，不像刚刚入院时候的那种郁闷阴沉的心情，真的不错！</p><p>今年，爸爸几乎几个月就要住院一次，陪护老人尽孝，成了我今年的主要“工作”了。呵呵</p><p>希望，爸爸的身体就此能够逐渐的稳定下来，顺顺利利地颐享天年！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>给Manjaro KDE装搜狗输入法</title>
+      <link href="/posts/238979269/"/>
+      <url>/posts/238979269/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><hr><p>title: 给Manjaro KDE装搜狗输入法<br>date: 2021-11-22 21:47:15<br>updated:<br>tags: Manjaro<br>categories: 软件技术<br>keywords: 输入法<br>description:<br>top_img: ‘<a href="https://s2.loli.net/2022/03/20/k92DFMo1OYuWxVn.jpg&#39;">https://s2.loli.net/2022/03/20/k92DFMo1OYuWxVn.jpg&#39;</a><br>comments:<br>cover: ‘<a href="https://s2.loli.net/2022/03/26/svRd3u6Hh12PNMX.jpg&#39;">https://s2.loli.net/2022/03/26/svRd3u6Hh12PNMX.jpg&#39;</a><br>toc:<br>toc_number:<br>toc_style_simple:<br>copyright:<br>copyright_author:<br>copyright_author_href:<br>copyright_url:<br>copyright_info:<br>mathjax:<br>katex:<br>aplayer:<br>highlight_shrink:<br>aside:</p><hr><p>在给老电脑装入了Manjaro系统以后，安装输入法，遇到了一点小问题，主要是archlinuxcn删除了搜狗输入法。</p><p>不过，可以通过其他方法解决</p><p>首先安装yay</p><p><code>sudo pacman -S yay</code> </p><p>然后，</p><p><code>yay -S fcitx-im fcitx-configtool yay -S base-devel yay -S fcitx-sogoupinyin</code></p><p>再然后：</p><p>安装完后在<code>/etc/profile</code>加上：</p><p><code>export GTK_IM_MODULE=fcitx export QT_IM_MODULE=fcitx export XMODIFIERS=&quot;@im=fcitx&quot;</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Manjaro </tag>
+            
+            <tag> 搜狗输入法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>父亲的生日</title>
+      <link href="/posts/3900320842/"/>
+      <url>/posts/3900320842/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/O7oCkdMDmUEcQ8F.jpg" alt="stephen-wheeler-LRIQuZyxKRM-unsplash.jpg"><br>今天是爸爸的生日，老人家75岁了。今年的生日是在家里过的，老人在2周前，下楼梯的时候不慎摔倒，足底的一根骨头骨折了。行动不便，这次的生日只好在家里庆祝。</p><p>姐姐忙了一上午，张罗了一桌子的菜。老人很开心。</p><p>爷爷和文迪的感情很深，我想这大概就是隔代亲吧，爷爷很欣赏文迪，文迪也非常挂念爷爷。<br>爸爸装的ICD到期了，需要重新更换了。希望一切都顺顺利利的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>爸爸住院了</title>
+      <link href="/posts/2332944672/"/>
+      <url>/posts/2332944672/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/11/22/TvUHysxE4FmVNKY.png" alt="16333.png"></p><p>爸爸住院了！还是因为心衰。生日的当晚感觉很不舒服，一直忍着不说，到了翌日天明才给我电话。匆匆赶去，送去医院，直接送进病房。</p><p>爸爸的心脏一直是大问题，房颤不定时地复发，加上扩张性心肌炎，常年吃药不说，身上还背着一个植入式ICD，而且体力逐年下降，哪里都不能去了。</p><p>家里人都非常为他着急和担心。</p><p>13年的时候，爸爸去了北京阜外做了ICD植入，这次住院，顺便程控了一下，发现设备到期了，需要更换了。</p><p>权衡再三，终于在北京和本地医院之间选择了在本地手术。这也是无奈之举，虽然北京医院同意接手，但因为疫情和爸爸的身体状况，还是选择了本地医院—爸爸的脚也是骨折状态。<br>爸爸这些年每年都要进入医院几次，人受罪不少，特别心疼。这次重新植入ICD以后，我还想继续咨询一下，是不是可以做射频消融的手术。</p><p>希望爸爸这次平平安安，也祝愿他早日出院！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>捉蚊趣事</title>
+      <link href="/posts/2570433044/"/>
+      <url>/posts/2570433044/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote><p>这是文迪四年级的一篇习作，很不错，能够很细致的描写，真的不错，加油！</p></blockquote><p><img src="https://i.loli.net/2021/11/05/lNi5VWKL21kQPMH.jpg" alt="450600-PF8UOA-901.jpg"></p><p>夏天到了，我虽然能吃到冰糕，但是，也有我的死敌–蚊子。在你睡觉时，它就在你耳边制造噪音，并且在不知不觉中给你身上留个记号，这记号特别痒，你挠来挠去，可就是不解痒，我也束手无策了。</p><p>一天晚上，我呼呼大睡，突然，我被“嗡—嗡”的声音吵醒，又感到小腿上有一些痒。不对！那明明是蚊子在腿上寻找做“记号”的地方！我急忙用手去使劲打它。“哎吆！疼死我了！”我不但没有抓住蚊子，还打疼了自己。蚊子得意地飞到我耳边，还编了首歌儿嘲笑我。我气急败坏，双手向着声音拍去，那蚊子便被我打得奄奄一息，我用两指捏着蚊子，观察起来，只见它六条像头发丝一样细的腿拼命蹬着，想要逃出我的掌心。我也不知道哪来的同情心，竟把它放了！</p><p>第二天早上，我的腿上起了个大包，肯定是昨天从我手里死里逃生的那只蚊子的“杰作”。我勃然大怒，从房间里找它，墙上没有，书柜上没有—哈哈！找到你了！它爬在台灯上。我举起苍蝇拍， 慢慢地、悄悄地靠近它，然后以迅雷不及掩耳的速度把这只该死的蚊子打死了。</p><p>对恶毒的人不应该有同情心，他们都是忘恩负义的人。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Yello-Peach </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 文迪习作 </tag>
             
         </tags>
       
