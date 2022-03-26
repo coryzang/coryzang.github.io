@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#109;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#109;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -46,6 +46,181 @@
         <tags>
             
             <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>出差加国，暂停更新</title>
+      <link href="/posts/3371488675/"/>
+      <url>/posts/3371488675/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/zxa4pOkwvNmCfZi.jpg" alt="john-b-eua7s15PkZM-unsplash.jpg"></p><p>尚且不知道是从加拿大直接去休斯顿不回来了，还是回来以后呆几天再去休斯顿驻外工作</p><p> </p><p>更不知是数月回来，还是此去经年~~</p><p> </p><p>anyway，在稳定下来前，暂不更新~~~~</p><p><img src="https://i.loli.net/2021/10/09/kZt18ow5FRgODpy.jpg" alt="7d6fea60c80849d886e5f0a13cd95b9c.jpeg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影《双食记》之观感</title>
+      <link href="/posts/2726546054/"/>
+      <url>/posts/2726546054/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><div align=center>    <img src="https://i.loli.net/2021/10/10/RzVpvwUgkCl81XB.jpg" width="50%" />    </div><p>前段时间和娜宝一起看过这部片子，印象很深刻，这是一部需要揣摩的片子，没有经历，心境就不会真的沉静到可以透彻理解的地步。<br>如果仅仅当作一个故事，那么对这部电影的理解就太肤浅了</p><p> </p><p><a href="https://movie.douban.com/subject/2052978/">双食记 (豆瓣) (douban.com)</a></p><p>一部生生相克的食谱<br>2段明明暗暗的关系<br>三个彼此交缠的男女<br>每个人都像那只在笼子中不停奔跑的小鼠，在自己的命运牢笼里面，不停打旋  </p><p>吴镇宇的死是对自己的解脱，犹如一个长期生活在暗处的吸血鬼，一旦面具撕开，所有的地下恋情暴露在阳光下，即便是生，也会痛不如死，他也只有死，才可以开释其他两个人  </p><p>江一燕是无辜的，一个软弱的女孩子，也只有在结尾她可以获得重生的希望—孩子  </p><p>吴的妻子是施暴者也是受害者，她的心情最矛盾，其实影片应该更多的刻画她，但也许导演怕包袱更早的被人看出来，才迂回到江一燕的身上，这是我对本片的一个保留意见  </p><p>黑色的人生，灰色的重庆<br>在煎炒烹炸中一段段生生死死就这么展开了</p><p> </p><p>吴镇宇是我喜欢的一个演员，电影中呈现的依然是典型吴氏作秀，夸张了一些，不过夸张到我的心里</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>春末夏初思蒲菜---也说淮扬菜中的小细节</title>
+      <link href="/posts/1646713235/"/>
+      <url>/posts/1646713235/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote><p>最近很喜欢一首歌 《the time of my life》 by David Cook</p></blockquote><p> </p><p>春末夏初，前几天在出差的途中，路过潍坊，在城区的梁子粥铺吃中午饭，原本只是因为前一天晚上喝酒难受，只是想在路边找个粥店喝点粥，老远看见招牌，就进门了，抬头一看，呵呵，蛮有趣，居然有365种粥品之多，不禁为老板做粥爱粥的心思感叹，难得他能够林林总总收集到这么多粥的做法。</p><p>不过说到粥，又是当此时节，不由得叫我想起在淮阴以前喝过的蒲菜鸡粥，味道纯美，至今难忘！</p><p>淮阴就是现在的江苏淮安市，其实淮安以前只是淮阴的一个区，淮阴才是县名，但淮安市周恩来总理的故乡，为了追思他，所以把整个城市命名做淮安了，这个地名的变迁只是今天我们话题的一个小插曲。</p><p>中国四大古典菜系川、鲁、粤、淮，其中淮就是指淮扬菜系，淮扬菜系其中有分为淮菜和扬菜以及镇江菜，这里的这个淮就是故淮阴了。</p><p>淮扬菜追求本味、清鲜平和，突出本味的醇厚，这是和其他三大菜系显著的区别。且不说淮扬菜中诸多令人流连难忘的美食，在这里我要介绍一款只有在淮阴这个地方才可以吃到的特色粥品—蒲菜鸡粥。</p><p>网上查了一下资料：蒲菜，也称“深蒲”、“蒲白”，俗称草芽，为香蒲的嫩茎。以古城淮安西南隅“天妃宫”所产之蒲菜为最肥美。它出自污泥，却洁白如玉，肥嫩清香，有“天下第一笋”之美称。蒲菜盛产于春夏两季，而最大莫过于春末夏初。  </p><p><img src="https://i.loli.net/2021/10/10/yxeozfRQrm87SXU.jpg" alt="蒲菜鸡粥"></p><p>蒲菜入馔在我国至少有两千多年历史，《周礼》上有“蒲菹”的记载。明代《西游记》中诗日：“油炒乌英花，菱科甚所夸，蒲根菜并茭儿菜，四般清水实清华。”</p><p>呵呵，其实粥的做法也简单，就是取鸡茸若干加入湿淀粉达成糊状，锅中加鸡汤或者上汤烧热后，加入鸡茸糊，至滚，加入蒲菜丁，烧沸调味出锅。装入碗中，鸡茸粥透明如脂，蒲菜星散翠绿，看着就那么清爽可爱，喝到嘴中也绝不油腻，特别是蒲菜的味道和鸡粥的香甜结合的完美无暇，这种天衣无缝的味道以及菜色的搭配恐怕只有蒲菜才能和鸡茸粥做到吧，</p><p>只恨我的文字苍白不能表达出那种美好的感受。</p><p>（推荐一款搭配蒲菜粥的食品—淮安汤包，北京很多做淮扬菜的馆子，其中都有扬州汤包这个菜名，其实这是淮安特色，扬州不该掠美）</p><p>03年、04年，每年都有数次机会去淮安出差，叨朋友之光，尝过几味淮安才的名品，大多是河鲜为主料，我从小在青岛长大，对河鲜并不是很感兴趣，倒是淮安旁边的小地方—盱眙（xu yi）的小龙虾吃过不少，说起小龙虾大家都在路边街头吃过，但是可能少有人知道，全国最早兴起龙虾的就是在盱眙，全国的龙虾节每年也在这里召开，小龙虾这个东西，大体有两个做法，十三香或者麻辣，为什么呢，因为这个东西土腥味极大，不用重料，根本盖不住那种土腥和骚气，这就是为什么大家吃小龙虾的时候都觉得调味品味道特别重的缘故了。</p><p> </p><p>淮扬菜的另一个派系就是扬州菜了，等有空再接着介绍吧</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 美食 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>向坚持在看电视第一线的老妈致敬</title>
+      <link href="/posts/4142095172/"/>
+      <url>/posts/4142095172/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/F2o7wx9VREBTbju.jpg" alt="R-C _3_.jpg"><br>老妈好多了，打了三天针，胃口已经比前几天好多了，一家人悬着的心也落了地，谢谢老天保佑！</p><p>妈妈从小就很疼我，对我的期望和很高，可惜我一直没有做什么真正值得她满意的事情。</p><p>我和妈妈的感情一直很好，每次回国进门的第一件事都会把老太太抱起来，试一下体重是轻了还是重了，呵呵</p><p>妈妈很辛苦，平时家里的大事小情都是她在操劳，全家被她收拾的井井有条；妈妈又很喜欢看电视，每晚的电视遥控器都牢牢掌握在她老人家手里，我平时极少看电视，爸爸一般睡得早也不和她争，妈妈生病的两天每天睡觉都很早，爸爸晚上在客厅感慨：终于咱也能按按遥控器了，呵呵</p><p> </p><p>老妈性格非常好，感情丰富，可能是以前从事幼儿教师工作的缘故吧，有时候觉得她简单的像个孩子（当然，老爸肯定也特别不容易，才会为妈妈撑起一片幸福和天真的世界吧）</p><p>她老人家看电视兴趣很广，从还珠格格，到情深深雨蒙蒙，从刘老根到乡村爱情，央视这几年热播的电视剧，她老人家一部没有拉下，呵呵，记得一次在国外白天给老太太打电话，她已经是晚上了，听着电话里面声音囔囔的，以为家里出了什么事情，急忙追问，才知道是看电视动感情，所以声音哽咽，呵呵</p><p> </p><p>老妈退休以后喜欢唱歌，参加了老年大学的合唱团，这个团这几年一直是全国老年人合唱大赛的金奖获得团体，老妈作为其中的积极分子跟着跑了不少比赛的城市，我们也都为她感到高兴，老人就怕寂寞，有事情做有事情忙，会帮助她更加快乐和积极。</p><p> </p><p>她老人家现在最大的遗憾有二，其一自然是还没有抱上孙子，另外一点就是我和姐姐没有一个人像她那样愿意参加文体活动，这不这几年正逮着小洁下功夫，舞蹈、唱歌、葫芦丝、画画~~~~，呵呵，可怜的小洁，你哪里知道你姥姥的“雄心壮志”呢</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>妈妈突然病了</title>
+      <link href="/posts/1331127451/"/>
+      <url>/posts/1331127451/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/yZp6VWisxj2lgXR.jpg" alt="3607966.jpg"><br>请假数日，暂停更新</p><p> </p><p>娜娜也生病了，不过我却抽不开身去看她，照顾她，妈妈这边更需要我</p><p> </p><p>很内疚，娜娜生病了，我却连最基本的陪她去看病都做不到，真的失职！</p><p> </p><p>娜娜，真的很心疼你，以后饮食起居都要注意，我不能赶回你身边，但希望你可以坚强地照顾好自己！</p><p> </p><p>对不起，娜娜！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我推荐的江浙的旅游线路</title>
+      <link href="/posts/4248956739/"/>
+      <url>/posts/4248956739/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://s2.loli.net/2022/03/26/DRajmiYLt9Kz2Me.jpg" alt="R-C _2_.jpg"><br>部门里面的小伙子、小丫头们最近结婚的不少，都在问我要去江南的旅游路线，我整理了一下给他们的留言，转帖过来，如果能够帮到我博客里面的朋友就更好了：</p><p>1、如果省钱可以参加团，如果希望玩的开心，可以自己旅游，跟团就算了，没什么好说的，一切听安排  </p><p>如果是自己旅游，我推荐一下吧  </p><p>杭州，推荐在港湾酒店住宿，后面的唐宋古风街—-宋河街小吃很多，而且饭店也很多，美食是杭州一道必不可少的风景，记得替我多吃一碗奎元馆的虾爆鳝糊面  </p><p>另外就是杭州西湖、灵隐、茶山的问茶，以及港湾的沐足是非常棒的  </p><p>我个人比较喜欢在一个地方赖着，不急不慢的慢慢玩，喜欢了就停下来那种<br>相比其他的地方，我私人推荐你去杭州旁边金华的武义，那里山清水秀，世外桃源<br>推荐入住清水湾度假酒店，有兴致就去附近的山里和青田村游览，累了就在度假酒店里面游泳桑拿、品茗悠闲  </p><p>其他的如扬州，其实并不推荐去，所谓烟花三月下扬州那是古代，现在的扬州虽不能说破败，但远没有当年十里秦淮的风情，所谓二十四桥明月夜，若你对中国古典文化没有兴趣，料想看来也是兴味索然。<br>唯一可赞的扬州炒饭，忘记馆名了，早上独步而入，小馆里面已经坐满了人，热闹但不喧闹，一边是几个评弹的师傅，婉转的唱些什么，我不是南方人，不懂戏文，倒是扬州炒饭引起我的兴趣，其实最正宗的扬州炒饭，即便扬州人都没有几个食过，先是一碟豆腐丝（个人比较推崇扬州豆腐丝），然后点一小壶酒，温温热热的烫好送来，然后是一盘菜（比较像烩三丁，时间久了，忘记是什么了），呵呵，准确的说法是—–浇头，炒饭的浇头，你可以一边悠闲的听着评弹，品着小酒，佐以小菜，耗去大半上午的时光，最后上到你面前的才是炒饭，炒饭也有趣的很，在碗里面堆成圆锥状，高出碗沿，吃得优雅而不碰落米粒，才会被认定做是入门的扬州老饕。<br>闻名已久的扬州搓澡，也是值得体验一下，是好是坏凭自己的判断，可惜这些都不是跟团所能体验到的。<br>苏州，园林是必不可缺的一道风景，建议去以前，研读一下中国园林史，或者补充一些基本的园林布局知识，这样游览起来，可以和书本的知识相互印证，能够看得更有趣，体验也更深刻，友情提示，园林风景，最好可以配备长焦镜头，拍出来更有纵深感和美感。  </p><p>其实江南很多其余好玩的地方，我人懒，对于那些人山人海的景点和旅游项目并不感兴趣，喜欢一个人自由自在的休闲旅游，也攒了一些个人体验出来的景点，以后有时间再说吧，今天有点累了，大家如果有什麽问题也可以留言，作为资深权威国家三级导游的我，应该可以给大家尽量详细的回复的，呵呵</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 旅行 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小谈鲁菜</title>
+      <link href="/posts/3816674762/"/>
+      <url>/posts/3816674762/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>我是一个很馋的人，遇到美食，即使步行数里也是一定要去品尝一下的（娜宝，不要担心，我平日里相当好打发肚子，大乖的信念是：只要自己不动手，不管老婆做什么都好吃，呵呵）</p><p><img src="https://i.loli.net/2021/10/10/5WxX2gs3QAjztDN.jpg" alt="24295898_221405425084_2.jpg"></p><p>因为工作的关系，免不得要天南海北，甚至环绕地球的觥交杯错，经常有机会尝到各地的美食，兴致到时就会随手记录下来，也算是日后留作追思吧</p><p>这几日一直在外面，塘沽、天津、青岛、济南，吃了不少美食，但是最喜欢的还是鲁菜（和娜娜吃的最多的就是鲁菜），说来惭愧，虽是山东人但对鲁菜了解的并不多，在此简单小记，总算是对前几天各色美食的一个交代吧</p><p>鲁菜，毋庸多言，八大菜系之一，传统意义的鲁菜主要分为 福山菜（胶东菜）、孔府菜以及济南菜，其中影响较大的主要是孔府菜，大家平日里总说满汉全席，可能少有人知道满汉全席其实就是脱胎于孔府菜系，只不过为了迎合满族统治者在部分菜品和食材的设置上做了改动，但是四平八稳、气派富丽、平和膏腴的孔菜精髓确实是谁也否认不了的。</p><p>福山菜，起源于烟台福山，主要是海鲜和海味为主，唐鲁孙曾经在《中国吃》中记录早年京城的鲁菜馆，赫赫有名的就有三家，被美食家称为“登莱三英”（三家做福山菜以及其他鲁菜为主的饭庄子），代表菜系主要是烩乌参、烹对虾段之类的，这些东西大家可以看唐老先生的文字，我就不多啰嗦了。</p><p>不过福山菜对于现世的影响也很大，北方的海鲜差不多都受到了福山菜的影响，比如我们这次在塘沽吃的庄稼小院吧，这是塘沽数一数二的海鲜酒楼，他家的海鲜基本也深受鲁菜影响，是以红烧和清炖为主，值得一提的是当地有名的一道河鲜–塌焖鲢鱼头，其实说道塌、焖，还是鲁菜的做法，鲁菜中有一道有名的锅塌黄鱼，不知道大家有否品尝过？其实做法倒没有什么推陈出新的，只是他家的酱料别有风骨。</p><p>既是焖，少不得就得有酱，做过菜的都知道，酱焖的菜，如果酱多了，菜味就会被夺，肉也嫌不鲜嫩了，但是如果酱味儿不够，那么特别是河鱼之类的，泥土腥气就难以盖住，这道菜上来颇得大家的好评，细细品来，其实秘诀就在酱上，酱香醇泊，但丝毫不夺鱼头嫩香，锅塌的起皮也恰到好处，虽是加汤焖做，但鱼皮却不发哏，足见大厨之高明！</p><p>吃过这家，我们在青岛吃的青岛海鲜就逊色多了，唯一吃的比较顺嘴的就算是中午的烤海畅和青岛蛤蜊汤面了，特别是蛤蜊面，汤鲜面滑，叫人连尽数碗。</p><p>转回来说济南菜吧，记得以前比较喜欢一家老字号—燕喜堂，他家的糖醋鲤鱼、爆炒腰花和九转大肠，是每去必点的，后来听说搬家就不知道搬去哪里了，可惜可惜</p><p>济南菜吃的不多，发言权自然也少，不过印象中，总以熘、烩、炖为主，但不管是烩还是炖，都要加入高汤或者奶汤制作，听老饕前辈介绍，济南菜，特别是燕喜堂的高明就高明在汤头的熬制上面，这可是不传之秘，呵呵，也许这位前辈言过其实，不过同样是一道烩熘海参，燕喜堂做出来的就和我在别家吃的不一样，</p><p>其实海参是一道借味的食材，本身海参并无特殊的鲜味，要想味道好，海参完全要借汤头来起味儿，要想口感好，就的掌握好入汤的火候，我不是大厨，只能略知皮毛，燕喜堂确实胜在比别人家都高明的汤头上。</p><p>其实说到汤，燕喜堂的奶汤鱼肚，也是我很怀念的一道菜品，我喜欢吃鱼肚，但福山菜的传统做法多是焖和红烧，唯有燕喜堂做出的奶汤鱼肚，菜相最中看，而且毫无烟火的油气，吃起来滑嫩而不腻烂，汤白如脂，这一回想，不觉叫我又食指大动~~~</p><p>呵呵，最后说的是燕喜堂的另一道菜品是爆炒腰花，想来大家都吃过，刀工各有千秋，但要是没有腰子的腥臊而入口不老不嫩，那你就只有去燕喜堂吃了，呵呵，这道菜其实吃的就是一个火候，别小瞧了它，过去王公贵族挑鲁菜的厨子，往往就是用九转大肠和爆炒腰花来试菜。</p><p> </p><p>本来已经准备睡觉了，但是一聊到吃不觉码了这么多乱七八糟，呵呵，麻烦有知道燕喜堂新址的朋友不吝告之，在下先谢过，以后如果有兴致，再整理一下其他各地的美食见闻吧</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 美食 </tag>
             
         </tags>
       
