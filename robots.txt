@@ -1,0 +1,5 @@
+# 自行设置我的是默认全部目录允许抓取,Sitemap注意有无Https
+User-agent: *
+Allow: /
+Sitemap: https://www.jixian.io/baidusitemap.xml
+Sitemap: https://www.jixian.io/sitemap.xml
