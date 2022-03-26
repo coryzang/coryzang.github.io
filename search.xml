@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#104;&#117;&#x62;&#46;&#99;&#111;&#x6d;">&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#104;&#117;&#x62;&#46;&#99;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -473,6 +473,356 @@
         <tags>
             
             <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>带娃学历史系列2--如何带娃学历史（中）</title>
+      <link href="/posts/2010033535/"/>
+      <url>/posts/2010033535/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“带娃学习真的历史，培养思辨能力是关键。千万不能单纯记忆，更不能单向视角。除此以外，还需要有一些工具来辅助。”</strong></p><p><strong>仅仅明白了升维的思路，是不足以指导孩子学习历史的，我们常把历史、地理摆在一起，是有道理的，历史的六要素：时间、地点、人物、事件起因。事件经过、事件结果，其中地点排第二，历史不是架空的，一个历史人物的出现，或者历史事件的发生，是受时空制约的，也就是说要在一个特定的地理环境和资源约束下考虑。</strong></p><p><strong>所以，将历史和地理放在一起学习和考量，是一个非常好的开头。</strong></p><h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><h3 id="以三国为例看史地结合"><a href="#以三国为例看史地结合" class="headerlink" title="以三国为例看史地结合"></a>以三国为例看史地结合</h3><p>文迪一度对三国历史很有兴趣，我们特地根据三国的历史地图，分析了为什么三个国家中，最先灭亡的是蜀国，我们一起读了诸葛亮的《出师表》，也找了相关的资料，从人口、地理角度分析国力的强弱，特别是针对关羽镇守荆州失利对于蜀国未来的影响进行了讨论，顺带也评价了关羽这个人物在这个历史关头的作用，让我比较惊讶的是，我居然在一段时间以后，看见文迪在黑板上画地图给她姐姐讲这个话题。</p><p>我们经常会这样讨论问题，文迪也曾经兴致勃勃地在交给班级的画画课作业上画一副抗日战争的中日交战图—当然，她是凭借一些初级的印象和自我发挥完成的，哈哈。</p><p><img src="https://i.loli.net/2021/10/12/Mat2sdR1AJ8HGDn.jpg" alt="微信图片_20211012221358.jpg"></p><h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><h3 id="将地图和升维结合起来学习大历史"><a href="#将地图和升维结合起来学习大历史" class="headerlink" title="将地图和升维结合起来学习大历史"></a>将地图和升维结合起来学习大历史</h3><p>如果家长的历史、地理知识储备是够的，完全可以将世界地图带进孩子的历史学习中，比如，我和文迪就专门就茶叶这个话题，拿着地球仪，进行了一番“茶叶大冒险”。</p><p><img src="https://i.loli.net/2021/10/12/ZIVPy7xzRXWqYj1.jpg" alt="微信图片_20211012221514.jpg"></p><p>茶叶大冒险，从茶叶的起源，茶叶的传播，特别是小小的茶叶引发了对今天世界格局影响至深的战争—鸦片战争、美国独立战争。</p><p>文迪很好奇，鸦片战争为什么和茶叶有关，我顺带介绍了鸦片战争前的中国对外贸易的情况，茶叶、生丝、瓷器等，为什么英国要改变这个贸易现状等，我也给文迪介绍了“波士顿倾茶”事件，让她对遥远的美国的历史有一个初步理解。</p><p>这样的历史学习，跳脱了传统的时间线，升维到全球角度，跨越一定的地理和时间限制，这种方式带娃启发学习历史，会让文迪觉得更有趣，接受度也更高。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>带娃学历史系列2--如何带娃学历史（上）</title>
+      <link href="/posts/1244347128/"/>
+      <url>/posts/1244347128/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“</strong> 之前一周，因为有事，暂时搁笔不写。但翻看后台的留言，有一个家长留言表示：“还希望看到如何引领孩子学习历史的实例。” 那我们从今天开始就以几个真实的案例，也是我带文迪学习历史的案例，来介绍一下我的带娃经验。<strong>”</strong>  </p><p>带文迪学历史是一项我和文迪都乐此不疲的事情。因为“历史从未真的走远，它的背影总在指引我们前进的方向”。这个系列，我已经分享了数篇文章。今天我以“鸦片战争”这个历史话题，来展示一下我和文迪一起的历史学习之旅。  </p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="全球化的视野是历史学习升维的关键"><a href="#全球化的视野是历史学习升维的关键" class="headerlink" title="全球化的视野是历史学习升维的关键"></a>全球化的视野是历史学习升维的关键</h4><p>如果给你六根牙签，请你拼成一样的四个三角形，你会怎么拼？我们可能更习惯于在一个平面上拼？ 当然，平面拼法也可以解决这个问题，而且不止一种方式。你有否想过做一个三棱锥，用立体的方式解决问题？</p><p>这个思维的方式，叫做“升维”。孩子需要具备升维的思想方法去看待事物。</p><p><img src="https://i.loli.net/2021/10/13/wXeoRnazyDqK5bL.jpg" alt="微信图片_20211013091804.jpg"></p><p>以中国近代史“鸦片战争”这个历史话题来说，孩子们从历史课本或者传统的历史书上，都可以看到：</p><blockquote><p>鸦片战争，即第一次鸦片战争。英国经常称其为第一次中英战争或“通商战争”，是1840年至1842年英国对中国发动的一场侵略战争，也是中国近代史的开端。1840年（道光二十年），英国政府以林则徐的虎门销烟等为借口，决定派出远征军侵华。1840年6月，英军舰船47艘、陆军4000人在海军少将乔治·懿律、驻华商务监督义律率领下，陆续抵达广东珠江口外，封锁海口，鸦片战争开始。</p><p>百度百科</p></blockquote><p>对，这是正统中国历史的标准说法，但这是一个单向视角，要了解历史，要让孩子具备思辨能力，就需要从不同的角度去了解历史。</p><p>我给孩子荐读了伦敦大学朱丽亚·拉佛尔女士所著的《鸦片战争》。这本书从英国乃至更具有中立性的角度叙述了整个历史事情。孩子读这样的书，一定是有困难，这就需要我作为导读，用《中华五千年》这本书作为范本，引导孩子站在对立面上提出问题，然后抽出拉佛尔女士的《鸦片战争》这本书的有关章节或段落进行对比阅读，并思考探讨。这样做，要求家长要提前阅读并掌握《鸦片战争》这本书的主要思想和构架，这样才能比较好的引导孩子阅读，而不至于让孩子望而生畏，更不至于浪费宝贵时间。</p><p>这个方式就是“升维”，从不同的维度去评价，去思考，思考的内容已经不仅仅限于鸦片战争这个话题，可以引向中美当下的贸易战，这也是我和文迪激烈交锋的话题之一。</p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="树立正确的价值观"><a href="#树立正确的价值观" class="headerlink" title="树立正确的价值观"></a>树立正确的价值观</h4><p>升维阅读。只能说兼听并思一些不同的东西，但要注意引导孩子形成正确的历史价值观，这种价值观我们只能引导，不能灌输。</p><p><img src="https://i.loli.net/2021/10/13/FvGUYexHTrSD4yR.jpg" alt="微信图片_20211013091943.jpg"></p><p>教育的目的不是灌满一桶水，而是点燃一把火！这是我时刻提醒自己的一句话。对于历史价值观的培养也是一样。  </p><p>举例来说，我们有一次在观看敦煌的纪录片的时候，讨论到了一个话题—“王道士把这些国宝卖给外国人是不是正确的？” 从这个话题，我们一直延申到了古埃及文物的保存，以及文物的隶属等等话题。  </p><p>这样话题的讨论，我只做引导和听众，有时偶尔站在侧面或对立面提出一些观点，和文迪这样的思想交锋，很有助于她形成自己对一件事的自己的看法。也许她眼下的看法和观点还能偏激，还很稚嫩天真，但开始思考，能够思辨，就已经是一个很好的开始，随着她头脑的成熟、见识的广博，她以后会有更加理性和成熟的看法。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>带娃看电影系列2--以《寻梦环游记》为例</title>
+      <link href="/posts/1126237065/"/>
+      <url>/posts/1126237065/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“</strong> 围绕如果有效带娃看电影这个话题，我已经写了数篇文章了。感兴趣的，可以在公众号页面下方，从“带娃心得”–“博雅教育”栏目中找到以前的文章，顺序阅读，以获得更好的参考。<strong>”</strong>  </p><p>前面的几篇文章大致说明了，如果带娃看电影这个话题，今天举出一个观影实例，以便读者更好的参照学习。</p><p>我给文迪专门做了一个观影系统，看过的每部电影的资料都会收录其中。文末，我会直接给出《寻梦环游记》这部电影的系统单页，大家可以对照研究，搭建自己的带娃观影系统。  </p><p>  <img src="https://i.loli.net/2021/10/13/HZdyjbqWVCRUJcz.jpg" alt="src_http___5b0988e595225.cdn.sohucs.com_images_20171206_279207cef67a4f0c8860f605f0f0f7c9.jpeg_refer_http___5b0988e595225.cdn.sohucs.jpeg"></p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="为什么选择这部电影"><a href="#为什么选择这部电影" class="headerlink" title="为什么选择这部电影"></a>为什么选择这部电影</h4><p>《寻梦环游记》（COCO）是一部非常优秀的动画电影，希望能够有更多的人看到这部温暖又美好的作品。在爱的记忆消失前，请记住我，让我们的爱继续存在下去。</p><p><img src="https://i.loli.net/2021/10/13/WgHG4KtjRYzklnm.jpg" alt="微信图片_20211013092420.jpg"></p><p>首先，它接续了文迪歌舞片电影欣赏的节奏；其次这是一部非常优秀的音乐动画电影。《寻梦环游记》获得了第 45 届动画安妮奖获奖的“最佳动画长片”、“最佳导演”“最佳动画视觉效果”等 11 个奖项，这份殊荣体现了全球观众的一致认可。要看就看好的咯！</p><ul><li><p>优秀的音乐元素</p></li><li><p>并不是所有奥斯卡电影都可以拿到最佳原创音乐奖的，而《COCO》做到了！在这部电影中，拉丁音乐、特别是墨西哥风情的歌舞到处可见，欢快的墨西哥节日风格的乐曲、精彩的吉他solo，更值得称赞的是，动画人物的吉他指法都是由真人模拟出来的，细节也做得非常精致。</p></li><li><p>特别要说的是电影的配乐，将西班牙音乐风格中最突出的斗牛舞乐曲和佛拉门戈舞曲都融入进去，恰好和温蒂同学上一部观看的《出水芙蓉》中的拉丁风格的音乐元素相互呼应起来。</p></li><li><p>善良、积极的价值观</p></li></ul><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="博雅教育知识点"><a href="#博雅教育知识点" class="headerlink" title="博雅教育知识点"></a>博雅教育知识点</h4><p>由于微信文章编辑系统不支持富文本，所以下面我只能节选部分资讯，详细的资讯，<strong>请在文末获得《文迪观影系统》地址后，跳转访问</strong>。  </p><p>这部电影的知识蕴含丰富，我大致分为如下几个层面：  </p><p><img src="https://i.loli.net/2021/10/13/LvlPq1CG9XhiDuW.jpg" alt="微信图片_20211013092519.jpg"></p><ul><li><p>文化背景知识</p></li><li><p>地理 如墨西哥介绍 地下泉 亡灵小镇等</p></li><li><p>人文 如剪纸 亡灵节风俗 墨西哥食品</p></li><li><p>动植物 如里面的无毛狗、通灵猫的原型</p></li><li><p>音舞知识</p></li><li><p>如墨西哥流浪乐队风格</p></li><li><p>乐器介绍等</p></li></ul><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="资源推介与放送"><a href="#资源推介与放送" class="headerlink" title="资源推介与放送"></a>资源推介与放送</h4><p>一部美好的电影，不仅仅带给我和文迪观影时的即时欢乐，还有很多东西值得回味，比如精彩的片段；比如观影时我们父女之间有趣的对话、开怀大笑的镜头；比如动听的音乐，等等。我做了一个系统，将这些东西逐一保存起来，这些东西也许未来可以帮助文迪回想这个美好的回忆，或者在她搜肠刮肚寻找写作灵感的时候给她一些提示，也许会帮她一直记着某首动听的音乐，作为一个爸爸，我还有一个私心—我会不断记录并好好保存这个系统，等文迪长大的时候偶然翻看，嘴角会不自觉地微笑起来，也许想得更远一些，等文迪有了自己的宝贝，她会用这个系统陪着她的宝贝一起成长。</p><p><img src="https://i.loli.net/2021/10/13/lOHiySWwJbFVvM2.jpg" alt="微信图片_20211013092602.jpg"></p><p>我将《寻梦环游记》这部电影的观影单页分享出来，如果你有兴趣，请订阅我，在公众号底部输入“寻梦环游记” （不带双引号），即可获得观影单页访问地址，点击访问即可观看观影资源实例。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>为了这道数学题，我和文迪转了几十圈表</title>
+      <link href="/posts/2060751439/"/>
+      <url>/posts/2060751439/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“ 我以为–低幼年级孩子在抽象数理思维没有建立以前，将数学引入生活，通过实际动手来感知数字，寻求规律，是最快捷的数学入门路径。</strong>”**  </p><p>文迪上到三年级第四单元了，这个单元是进一步认识时间。她的课本上有一道题：一天当中时针和分针成直角的时间是什么时候？</p><p>文迪不理解题目的意思，所以指着这道题来问我。直接给出答案自然不是启发孩子好奇心的办法。我搬来了她桌子上的小闹钟，我们一起拨着表针转了起来。</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="一天当中有多少次时针分针成直角？"><a href="#一天当中有多少次时针分针成直角？" class="headerlink" title="一天当中有多少次时针分针成直角？"></a>一天当中有多少次时针分针成直角？</h4><p>很快，当我拨成三点整的时候，文迪马上理解了，对面的九点也是直角，看着她高兴的表情，我又故意在将表针拨近一点五十左右，这下又出现一个直角。</p><p>我问：“文迪，你知道一天当中除了三点、九点，还有多少个直角吗？”</p><p>文迪转了几圈，说：”有48个！”</p><p>我摇了摇头，说：”我也不知道，但感觉不对，我们试验一下吧。”  </p><p>然后我和文迪就做了下面这个实验表格</p><p>  <img src="https://i.loli.net/2021/10/13/CugjRvSLGWBAnmM.jpg" alt="微信图片_20211013093439.jpg"></p><p>等转到2点多的时候，文迪发现了问题，这个时间段里面，只出现了一次直角。等转完5：59，文迪吁了一口气说：“是44个！”</p><p>这道题，如果继续讲，可能就涉及角度的分割问题了。我没有再继续讲下去。  </p><p>至少通过这样的实验，孩子明白了除了3点、9点以外其他的直角点，也对时针、分针时刻出于运动的概念有了直观的感受。</p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="实践是最好的数学入门途径"><a href="#实践是最好的数学入门途径" class="headerlink" title="实践是最好的数学入门途径"></a>实践是最好的数学入门途径</h4><p>其实，意识到这个问题是参考了文迪数学老师的教学方法。最初接手文迪教育的时候，总是不自觉地用一些抽象的数理逻辑去讲题，文迪听的云山雾罩，我也不胜其烦。直到和文迪沟通的时候，发现她的数学老师每每都是用一些实际的教具或者简单的图例教授孩子，而且效果很好，我借鉴了这个方法，也收到了很好的效果。</p><p><img src="https://i.loli.net/2021/10/13/Li4xoVdIrX3bBHK.jpg" alt="微信图片_20211013093528.jpg"></p><p>上一篇文章《周末，我和文迪一起量影子》也是遵循了同样的教育理念和方法，调动孩子的好奇心，通过实际的测量拓展孩子的知识。  </p><p>这里要特别说明的是—实地测量，我对这个环节非常重视。整个科学体系都是建立在精密逻辑和实验基础上的，进行相对严格的实验，有助于训练孩子的严谨的科学实验素养，有助于引导孩子从单纯的动手游戏向类实验的科学研究层面过渡。</p><p>有时间，我会将我和文迪一起做的那些数学、科学实验的实例，分享出来。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>带娃看电影系列1--如何赏析电影</title>
+      <link href="/posts/1598415296/"/>
+      <url>/posts/1598415296/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>**<br>“** 我在之前《国庆，我和文迪一起看了这部电影》一文中分享了和文迪一起观看《昆虫总动员》的经历。利用电影进行博雅教育是我自认为到目前做的比较成功的地方。<strong>”</strong>  </p><p>一部电影短则1个半小时，长要2小时，很多家长都舍不得把孩子宝贵的时间浪费在一部电影上，我在带文迪开启电影辅助教育的时候，也是这么想的。</p><p>如何能够设计一次既让孩子喜欢，又不浪费时间的电影教育呢？我拿《出水芙蓉》这部电影的观影课做一个例子说明。</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="对家长的要求"><a href="#对家长的要求" class="headerlink" title="对家长的要求"></a>对家长的要求</h4><p><strong>首先，这需要家长要有足够的耐心和一定的艺术修养。</strong></p><p>《出水芙蓉》是一部很经典的百老汇歌舞风格的电影。带娃欣赏这部电影，就需要家长对芭蕾、阿卡贝拉、墨西哥流浪乐队，哑剧、花游等有一定的欣赏能力。</p><p>比如，文迪在观影后，对墨西哥流浪乐队的音乐风格很有兴趣，我告知她这是墨西哥流浪乐队风格以后，她很惊奇美国为什么会有墨西哥音乐，于是我们父女俩就趴在北美地图前，详细给她介绍了美国和墨西哥的位置、大致历史渊源，以及这部电影所在地的加州的历史和主要族裔等，这才算是满足了小姑娘无所不问的好奇心。</p><p><img src="https://i.loli.net/2021/10/13/buUBwhfZRMdnvXj.jpg" alt="微信图片_20211013093937.jpg"></p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="价值观塑造"><a href="#价值观塑造" class="headerlink" title="价值观塑造"></a>价值观塑造</h4><p>其次，要启发的不仅仅是孩子的好奇心，也需要注意对孩子价值观的塑造。这部电影中男主人公的坚持、朋友的帮忙等都是需要抓住时机对孩子进行点拨，这不仅能够对她理解剧情有很好的帮助，也可能在无形中给她的小心灵中留下一个很深的印象。</p><p>记得，带文迪看《最可爱的你》这部电影后，我们详细讨论了什么才算是好老师这个“严肃”话题，文迪自己分析出了很多道理—许多学习班是压迫孩子，只图钱的，用钱换分数的，做这样的老师是害孩子，真正的好老师，是要用爱，用心去帮助孩子自己成长的；文迪也懂得了孩子就是一颗小种子，它自己会长大，长大最重要的是心的长大，只是揠苗助长，孩子就算学得一些东西，也都是“空心萝卜”。坦白说，文迪对这些东西的思考和推导，还是挺让我吃惊的，这部电影似乎就像一把钥匙，打开了她在这个问题的思考，也让我见到了她的思想深度。</p><p><img src="https://i.loli.net/2021/10/13/6d71zscgZab5wQP.jpg" alt="微信图片_20211013094012.jpg"></p><p>具体指引详见《XXXXX》  </p><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="观后拓展"><a href="#观后拓展" class="headerlink" title="观后拓展"></a>观后拓展</h4><p>还有，就是要拓展。电影是多种艺术元素的综合体，一部出色的电影，也许不仅仅是剧情出色，音乐、美工乃至叙述方式都有很多值得总结提炼的地方，更别说还有很多历史、地理、人文的知识蕴含其中。还是那句话，这都需要家长要有一定的知识储备和艺术敏感，帮助孩子提炼和针对孩子有兴趣的部分进行拓展。比如《Singing in the rain》这部电影结束后，我和文迪就兴致勃勃地玩儿了很久的台前表演，幕后发声的双簧游戏。</p><p><img src="https://i.loli.net/2021/10/13/41ed5iuh3bxltJp.jpg" alt="微信图片_20211013094054.jpg"></p><p>总结一下：<strong>耐心+精心挑选+文化和艺术修养+好的观影设计+拓展&#x3D;成功的观影体验</strong></p><p>这样带娃看电影，你会了吗？</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>带娃学历史系列（1）--孩子为什么要学历史？（下）</title>
+      <link href="/posts/1228411490/"/>
+      <url>/posts/1228411490/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>**<br>“** 也许我们给孩子学的就是假历史，对于假历史，不如不学。<strong>”</strong>  </p><p>在上一篇《带娃学历史系列（1）–孩子为什么要学历史？（上）》中，我分享了我在对文迪进行历史学科教育时候的一些感悟，特别是分享了我给文迪所订立的学习方向和目标。在这篇的最后，我提到了一个带娃学习历史不容回避的问题—带娃学习历史，搞得不好，我们就是在带娃学习假历史！  </p><p>为什么要这样说，在这篇中我进行一个稍微细致的说明。  </p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="学好历史课≠学好历史"><a href="#学好历史课≠学好历史" class="headerlink" title="学好历史课≠学好历史"></a>学好历史课≠学好历史</h4><p>当下的历史课设计，是基于社会需要而高度“定制化”的一门常识教育课，先遑论即便是这样的历史课也已在应试教育的压力下被挤压得面目全非。</p><p>作为家长，我们应该深受其害，更应该认识到—这样的课程体系初衷是为了培养适合社会发展需要的“标准型人才”，而不是为了培养孩子的“领袖素养”。</p><p><img src="https://i.loli.net/2021/10/13/cHhL1xdBsXkqPIr.jpg" alt="微信图片_20211013101245.jpg"></p><p>这样的课程体系，并不能发展孩子学习历史所必须的“思辨”能力，它更强调的是“记忆”能力。</p><p>所以，我们说这样学出来的历史是死的，是假的。</p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="你学的历史本身可能就是假的"><a href="#你学的历史本身可能就是假的" class="headerlink" title="你学的历史本身可能就是假的"></a>你学的历史本身可能就是假的</h4><p>都说历史是一个任人打扮的小姑娘。特别是中国官方历史，传统上都是后朝为前朝修史，立场、角度都不能保证必要的客观。这样的假历史，不加辨别的猛学一气儿，结果只能更糟糕，还不如不学。</p><p><img src="https://i.loli.net/2021/10/13/oAGrawS9xqH61JO.jpg" alt="微信图片_20211013101339.jpg"></p><p>在《历史这么重要，怎么引导孩子爱上历史?》中，我已经谈到：家长的历史学科素养对帮助孩子正确打开历史是非常重要的。家长要懂得从不同维度、角度去启发孩子对一份历史材料的不同理解，这就是最核心的—思辨能力。</p><p>这是保证“孩子不是在努力地学假历史”的关键所在。  </p><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="你教给孩子的历史学习技巧也基本上都是假技巧"><a href="#你教给孩子的历史学习技巧也基本上都是假技巧" class="headerlink" title="你教给孩子的历史学习技巧也基本上都是假技巧"></a>你教给孩子的历史学习技巧也基本上都是假技巧</h4><p>我很坦白地说，我们在考场上砍分的历史学习技巧对于孩子真的掌握历史大知识基本上没有用。</p><p><img src="https://i.loli.net/2021/10/13/mqVI6UZ2eQjHcfP.jpg" alt="微信图片_20211013101422.jpg"></p><p>随手一搜，网上一把什么年代速记、什么用一张思维导图搞定中学历史之类的东西，这些东西没有任何说明的丢给孩子，我们就是在给孩子挖坑。</p><p>我带文迪学习历史的真正目的是开阔思维、增长智慧，而不仅仅是为了历史考试拿个高分，没有听过靠背诵记忆获取智慧的事情，所以，我不会硬逼着文迪去强记什么。</p><p>读完上面，我们应该明白了—历史学习有坑，要带娃躲过这些坑，学到真东西不是那么容易的一件事儿。</p><p>以后，我会抽时间将我在带文迪进行历史学科启蒙时总结的历史学习所应该具备的能力、思维以及方法等进行分享。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>带娃学历史系列（1）--孩子为什么要学历史？（上）</title>
+      <link href="/posts/4051989767/"/>
+      <url>/posts/4051989767/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“</strong> 如果你把历史学习当成高考工具，那么你趁早别纠结孩子如何学习历史了，一个字–“背”就完了；如果你只是把历史当成喜马拉雅里面消遣时间的节目，那我劝你就不要看下面的文字了。</p><p>历史学习的妙用，需要你首先端正历史学习的目的，颠覆你固有的学习思路和方法，才能带娃学到。<strong>”</strong></p><p>上篇文中，我谈了引导文迪历史兴趣的部分，但我们有没有认真想过一个问题—孩子为什么要学历史？如果弄不清这个话题，我们既无法将历史最精彩的部分介绍给孩子，也更无法引导孩子“正确地”学习历史。</p><p>其实，就“带娃学历史”这个话题进行一个详细的整理—这个动机源自一次和文迪同学家长的聊天，她的孩子也非常喜欢历史，但家长在她自己求学时对历史的糟糕体验让她不知道如何进一步指引孩子学习历史。  </p><p>我是一个“非典型文科生”爸爸，历史是文科的看家学问，也更是我从小喜爱的学科，我结合带文迪进行历史教育的启蒙经历，计划分成几期谈一下我的一些看法（希望自己可以勤快一些，不让这个话题留成一个未完成的大坑）。</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="学历史有用吗？"><a href="#学历史有用吗？" class="headerlink" title="学历史有用吗？"></a>学历史有用吗？</h4><p>这个问题相信很多家长都没有明确答案。很多家长对历史的印象就是一堆的人名、地名、时间点，如果不是为了在高考时候凑一下分数，简直想把历史书付之一炬。在我的经历中，很多理科生同学在谈论到我们这些文科生的时候，就是一脸的不屑:”会背就完了”。</p><p><img src="https://i.loli.net/2021/10/13/7g4xAnoOVcuseKH.jpg" alt="微信图片_20211013101744.jpg"></p><p>其实，这都是对历史学科的误解。我给文迪启蒙的时候是这样说的：中国古代的历史编写大多都是皇帝专门下令做的，各朝各代的皇帝都会专门指派一小队人员专门记录当下和编写之前的历史。如果历史不重要，那么多的皇帝为什么都在做一样的事情？司马光给皇帝编撰了一部治理天下的参考书，书名是《资治通鉴》，这就是一部囊括前朝的历史合集。如果历史不重要，那司马光大可以写一部《如何种好庄稼》的书给皇帝。  </p><p>历史是有大用的。文迪读唐太宗的故事的时候，有一句:”以史为镜，可以知兴替”。你说”知兴替“的学问到底有没有用呢？</p><p>只是可惜，现在社会和教育风气的变化让人们迷住了双眼，大多数家长和孩子的眼睛里只有计算机、会计、金融、生物科技这类更有“钱”途的学科。有一个颇具讽刺意味的例子是2020年高考,湖南耒阳的留守女孩钟芳蓉考出676分的好成绩,却报考了北京大学考古专业，社会一片哗然，很多人认为女孩儿惋惜，认为这个专业没有”钱途“。这很说明历史学科在当下社会的窘况。</p><p>这种短视的教育风气已经蔓延已久。百多年前的教育家怀特海在《教育的本质》里面曾对类似情况有过精当的评价—贵族的孩子往往更多修习艺术、文学、历史、哲学这样的专业，这些专业也往往是领袖培养的摇篮。中产阶级的孩子多以实用价值为学科选择方向。怀特海先生更是忧心忡忡地评价—一个短视的学科选择风气对社会的破坏是要烧掉几代人去验证的。</p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="学历史有什么用？"><a href="#学历史有什么用？" class="headerlink" title="学历史有什么用？"></a>学历史有什么用？</h4><p>很肯定的说，学习历史很有用。从大的角度说，可以知兴衰，从小的角度说，可以学习到做人、处事的智慧。</p><p>一个领袖，哪怕是一个数百上千人的企业家，也需要了解历史。不知来路，又何能走向未来？  </p><p>  <img src="https://i.loli.net/2021/10/13/6WQcbRnh1TPVqFG.jpg" alt="微信图片_20211013101827.jpg"></p><p>所以，带孩子正确地打开历史，学习历史，就是在帮助孩子建立她的价值观、世界观，也可以说在帮助孩子培养她的领袖意识。  </p><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="你学的可能是假历史"><a href="#你学的可能是假历史" class="headerlink" title="你学的可能是假历史"></a>你学的可能是假历史</h4><p>既然历史这么好，但并不是每个人都能感知，这是为什么？我认为—你可能学了半天，都是在学假历史。</p><p><img src="https://i.loli.net/2021/10/13/hVtjy8XBqJTMid9.jpg" alt="微信图片_20211013101901.jpg"></p><p>是不是有点难以接受？如果我们不彻底弄清这个问题，也许我们带娃学的也将是假历史！  </p><p>这不是我故作奇言。曾和数个家长都聊过带娃学习历史的事情，一说起来，都是孩子对历史感兴趣，喜欢读故事，喜欢听故事<del>吧啦吧啦</del>，但是接下来再怎么引领孩子正确学习历史，就没有了思路。孩子也只能长时间徘徊在所谓的历史故事阅读和聆听环节，直到初高中的历史课程压下来，不停的背诵，大量的背诵，直至完全摧毁孩子最初建立对历史学科建立的那一点好的兴趣。</p><p>那么到底我们可能学到什么样子的假历史，我下一篇中会进行说明。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>国庆，我和文迪一起看了这部电影</title>
+      <link href="/posts/1271612528/"/>
+      <url>/posts/1271612528/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“</strong> 我将电影引入了对文迪的教育。它让我和文迪更为亲近，文迪也借此学习了很多知识，增长了智慧。观影—已经成了文迪和我每周最为期待的事情。<strong>”</strong>  </p><p>在介绍今天分享的电影之前，我要先说一下对于电影和儿童教育的一些个人看法。  </p><p>前几天在陪文迪上Extension Class的时候，和同在教室外等候的一个妈妈聊了几句带娃经，当给她看了我带着文迪看的几十部电影记录的时候（其实，还仅仅是今年的观看的记录而已），这个妈妈吃惊地张大了嘴，问：“孩子的时间那么宝贵，怎么会有时间带她看那么多部电影？”</p><p>其实大可不必视电影为时间杀手。如果找到正确的打开方式，看电影不仅是一个很好的亲子方式，也可以通过电影让孩子开阔眼界，快速学习知识，并增长人生智慧。好的电影教育对于塑造孩子的价值观、人生观是非常重要的。</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="那些我和文迪一起看过的电影"><a href="#那些我和文迪一起看过的电影" class="headerlink" title="那些我和文迪一起看过的电影"></a>那些我和文迪一起看过的电影</h4><p>2020年前三个季度，我和文迪一起看过了数十部电影了。有精彩的动画，也有经典的默片，还有百老汇的歌舞片等等，文迪从其中领略了五湖四海、五光十色的大千世界，也跟随电影中的主人公们经历了蛮荒一片的石器时代、欣欣向荣的封建王朝、硝烟漫天的世界大战、坚韧不屈的抗日战争等等；体会着他们或她们的喜怒哀乐，沐浴在爱与善良、坚定与勇敢等美德的氛围中；欣赏着芭蕾、歌剧、百老汇舞台剧、踢踏舞、墨西哥流浪音乐等等风格迥异的音舞艺术。  </p><p>当我和文迪一起转动地球仪的时候，文迪可以很愉快地给我分享她从电影中了解到这个国家和民族的情况，我很欣慰，因为这些东西在她的脑子里是鲜活的，有质感的，不是冰冷枯燥的一串串文字。</p><p>当我听到文迪哼唱着电影里面的一些美妙音乐，或者稚嫩地学唱着里面的英文歌词的时候，我很开心，因为她的脑海中慢慢开始形成一些比学校童谣更有趣的音乐品味了。  </p><p><img src="https://i.loli.net/2021/10/13/vZb5eAJHwMmjDQB.png" alt="微信图片_20211013102350.png"></p><p>对精彩电影的欣赏，已经成为小姑娘每周最渴望的事情了。<br><a href="http://mp.weixin.qq.com/s?__biz=MjM5NDAwMTA2MA==&mid=2695729815&idx=1&sn=7c7feb801bfb8fcf5dfe4e782a4ba3c1&chksm=83d74b5cb4a0c24a21e621ed3428fd808e80c2c5e806a8162cceee62a5930b0430d5506e0f8c&scene=21#wechat_redirect"></a></p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="《昆虫总动员》"><a href="#《昆虫总动员》" class="headerlink" title="《昆虫总动员》"></a>《昆虫总动员》</h4><p><strong>关于我是如何将电影融入对文迪的教育中，这个话题，我以后有时间会详细说一下。</strong></p><p>今天介绍的是一部有趣的动画电影《昆虫总动员》。这部电影的介绍，大家可以自己搜索一下，我就不多说了。</p><p><img src="https://i.loli.net/2021/10/13/Tr42SRQnDFBo5lN.jpg" alt="微信图片_20211013102302.jpg"></p><p>选择这部电影，主要是希望结合文迪的课业，她所读的统编语文三年级上，正好要开讲《一块奶酪》这篇课文，课文中的主人公就是小蚂蚁。这和《昆虫总动员》很契合，正好可以借着电影，给文迪带一些关于蚂蚁的自然知识。</p><p>其次，语文教材四单元的一个阅读要求是“预测能力”，这部全程无对白的童趣电影，正好可以不时停下来，让文迪预测一下后面会发生什么，看看她的预测够不够“脑洞大开”。观看这部电影“不知不觉中”成了文迪预测能力的一个训练课。</p><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="资源推荐和放送"><a href="#资源推荐和放送" class="headerlink" title="资源推荐和放送"></a>资源推荐和放送</h4><p>关于《昆虫总动员》这部电影。各大主流影视网站上比比皆是，我就不在这里分享链接了，大家可以自己搜索。</p><p>今天要分享的是一部我挑给文迪读的书–《百变昆虫》。</p><blockquote><p>《我的第一套百科全书：百变昆虫》是2012年3月1日吉林科学技术出版社出版的图书，作者是青少科普编委会。内容简介：昆虫是生活在地球上非常不起眼的小动物，但是它们的生活却是热闹非凡。这本《百变昆虫》尽情地为大家描述了昆虫家族中基本的常识，并为大家选取了一部分常见的昆虫，介绍了它们的生活习性和特殊的生存本领。希望小读者们增长知识的同时能够从这些小昆虫身上受到启发。</p><p>百度百科</p></blockquote><p><img src="https://i.loli.net/2021/10/13/QVHfmRaCAIiM59d.jpg" alt="微信图片_20211013102227.jpg"></p><p>对这部书感兴趣，可以在公众号界面，回复“百变昆虫”获取电子书的下载链接。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>孩子时间观念不强，不是她的问题，是你没有教好！</title>
+      <link href="/posts/35752983/"/>
+      <url>/posts/35752983/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>**<br>“** 今天介绍一款适合5岁~8岁孩子的时间管理软件。我用这款软件，让孩子不知不觉中改掉了拖拉、无规律的毛病，这款软件还让孩子玩的兴致盎然。</p><p>有时候孩子身上的问题，是我们不会教，而不是孩子做不好。<strong>”</strong></p><p>前几天给大人们介绍了一款带娃的时间管理神器“School”—在公众号界面下方–点击“带娃心得”–点击“父母学堂”，可以找到这篇文章。</p><p>今天要介绍的是一款适合低学龄儿童自己改善时间管理的全平台神器—Timo Kids Routine Timer。我在7岁接手文迪教育的时候，文迪每天作业完成很晚，其他的作息规律也建立的不好，我往往要不厌其烦地提醒和督促，实在不胜其烦。但这怎么能难住我这“非典型文科生”爸爸呢？经过一番摸索，我找到了Timo这款神器，并在它的帮助下，让文迪在不知不觉中建立起了时间管理的素养，而且还乐此不疲。</p><p>好，话不多说，我们就来介绍一下这款神器吧！</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="认识Timo"><a href="#认识Timo" class="headerlink" title="认识Timo"></a>认识Timo</h4><p>Timo是一个来自TimeLand国度的小精灵，在TimeLand，时间是最珍贵的东西，Timo会及时把幸运星作为奖品奖励给珍惜时间、规律生活的小朋友。得到星星最多的小朋友可以用星星给自己心爱的玩偶换造型、换衣服等等。</p><p>，时长02:57</p><p>Timo的视频简介  </p><p>这款软件定位给孩子使用，所以在使用功能和界面设置上，非常非常卡通，也非常简单，其实不用多做介绍，里面已经内置了不少孩子的作息事宜。<a href="http://mp.weixin.qq.com/s?__biz=MjM5NDAwMTA2MA==&mid=2695729815&idx=1&sn=7c7feb801bfb8fcf5dfe4e782a4ba3c1&chksm=83d74b5cb4a0c24a21e621ed3428fd808e80c2c5e806a8162cceee62a5930b0430d5506e0f8c&scene=21#wechat_redirect"></a></p><p><img src="https://i.loli.net/2021/10/13/JbFu6jWRZrch45m.jpg" alt="微信图片_20211013102803.jpg"></p><p>使用的时候，可以和孩子一起确定一些简单、容易完成的任务，孩子一旦完成，会很快获得“即时奖励”的满足感。我们当时也规定了一周攒够多少颗星星，可以兑换一些孩子喜欢的小玩具或者文具、书籍什么的，这样设计“游戏”，文迪感到更有趣。</p><p>Timo当中也有Tracking的功能，比如下面的Track界面，是不是特别像家里钉在墙上的“好习惯养成表”？一样都有每天顺利完成的星星数的汇总，一样都有周汇总视图。自从用了这款软件，文迪就不再每天站在墙前面手动贴星星了。</p><p><img src="https://i.loli.net/2021/10/13/m71oJXp3qx9UCcl.jpg" alt="微信图片_20211013102842.jpg"></p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="习惯养成"><a href="#习惯养成" class="headerlink" title="习惯养成"></a>习惯养成</h4><p>这里简单说一下关于文迪习惯养成的感触。简单来说，就是两点：</p><ul><li><strong>科学规划</strong></li></ul><p>  </p><p>习惯养成忌贪多，一定要留出足够的缓冲时间，也叫“Buffer Time”，因为一旦时间约束太多，孩子会感到难受，而且连续几次不能完成，孩子短时间会有挫败的感觉，长期会无视时间表的要求。这都不是我们带娃时希望看到的。</p><p>规划的时候，要分清孩子的记忆最佳时间、肌肉记忆最佳时机等，尽量避开饭后接着进行背诵等记忆性工作，也尽量避免在睡前要求孩子大声诵读等等，这个也要根据不同孩子的情况进行具体制定。  </p><ul><li><strong>循序渐进</strong></li></ul><p>每个孩子的不同阶段的身体状况都是不同的，在规划孩子的作息习惯养成的时候，一定要结合孩子的情况，切莫贪多，看到别家的牛娃如何如何，自己就给孩子照搬过来，结果往往是“揠苗助长”；可以把孩子最急需的一项或两项任务先执行起来，等一段时间以后，孩子自己也感觉到自己的成长回报，再慢慢增加其他的任务，孩子的接受度就要好很多。我最初纠正文迪作息习惯的时候，只给文迪加了“20分钟的早餐”和“5分钟刷牙”两项，从很基本的做起。</p><p><img src="https://i.loli.net/2021/10/13/AcwSklQth2Z5DoO.jpg" alt="微信图片_20211013102916.jpg"></p><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="资源推送与介绍"><a href="#资源推送与介绍" class="headerlink" title="资源推送与介绍"></a>资源推送与介绍</h4><p>Timo是一款全平台软件，你可以在Apple Store里面搜索并直接下载，也可以在各大安卓软件市场搜索并安装到你的安卓设备。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《养育女孩》---救我和文迪于苦海的福音书</title>
+      <link href="/posts/1992505056/"/>
+      <url>/posts/1992505056/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“</strong> 接手女儿教育一年多了。女儿的成长很快—伴随着身体的发育，胆量也越来越大，成绩也有明显提高，自信心也逐渐增强。也变得更加暖心了，每天帮我整理床铺，她临睡时总不忘叮嘱我不要熬夜等等。可最初接手她的时候，我是那样的焦躁和粗暴，回首那个时光，大家都非常痛苦，它的出现，拯救了我们~~<strong>”</strong>  </p><p>没有谁天生就会做父母，也没有一门考试，可以认证我们到底是不是可以做一个合格的父母。这是一份自女儿降生以后就无可推卸的责任，是留给她一个快乐、积极的童年? 还是在匆匆忙忙中浑浑噩噩?</p><p>无论我们怎么选择，这都将对她一辈子影响至深。</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="养育女儿，爸爸需要学会和自己相处"><a href="#养育女儿，爸爸需要学会和自己相处" class="headerlink" title="养育女儿，爸爸需要学会和自己相处"></a>养育女儿，爸爸需要学会和自己相处</h4><p>接手文迪教育以前，我在文迪的生活中施加的影响不大，工作占据了几乎全部的时间。这导致了我对女儿很多情况并不真的理解。  </p><p>记得刚刚接手她教育的时候，文迪的各方面状态确实不好，而我心态特别急，几道题目一辅导，火气就“噌”地直冲脑顶，要是此时测量血压，肯定直接爆表。有时明明没几道题，可文迪坐在那里一写就是一个多小时，我在后面急得直转圈。</p><p>那时就觉得，每天只要一辅导女儿功课，整个人就不好了~~  </p><p>直到，我读了史蒂夫·比达尔夫的《养育女孩儿》，慢慢品味，才发现问题更多地是出在我的身上—-由于长时间的工作，导致对女儿教育的严重忽略；没有尝试和女儿“交朋友”就以父母姿态高高在上的实施教育；忽略了儿童成长的规律和常识，以及自己孩子的特点，一厢情愿地实施自己制定的“教育计划“等等。</p><p>找到了问题，从书中寻找解决之道就容易得多了，慢慢地，我们父女之间没有脸红脖子粗，没有了眼泪和啜泣，与之替代的是，开心的电影之夜、公园骑行、学习竞赛、共读等。  </p><p>回顾这一段，我觉得最重要的一点就是—<strong>和女儿相处，作为爸爸，我首先需要心态平和。这是关键。其实人生又何尝不是如此–只有学会和自己相处，心态才能真的平和下来。</strong>  </p><p><img src="https://i.loli.net/2021/10/12/hS563v8tyN2HXOd.jpg" alt="微信图片_20211012225356.jpg"></p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="成为好爸爸的十条策略"><a href="#成为好爸爸的十条策略" class="headerlink" title="成为好爸爸的十条策略"></a>成为好爸爸的十条策略</h4><p><img src="https://i.loli.net/2021/10/12/Rpq9g8Ld7642YrH.jpg" alt="微信图片_20211012225402.jpg"></p><p>这是一本值得做读书笔记的好书，篇幅不是特别长，但很多东西都值得我们认真地去思考，书中我找到并践行了几个有效的策略，在此分享：  </p><ul><li><p>策略一：和孩子“约会”</p></li><li><p>策略二：和孩子一起旅行</p></li><li><p>策略三：多动脑筋，抽空陪孩子</p></li><li><p>策略四：帮助女儿明白她的与众不同之处</p></li><li><p>策略五：学会聆听</p></li><li><p>策略六：谈论价值观的方式要灵活多变</p></li><li><p>策略八：参与到女儿的教育中</p></li><li><p>策略十：明白女孩更容易受到言语上的伤害</p></li></ul><p>将10条内容都照做是不太可能的。请不要因为孩子的童年过得不完美而自责。实际上， 也不可能完美。生命的神奇来自它的美好，也来自它的不完美，正因如此，我们才用“恩惠”这个词来 形容生命。</p><p> </p><p>借用书中的一段文字，做今天的结语吧！</p><blockquote><p>我要对你说的最后一点是：“你可以做到。”放飞自己的女儿，让她做真实的自己：创作自己的音乐作品，从事美术创作或尽情舞蹈，研究机械、细胞或人的内部结构。你可以带着她去海边看汹涌的波涛，在雨中奔跑。这样，有一天，她在自己坐在某处的岩石上或者小溪边的那一刻，或者在与人长谈的某一刻，会突然感受到一种内心的平静和归属感，这种感觉比以往的任何一种感觉都强烈。这样，她就找到了自己在人间的归属感，而这种感觉将伴随她一生。</p><p>《养育女孩》 作者: （澳）史蒂夫·比达尔夫 出版社: 中信出版社</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>历史这么重要，怎么引导孩子爱上历史?</title>
+      <link href="/posts/1150091768/"/>
+      <url>/posts/1150091768/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>“</strong> 学历史，不仅仅是知悉了过去的社会变迁，更重要的是，通过学习，以探索世界运行的某些规律，继而形成社会观，建立社会发展的预测能力。这是我对文迪进行历史学习时一直把握的方向和期待。<strong>”</strong>  </p><p>我是一个“非典型”的文科生爸爸，所谓“非典型”是除了对历史、文学等传统文科项目有浓厚兴趣外，还非常推崇科学精神，对于管理、经济、化学和编程等理科生的科目，也十分喜爱。文理双科的知识对我踏入社会帮助都很大。</p><p>感谢父母对我的引导和培养，历史成了我从小到大一直钟爱有加的“好朋友”，我也确实从中受益良多。我当然很希望也可以把这个“好朋友”介绍给文迪。</p><p>对文迪的历史启发教育，我做得比较晚，但经过一番努力，文迪对历史的学习兴致已经比较高昂的。各个朝代的变更兴替，每个朝代的主要兴衰标志性事件，各个朝代的标志性军事、文化事件和人物，她都有所涉猎。</p><p>有时，文迪还会和我在家里针对某一个历史人物展开讨论，比如说，我们会讨论“怎么评价历史上的关羽?”；文迪还在练笔的时候，虚构了汉武帝和匈奴单于之间的外交信件的往来；偶尔也会CosPlay一些历史人物，以及她对于西夏等较国内相对冷门历史所表现出的好奇心，让我慢慢地安下心来—这小姑娘算是和“历史”慢慢交朋友了。  </p><p>万事开头难，自文迪7岁多，我开始有意识引导她对历史的兴趣，在启发阶段，我觉得我至少做对了2件事。  </p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="从故事入手"><a href="#从故事入手" class="headerlink" title="从故事入手"></a>从故事入手</h4><p>有趣的影像总是更能吸引孩子的注意力，为了引导文迪，我挑选了《历史是一群喵》这部长篇动画集，这部动画片的画风非常可爱，里面的12只小猫个个萌态可掬，故事的梗概大体是按照国内主流历史观安排的，其中的情节设计和对白非常符合5岁+的小朋友观看。  </p><p><img src="https://i.loli.net/2021/10/12/KdfGHIRPeXSsEZY.jpg" alt="微信图片_20211012222918.jpg"></p><p>而选择这部动画片的最重要的原因是—文迪特别喜欢猫！她不仅有一只乳黄色的英短猫–“包英俊”先生，还在小区楼下喂养着一只流浪的小狸猫，观看这部动画片，仅仅是“一群喵”就足以让小姑娘心动了。  </p><p><strong>这里需要特别说明的是：为孩子选择动画片的时候，家长一定要提前看一下，做到心中有数。其实，不仅仅是动画片，为孩子挑选读物、课外班等等，都需要家长多用心，提前了解，避开一些坑才好。</strong></p><p>文迪对历史的兴趣，算是被这部动画片彻底打开，一直看到了三国，肥志停更这部动画集，让她伤心不已。  </p><p>从故事入手，以孩子喜欢的方式入手，坚持一段时间，孩子自然会接受历史。</p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="实物和纪录片予以辅助"><a href="#实物和纪录片予以辅助" class="headerlink" title="实物和纪录片予以辅助"></a>实物和纪录片予以辅助</h4><p>文迪的启蒙是从动漫入手，但启蒙以后，就不能一直离不开动漫了，毕竟动漫这种表现形式，其所能承载的资讯是非常有限的。</p><p>这时候，就需要家长拓展孩子的历史眼界，将孩子从故事阶段、动漫形象阶段代入到一个更为丰富多彩的世界里面来。  </p><p>这个阶段的文迪，我们带她看了较多的历史博物馆，有西安的兵马俑、有北京的自然历史博物馆、山东省博物馆、青州博物馆等等，用实物的具象去替换她脑海中的动漫印象，这是非常关键的一个转折点，作为家长，一定要明白，不然孩子很有可能一直停留在历史故事阶段出不来。</p><p>很多优秀的历史纪录片对于拓展孩子的历史观也是非常好的。这样孩子们足不出户也可以有很好的实物体验。  </p><h3 id="03"><a href="#03" class="headerlink" title="03"></a>03</h3><p>—  </p><h4 id="带娃学习历史，你需要知道的那些事儿"><a href="#带娃学习历史，你需要知道的那些事儿" class="headerlink" title="带娃学习历史，你需要知道的那些事儿"></a>带娃学习历史，你需要知道的那些事儿</h4><p>我的感悟是：  </p><ul><li><p>带娃学习历史，也是有方法、有技巧的。比如说，家长通过对比记忆，开放式讨论，图文化回顾等方式来固化孩子的历史习得，要比单纯地死记硬背，效果要好的多；</p></li><li><p>我们对娃儿们的启发的高度和深度，对孩子们的影响是很大。比如说孩子们在向家长请教问题时候，家长们的历史常识和历史观都会对孩子产生潜移默化的作用；</p></li><li><p>如果不是为了应试教育而学习历史，那历史学习中还是有很多坑的，比如说长期、反复阅读狭窄的地缘历史眼光的读物会让孩子的历史大局观也变得狭隘。对于期待历史的学习可以帮助孩子形成更好大局观的家长来说，在孩子还没有能力鉴别的时候，要给孩子格外留意挑选学习资料。</p></li></ul><p>对于5~8岁左右孩子的历史学习方法和路径规划，等找合适的时间吧，我会结合对文迪的教育感悟单独进行说明。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第一次存款，让我对女儿刮目相看</title>
+      <link href="/posts/1147648879/"/>
+      <url>/posts/1147648879/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/12/iC8XUJgeP2k1Ish.png" alt="文迪头像.png"></p><p><strong>“</strong> 树立正确的金钱观是财商教育当中很重要的部分。尝试着对女儿进行了一些观念和实践的教育，没想到在女儿身上起到了好的作用。<strong>”</strong>  </p><p>前段疫情期间，大人和孩子都在家里很少出门，和女儿相处的时光一下子增多了，这个爱问问题的8岁小姑娘一天到晚总有很多的问题要问。一天，她拿着一本绘本《当动物有钱了》来问我：“爸爸，银行是干什么的?”，我挠了挠头，说：“文迪，带上口罩，爸爸带你去银行，咱们亲自去看看！”。</p><h3 id="01"><a href="#01" class="headerlink" title="01"></a>01</h3><p>—</p><h4 id="原来银行是这样的！"><a href="#原来银行是这样的！" class="headerlink" title="原来银行是这样的！"></a>原来银行是这样的！</h4><p>“要想知道苹果甜不甜，你得亲自咬一口”，这句谚语说的一点没错。带着文迪在空荡荡的银行大厅里面，慢慢地一个窗口一个窗口的解释，小家伙总算明白了传统银行的基本业务。我指着书里的“利息”一词，问：“那么你现在知道利息是什么意思了吧?”</p><p><img src="https://i.loli.net/2021/10/12/oVxd8QZKk5AHM1N.jpg" alt="微信图片_20211012221630.jpg"></p><p>文迪眼睛一亮：“爸爸，我也有钱，我也要赚利息！“，接着，她的眸子一暗：”算了，我每年的压岁钱都被妈妈放得不见了~“，</p><p>哈哈，这个小姑娘以前对钱没有概念，妈妈都替她收着了，现在给她一开窍，居然立刻就想到了自己的压岁钱，真有趣。但既然来了，怎么能错失这个教育的好机会呢?  </p><p>”没关系，爸爸正好带着2000元，这本来是用来给你买书的，现在你已经知道银行和钱了，我就把这笔钱给你，你存起来，可以赚利息，或者由你决定买什么不买什么，好么?“</p><p>小姑娘一听，立刻又高兴起来，于是，我带着她一起开了以她名字设立的储蓄账户，看着小姑娘在办理存折的时候，非常认真和期待的样子，我暗自高兴，在选择储蓄期间的时候，文迪又不懂了，我启发说：”文迪，这个就好像种树，小树种下去的时候只有一米高，如果你只种一年，那么小树只能长高1cm，如果你种两年，那么小树能长高2cm，如果种三年，可以长3高cm，储蓄期就是种树的时间，你打算存多久，就是种多久。利息就是小树长高的那一块儿，还有如果提前把树拔起来，就是没有到期，把钱取出来，那小树就会受到伤害，也就是利息会减少哦。“</p><p>在不厌其烦地给文迪解释了两次以后，文迪仰着头想了一下，说：”那我要把1000元存2年，500元存一年，还有500元，我不存。“  </p><p>我很好奇：”为什么不都存了呢，你不是想赚利息么?“</p><p>”爸爸，我留下500元，这样平时买本子就不用找你了，还有500元，等明年这个时候，我把钱用光，就用到期的钱，而且还可以赚利息。“</p><p>”这是一个很棒的想法，我支持你！“  </p><p>说实话，我没有想到文迪会如此规划这笔钱，回家的路上，我还是忍不住问她怎么想到这样存钱。文迪歪着头说：”爸爸，你忘记了吗?我们一起看的《苏东坡》，他不就是把钱分成几串，挂起来，每天用一串，剩下的放在零钱罐里面吗?“</p><blockquote><p>我们现在看电视剧，宋代人一摸就是一锭银子，那其实是错的。宋代是制钱，铁钱。苏轼把他的钱一字排开，每个月挂30串在房梁上，一天只能用一串，要用钱了就用一个叉子叉下来。</p><p>星期五 2018年12月14日 华西都市报 -A9 宽窄巷-</p></blockquote><p>我也想了起来，曾经陪着文迪一起看过一个讲述苏东坡的纪录片，里面讲到了苏东坡在黄州谪居期间，为了应对拮据的生活，创造了”叉头钱“的日常支度的方法，当时，我还特意给文迪画了一张图，详解了这个方法，当时是为了巩固除法的概念。没想到这个小姑娘不仅记住了，还知道活学活用，这真是让我有点小惊喜。其实对于成人而言，合理规划存款的期间，也是一个非常好的理财基础技能呢。  </p><h3 id="02"><a href="#02" class="headerlink" title="02"></a>02</h3><p>—  </p><h4 id="通过社会考察实践财商教育"><a href="#通过社会考察实践财商教育" class="headerlink" title="通过社会考察实践财商教育"></a>通过社会考察实践财商教育</h4><p>在这之后的一段时间，我陆陆续续地和文迪找时间探讨了，怎么让钱产生价值，什么值得买，实用不实用等话题。</p><p>回顾和文迪一起进行这些”财商“教育的时候，<strong>其实更多的时候，都是以问答的形式开始的，抓住孩子每个发问的机会，积极引导；还有一点感触很深的就是，实践是非常重要的。</strong></p><p>比如说，文迪有一次在阅读的时候问我，”爸爸，什么是价值不菲，价值是价钱么? 是很贵么?”  </p><p>我点点头，说：“简单来说，这里的价值不菲，就是价钱很贵的意思，但更多时候，价值和价格还不一样，等你看完书，我们一起聊。”</p><p>启动和设计环节  </p><p>等文迪结束阅读时间，我们一起分享了对于价值的认识，比如说，空气、水、粮食，这些东西人一刻都离不开，价值很大，但价格很低，价值一般来说，是对一个人的用处大不大，用处大的东西，我们说价值大，用处小的，我们说价值小，有时候价值大的东西，价格高，有时候，价值小的东西，价格高。  </p><p>我们父女两人还一起兴致勃勃地在列了一个表格，表格设计根据不同的维度，如外观、作用、质量、重要性、使用期等进行了区分。设计完成是这样的：</p><p><img src="https://i.loli.net/2021/10/12/cZ32sHaSOYCylGj.png" alt="微信图片_20211012221743.png"></p><p>开放环境实践环节</p><p>之后我和文迪一起去了商场，我们将同类的东西，分组对比记录下来，记录后是这样的：</p><p><img src="https://i.loli.net/2021/10/12/ifpAyPVZ68DWuYx.jpg" alt="微信图片_20211012221845.jpg"></p><h4 id="实践讨论环节"><a href="#实践讨论环节" class="headerlink" title="实践讨论环节"></a>实践讨论环节</h4><p>针对实践所得的数据资讯，我和文迪进行了细致的讨论，就不一一赘述了，所涉及要点如下：  </p><p>什么值得买? 延申—决定买东西的标准是什么  </p><p>为什么一样的东西，有得贵，有得便宜? 延申—品牌的意义</p><p>等等，等等  </p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这一部分是整个活动最精要的部分，我会单独开一篇来写。</span><br></pre></td></tr></table></figure><p>通过这样的分组，不仅锻炼了孩子的数学能力，诸如分类分组的能力，分组能力是逻辑思考能力中的一个重要部分，让孩子从书本中抬起头，接触真实社会中更为模糊，不易区分的事物进行分类，琢磨孩子的能力，也锻炼了约数、比较的能力等。  </p><p>同时，也通过这样的活动，让孩子明白了很多真实的经济现象背后的道理，帮助孩子树立了对价值、价格、金钱、品牌的概念。而且，避免了枯燥的说教，在一个开放环境中，孩子更容易投入进去。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>周末，我和女儿一起量影子</title>
+      <link href="/posts/3157428581/"/>
+      <url>/posts/3157428581/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>周五放学，上三年级的文迪带回她们班上的一个周末实践作业—测量一米长的木棍在一天中不同时点的影子的长度，并作记录。  </p><p>这小同学一向最热衷于这种实践性质的作业，放下书包就开始拿着尺子在家里翻找1米的小棍，看着她热情高涨的样子，作为爸爸的我怎么可能浪费掉这个和女儿一起动手的好机会，我义不容辞地扮演起了实践助手的角色。</p><p>周五的晚上，文迪完成作业，我们开始为第二天的测量做起了准备。</p><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p><strong>准备工作中的重头戏就是头脑的启发，一定要提出一点问题，让孩子思考，并通过有趣的探索获得答案。</strong>这堂实践课能不能有趣并激发文迪的兴趣，全靠这个环节了。  </p><p>我和文迪一起先确定了实验地点，并在试验场标出了方向十字标，我故意问她：“文迪，明早太阳会从哪边升起来?”，女儿一脸不屑地指着东方说：“喏，就是东边咯。”</p><p>我把棍子插在基准点再问：“那么太阳初升以后，影子会在什么方向?“，文迪立刻告诉我影子会在西方出现，而且这个题目课本上已经做过啦！</p><p>我点点头，：“那么是正西么?”，文迪挠挠头 “应该是吧，我觉得的是。”</p><p>“好吧，我们可以一并做一个实验，明天测量的时候看看到底是不是正西，当然，你也可以再想想，好吗?”</p><p>文迪点点头。</p><p>回到楼上，我们把书上的长度测量要求和我们新增的方向要求整理了一下，共同设计了这样的一张表格。  </p><p><img src="https://i.loli.net/2021/10/12/YC2LiJ8DvUKMlSQ.jpg" alt="微信图片_20211012221036.jpg"></p><h3 id="实践记录"><a href="#实践记录" class="headerlink" title="实践记录"></a>实践记录</h3><h4 id="第一次和第二次测量"><a href="#第一次和第二次测量" class="headerlink" title="第一次和第二次测量"></a>第一次和第二次测量</h4><p>早上8：00和10：00，我们第一次和第二次测量，并预测了第三次测量的长度，图表是这样的：  </p><p><img src="https://i.loli.net/2021/10/12/NAcqYG8Slkz9v6O.jpg" alt="微信图片_20211012221153.jpg"></p><p><strong>预测是一个非常重要的能力，它要求孩子根据已有的数据结合所能依靠的计算规则或自然定律提前做出判断，对于成人来说，预测的能力更是一向至关重要的能力。</strong></p><p>对下一个数字的预测，考察了文迪对于太阳和影长的模糊感觉，原本以为她会按照匀速的原理将11点影长的预测值考虑为50左右，没想到她会考虑成70，所以我就问她：“如果按照此前2次测量的数字变化，11点的数字估计成50更合适啊。”</p><p>“不是的，如果按照50预测，那么到了中午12点的时候，影子就等于0，但实际上不可能为0，总会有一点，变化的数字应该比50小，所以我预测是70.”</p><p>听到这里，我心里一乐，看不出文迪小同学平时观察的还挺仔细，考虑问题时候将12点时候影长不为0也都考虑进去了，有点“小科学范儿”了。</p><p>“那好吧，我们11点的时候再看吧。“</p><h4 id="第三次测量"><a href="#第三次测量" class="headerlink" title="第三次测量"></a>第三次测量</h4><p>11点的时候，实际测量的影长是72cm，和文迪预测的70cm几乎吻合。</p><p>“哈，爸爸，你看我说对了吧！”，女儿有点小兴奋。</p><p>“牛！你再预测一下下午2点的数字呗”。</p><p>女儿盯着地上做的几段影线的标记，抬头低头好几次，很谨慎地比了一个数字1，“爸爸，我觉得会是100cm！”，“好吧，我们下午来看吧。还有你也估计估计它的偏转角度吧。”</p><p><strong>这里增加了一些难度，因为影长在中午12点前是趋短，而过了12点又会趋长。文迪要做预测，需要考虑这个因素，而且还增加了偏转角度的考量，这是对太阳运行方向和影子方向的对应关系的数学量化。这个能力对于三年级的孩子而言，是很有挑战的。</strong></p><h4 id="第四和第五次测量"><a href="#第四和第五次测量" class="headerlink" title="第四和第五次测量"></a>第四和第五次测量</h4><p>具体过程就不说，实践和启发的过程和前面差不多，直接上经过我和文迪整理过的数据结果</p><p><img src="https://i.loli.net/2021/10/12/Inwgq5vhz6HWyYe.jpg" alt="微信图片_20211012221243.jpg"></p><p>从影长的预测来看，文迪比较出色的感知了数字变化的规律，这个训练比给她平时做的找出数列或数组的规律并填空的题目要有趣的多，也更为复杂，更可贵的是，这样的训练没有直接给题那样死板和刻意，很显然，文迪还是很喜欢的。</p><h3 id="课后思考"><a href="#课后思考" class="headerlink" title="课后思考"></a>课后思考</h3><p>我暗想，这次开放式作业，难得孩子如此有兴致，就此结束，岂不可惜，也显不出爸爸带孩子的“发散性思维”的本事啊。于是，我开始启发文迪：“文迪，你看看咱们画出来的几条影线，你还能够看出来什么?”</p><p>文迪看了半天：“”爸爸，我发现，影子是按照顺时针的方向变化的，哦，不对不对，~”</p><p>女儿停了下来，努力思考了一小会儿，然后，突然喊了起来：“爸爸，我知道了，影子的方向就是顺时针的方向，而且应该说是时针的转动是模仿了影子的方向，时针的转动应该说是顺影的方向！”</p><p>我也惊喜起来，原本只是一个开放的启发问题，看看她可以观察出什么，没想到她竟可以反向思维出影子转动和顺时针的关系，并能说出时针转动是模仿影子转动的方向。有点让我感到很多惊喜的成分。</p><p>“嗯，你太牛了，那么为什么影子不是从正东方向消失，而且我们一早观察，影子似乎也不是从正西方向开始的啊“，我继续启发。  </p><p>文迪想了一会儿，摇摇头，我拿来了地球仪，再找到一个足球，我抱着足球在原地，让文迪平端着地球仪在我身边绕着走，边走边拨着地球仪旋转。</p><p>去过北京自然博物馆的文迪马上明白了，“爸爸，你是和我玩儿地球、太阳的游戏吗?”</p><p>“对啊，你看看，假如我们要让影子从相反的方向出现，太阳不动，应该如何做?”</p><p>就这样，我们父女两人兴致勃勃地花了整晚的时间，弄明白了：<em>地球转动的方向和影子方向的关系，还热烈讨论了影子到底是不是一个有用的东西，甚至模拟了前段时间文迪在医院手术室里面看到的无影灯的工作原理。</em></p><p>带娃充充实实地做了一天实验，我很有感触，<strong>其实，作为家长，不仅重视孩子的课业成绩，更应该重视那些难得的实践机会，利用自己的知识和耐心，好好地陪伴孩子，想办法调动孩子积极性，启发孩子的思考能力，保护好孩子的好奇心，这是更重要。与其分秒必争的让孩子周末辗转于各个兴趣班，不如慢下来，踏踏实实地花上几个小时，和孩子做一次有意义的实践课，它可能会给孩子带来更大的收获。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>解密《半个喜剧》电影名字和主角名字的黑色密码</title>
+      <link href="/posts/1048020435/"/>
+      <url>/posts/1048020435/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/10/vH7iBkLc1WtYndF.jpg" alt="p2576010452.jpg"></p><p>所谓半个喜剧，那半个就是莫莫，北京户口，生而高贵，</p><p>所谓剩下的那不是喜剧的半个，就是孙同，生下来就掉户籍水坑里了，何谈有喜？</p><p>所谓“孙同”—嵌入了编剧的美好愿望：也许到了“孙”子那辈儿，才能天下大“同”吧！</p><p>所谓“莫默”—即默默，大家都对这样的社会现实麻木不语，各自钻营而已。</p><p>所谓“高璐”—凭借户籍优势，她的人生行走在“高”速公”路”。</p><p>所谓”郑多多“—</p><p>第一”多“，钱多，富二代；第二”多“，户籍好；</p><p>正是这些”多“，才使得可以低分上好大学，对比复读三年才考进北京的孙同，所谓”福满多“啊！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 观影 </tag>
             
         </tags>
       
