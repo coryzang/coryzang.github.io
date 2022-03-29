@@ -33,7 +33,7 @@
       <link href="/posts/103755369/"/>
       <url>/posts/103755369/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，恢复了写博客的习惯。当时是用<a href="https://hexo.io/zh-cn/index.html">Hexo</a>Hexo+[Pure](<a href="https://github.com/cofess/hexo-theme-pure">cofess&#x2F;hexo-theme-pure: Hexo theme pure. It’s a pure theme for Hexo. (github.com)</a>)的框架来写的。因为手懒，所以没有留下安装和修改的记录，今年因为试装软件的时候，不慎中毒。无奈只好重装机器，而博客也一并荡然无存了。重新挑选之下，决定换用<a href="https://butterfly.js.org/">Butterfly主题</a>去更新。<br>其实，两天前就已经开始重新部署了，但是我的胡搞瞎搞，终于把好好的主题搞得面目全非，只好再次删去，重新部署。为了给未来的我留个念想，所以，这次重装的时候我会随手记录一下，免得将来抓破脑袋也想不起了。</p><h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>这里包含几个部分：<br>    - Hexo的环境搭建和安装<br>    - Github的配置准备<br>    - 测试及部署</p><h2 id="Hexo环境搭建"><a href="#Hexo环境搭建" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h2><h3 id="安装git和node"><a href="#安装git和node" class="headerlink" title="安装git和node"></a>安装git和node</h3><p>git的安装比较简单，windows系统的话直接<a href="https://git-scm.com/download/win">下载</a>并安装就好了。至于node的安装，有<a href="%5B%E7%A8%8B%E5%BA%8F%E5%91%98ITS404%5D(https://www.its404.com/">其他的blogger</a>说:”**NodeJs 64位的版本需在<a href="https://nodejs.org/dist/v12.18.0/node-v12.18.0-x64.msi">v12.18.0</a>才能爬到豆瓣的数据。”**，我首次调试的时候，确实如此，所以，这里我们还是需要安装这个版本吧。<br>另外需要注意的是，安装时将path都加入就好了。<br>安装完毕后，可以按照下图的命令进行验证<br><img src="https://s2.loli.net/2022/03/23/KhikDLU3ABgW4Zy.png" alt="Past0436 - 副本.png"></p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo就是我们的个人博客网站的框架， 这里需要自己在电脑常里创建一个文件夹，可以命名为Blog，Hexo框架与以后你自己发布的网页都在这个文件夹中。创建好后，进入文件夹中，按住shift键，右击鼠标点击命令行<br><img src="https://pic1.zhimg.com/80/v2-a5450a466c0927c25dff8ad6f1d2046c_720w.jpg" alt="截图"><br>使用npm命令安装Hexo，输入：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">这个安装时间较长耐心等待，安装完成后，初始化我们的博客，输入：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>注意，这里的命令都是作用在刚刚创建的Blog文件夹中。</p><p>为了检测我们的网站雏形，分别按顺序输入以下三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new test_my_site</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>这些命令在后面作介绍，完成后，打开浏览器输入地址：</p><p>localhost:4000</p><p>可以看出我们写出第一篇博客</p><p>现在来介绍常用的Hexo 命令  </p><p>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客  </p><p>命令简写<br>hexo n “我的博客” &#x3D;&#x3D; hexo new “我的博客” #新建文章<br>hexo g &#x3D;&#x3D; hexo generate #生成<br>hexo s &#x3D;&#x3D; hexo server #启动服务预览<br>hexo d &#x3D;&#x3D; hexo deploy #部署  </p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><h2 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h2><h3 id="GitHub创建个人仓库"><a href="#GitHub创建个人仓库" class="headerlink" title="GitHub创建个人仓库"></a>GitHub创建个人仓库</h3><p>登录到GitHub,如果没有GitHub帐号，使用你的邮箱注册GitHub帐号：<a href="https://link.zhihu.com/?target=https://github.com/">Build software better, together</a> 点击GitHub中的New repository创建新仓库，仓库名应该为：<strong>用户名</strong>.<a href="https://link.zhihu.com/?target=http://github.io">http://github.io</a> 这个<strong>用户名</strong>使用你的GitHub帐号名称代替，这是固定写法，比如我的仓库名为：</p><p><img src="https://pic4.zhimg.com/80/v2-832168e58b4ac4ce7c3cca797711d2d3_720w.jpg"></p><h3 id="配置仓库和密钥"><a href="#配置仓库和密钥" class="headerlink" title="配置仓库和密钥"></a>配置仓库和密钥</h3><p>在博客根目录下Git Bash，设置user.name和user.email配置信息：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>生成ssh密钥文件：  </p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure><p>然后直接三个回车即可，默认不需要设置密码<br>然后找到生成的.ssh的文件夹（一般是c盘下用户目录下）中的id_rsa.pub密钥，将内容全部复制</p><p><img src="https://pic4.zhimg.com/80/v2-d1e47103ec1aa8675f68688c5d63bd27_720w.jpg"></p><p>打开<a href="https://link.zhihu.com/?target=https://github.com/settings/keys">GitHub_Settings_keys</a> 页面，新建new SSH Key</p><p><img src="https://pic1.zhimg.com/80/v2-72a3f22c080e99343c3cc4aabce10e3c_720w.jpg"></p><p>Title为标题，任意填即可，将刚刚复制的id_rsa.pub内容粘贴进去，最后点击Add SSH key。<br>在Git Bash中检测GitHub公钥设置是否成功，输入 ssh <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a> ：</p><p><img src="https://pic3.zhimg.com/80/v2-da481ffa686410becd4186c656b4ebd6_720w.jpg"></p><p>如上则说明成功。这里之所以设置GitHub密钥原因是，通过非对称加密的公钥与私钥来完成加密，公钥放置在GitHub上，私钥放置在自己的电脑里。GitHub要求每次推送代码都是合法用户，所以每次推送都需要输入账号密码验证推送用户是否是合法用户，为了省去每次输入密码的步骤，采用了ssh，当你推送的时候，git就会匹配你的私钥跟GitHub上面的公钥是否是配对的，若是匹配就认为你是合法用户，则允许推送。这样可以保证每次的推送都是正确合法的。</p><h2 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h2><p>blog根目录里的_config.yml文件称为<strong>站点</strong>配置文件，下一步将我们的Hexo与GitHub关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deploy:  </span><br><span class="line"><span class="built_in">type</span>: git  </span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git  </span><br><span class="line">branch: main</span><br></pre></td></tr></table></figure><p>参考如下：   这里要注意的是每个：后面有一个空格。</p><p><img src="https://pic1.zhimg.com/80/v2-279ac5149b577f04dc099defbb12eaa8_720w.jpg"></p><p>保存站点配置文件。</p><p>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>  这时，我们分别输入三条命令：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>其实第三条的 hexo deploy 就是部署网站命令，d是deploy的缩写,因为后面要配置豆瓣插件，如果写成 hexo d 会有冲突，我们还是写成 <strong>hexo deploy</strong>。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://link.zhihu.com/?target=http://xxxx.github.io">http://xxxx.github.io</a> (知乎排版可能会出现”http:&#x2F;&#x2F;“字样，参考下图) 比如我的xxxx就是我的GitHub用户名：</p><p><img src="https://pic1.zhimg.com/80/v2-d750452f4258bf0967d5629ef23d1b10_720w.jpg"></p><p>你就会发现你的博客已经上线了，可以在网络上被访问了。</p><h1 id="安装及应用Butterfly主题"><a href="#安装及应用Butterfly主题" class="headerlink" title="安装及应用Butterfly主题"></a>安装及应用Butterfly主题</h1><h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>在你的 Hexo 根目录里，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure><h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>修改 Hexo 根目录下的 _config.yml，把主题改为butterfly</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><h3 id="升級建议"><a href="#升級建议" class="headerlink" title="升級建议"></a>升級建议</h3><p>升级完成后，请到 Github 的 Releases 界面 或者 <a href="https://butterfly.js.org/posts/198a4240/">文檔七</a> 查看新版的更新內容。</p><p>里面有标注 _config 文件的变更內容（如有），请根据实际情況更新配置內容。</p><p>为了減少升級主題后带來的不便，在 hexo 的根目录创建一个文件 _config.butterfly.yml，并把主题目录的 _config.yml 內容复制到 _config.butterfly.yml 去。( 注意: 复制的是主題的 _config.yml ,而不是 hexo 的 _config.yml)</p><p>注意： 不要把主题目录的 _config.yml 删掉<br>注意： 以后只需要在 _config.butterfly.yml进行配置就行。<br>如果使用了 _config.butterfly.yml， 配置主題的 _config.yml 將不會有效果。</p><p>Hexo會自動合併主題中的_config.yml和 _config.butterfly.yml里的配置，如果存在同名配置，会使用_config.butterfly.yml的配置，其优先度较高。<br><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/butterfly-docs-install-suggestion-1.png" alt="截图"></p>]]></content>
       
       
       <categories>
@@ -173,6 +173,31 @@
         <tags>
             
             <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>十年Mac Mini的第二春</title>
+      <link href="/posts/197845417/"/>
+      <url>/posts/197845417/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>逛youtube的时候，刷到了一则通过刷不同的操作系统，让老电脑重新焕发活力的视频。想起自己也有几部老电脑在吃灰，为何不也整理整理，让这些老电脑就此也能重新上阵呢？</p><p>第一部老电脑是一部2010年的Mac Mini Server。这部电脑其实没有怎么用过。当年在Fry’s Electronics随意一看，觉得这部小苹果主机很可爱，性能方面在当时也蛮强的，那时国内家中正在装修，就打算买回来装成一个家庭服务器，完全是冲动消费。</p><p>买回来以后，有点傻眼，自己对服务器的知识理解实在有限，实在搞不定，于是就刷成普通苹果系统，放在客厅，连接电视，当成一部娱乐主机，打打游戏，或者看看网络视频什么的。使用的频率实在比较低，也不得不说，这部苹果是真的大材小用了。</p><p>再后来，这部机器基本上就收在书房的角落，静静地吃了快十年的灰，期间，大概每过2年左右，我会想起它，连上屏幕，升升级，摆弄摆弄几天，纯粹为了体验苹果系统的新鲜。直到这部机器慢慢地退出主流，很多软件不再支持，机器跑起来也慢吞吞的~~ 。</p><p>这次主要是在软件方面入手，对系统进行重刷，将比较吃资源的Mac Os 刷成其他相对资源占用和配置要求都比较低的Chrome Os。但是纯正的Chrome Os 对硬件的要求至少是酷睿3代。我似乎搞不定。</p><blockquote><p>遵循的是这篇 <a href="https://sspai.com/post/61056">旧电脑再利用：完整版 Chrome OS 安装指南 - 少数派 (sspai.com)</a></p></blockquote><p>虽然有人用类似的CPU，比如2012年的Macbook就有成功刷Chrome OS的例子，但我只能刷一个CloudReady的无Google Play版本的系统，搞来搞去，总算是刷成功了。</p><p>于是我再接再厉，利用第二块硬盘，刷了Manjaro KDE进去，果然没有让我失望，这部十年的老机器，同样能够流畅的运行这个Linux发行版。</p><p>哈哈，不错，这样这部十年高龄的老机器，在普通情况下，可以用CloudReady系统浏览网页，或者做一些办公轻应用。或者也可以进入Linux进行数据库或者编程什么的了。</p><p>补记一下，期间试图刷deepin版本的Linux，很可惜，deepin系统，这部机器跑的不流畅，更主要是deepin不支持这部机器的无线网卡，只好放弃。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
             
         </tags>
       
@@ -881,6 +906,306 @@
     
     
     <entry>
+      <title>家长角色使用说明书</title>
+      <link href="/posts/2270805891/"/>
+      <url>/posts/2270805891/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote><p>我是一个“非典型”爸爸—-一个总希望将事情“系统化、方法化”的爸爸。我总希望能够总结出一套可以行之有效，而且更有效率和更能激发孩子自主学习的方法和工具，于是我开发了一套针对孩子的自主学习系统，应该说截至目前效果还是不错的—小朋友从一年级上班里中游偏下，经过大半个学期的努力，一年级期末的时候跃居班里第一名。<br>这个说明书是我在开发这个系统的时候，留给自己的文档，我希望自己可以经常阅读，在陪伴孩子教育的时候能够始终清楚教育的目的和方法。<br>也在此分享给我的读者们，希望可以引起你们的共鸣，能够对你们产生一些帮助。</p></blockquote><p>家长是孩子成长的基础，尽可能帮助孩子发挥自己的天赋，培养其能力，使其可以逐渐适应社会竞争，乃至形成一定的竞争优势，让孩子可以以相对从容的姿态享受她自己一生的时间。<br>在这个过程中，作为家长需要对孩子的学习进行具体的探究，以学习者而不是教育者的身份去理解教学的目的、教学的能力层次以及拥有正确评估孩子能力的标准，更重要的是要有坚定的目标、结合赏识教育以及孩子每个阶段，乃至每天的情况，一步一个脚印的前行。<br><strong>早早出发，慢慢前行<br>时间宝贵 孩子等不起</strong></p><h2 id="角色认知"><a href="#角色认知" class="headerlink" title="角色认知"></a>角色认知</h2><ul><li>家长是孩子学习的辅助，但孩子不能总是依赖家长，培养孩子的**”自主学习”**能力是非常重要的，我对这个事情的反思就是–管的太死，太紧，孩子形成依赖，而之所以管的死和紧，主要是怕孩子犯错，怕孩子浪费犯错的时间和成绩，但这里需要明白的是–孩子需要犯错，从错误中吸取教训，事事都怕孩子犯错，而事事指导，最后就会变成对孩子的戕害。</li><li><strong>自主学习，也包括自我评价，</strong>将家长的评价约束住，让孩子自己评价，鼓励她建立自己的评价标准，这是非常高级的教育目的；</li><li><strong>重视孩子提出的问题 这是引导孩子发生兴趣的最好的机会。</strong>当代科学的源头就是古希腊的哲学，而哲学的起源就是—惊异，就是古希腊的少数对世界充满惊异的人不停地探索世界，寻找现象背后的真知真存的结果。所以当孩子提出问题的时候，一定要重视，要引导、激发她的兴趣。</li><li><strong>重视积累和记录 持之以恒</strong> 道理很简单，如果你有过企业或者组织的运营经验，就自然会把ISO标准体系和孩子的教育联系起来，而“追溯” 是组织标准化运作的一个重要坐标基础。</li></ul><h2 id="角色任务"><a href="#角色任务" class="headerlink" title="角色任务"></a>角色任务</h2><p>有了角色的认知，具体应该如何操作？ 见下面的安排：</p><ul><li><p>使用番茄土豆工作法 让孩子估计一个事情完成的时间，然后指导孩子评估自己的时间利用，时间是每个人最大的财富，让孩子及早掌握时间的利用和分配能力； <em>工具:</em> 番茄闹钟;</p></li><li><p>阅读教材，熟悉教法，当孩子遇到问题的时候，可以使用适当的教法帮助孩子</p></li><li><p>记录孩子的错题，出错的原因，明白遗忘曲线的道理，在适当的时机安排复习，保持理解刺激和记忆；</p></li><li><p>欣赏孩子 鼓励孩子 明白过度执念和适可而止只有一线之隔，不要把爱变成对孩子的戕害，要有耐心和能力充分调动孩子的积极性，主观能动性是最有潜力的！</p></li><li><p>坚持！</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小学数学能力规划</title>
+      <link href="/posts/633301367/"/>
+      <url>/posts/633301367/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="什么是能力"><a href="#什么是能力" class="headerlink" title="什么是能力"></a>什么是能力</h2><p>能力的形成是一个有层次的东西，你可以把它想象成是一个金字塔，底层是思维，思维来自现实和以及现实刺激的感悟；在这个基础上，是算理，也就是解决问题的基本框架的选择；再上一层是算法，也就是具体的数学语言的准确表达和输出；这几个层次的集合，就是我们说的数学能力。<br>这实际上也就引申出了培养的重点和方向</p><ul><li><p><strong>思维</strong> 思维的培养是基于现实，汉声数学书的优点就是从生活入手，以实际实例去刺激孩子的具象和抽象的结合，一语概之，就是<strong>“场景化”</strong>，其实，我们不妨看一下数学课本，也都是将场景化运用到例题的设计中，所以，我们在培养孩子思维的时候，也需要借鉴这样的方式，运用多种手段去场景化，这是思维培养的首要；</p></li><li><p>“思维”的培养，还需要系统化，不能一鳞半爪的到处涉猎一点，也不能指望一次思维激发就解决问题，要有强化的过程，在初期场景化刺激的基础上，这个阶段，可以逐步抽象化—问题的设计，逐渐过渡到算理，这就是抽象化的意思；</p></li><li><p>“思维”的培养，还需要多借鉴他人的成功教育案例和教具、方案设计等，不要闭门造车；</p></li><li><p>“算理”的启发，在小学二年级包括之前的阶段，四则运算的算理是比较容易启发的，这部分，老师应该都在课堂上进行了重点的讲解，孩子在题目的算理准备上是有模糊的感觉的，这里要注意的是，对于算理和实际的结合上的一些“弯弯绕”，比如“切7刀，是8段”等，这些需要孩子有一定的生活理解，说回来，还是场景化和实践的想象和概况；算理的启发，可以借助各个工具书和习题集里面的拓展性题目进行讲解，家长在教育的时候，注意将算理讲透，题目不在多，而在精，适当做一下变形，适当拓展孩子的思路；</p></li><li><p>“算理”的应用，和对题目的理解有很大关系，读题能力，理解的能力，这有套路可言；</p></li><li><p>“算法”层面，也就是具体的数学语言的准确表达和输出，这部分家长大可相信学校的课内教育，这也是课内教育最好的部分，家长可以适当指点孩子在应用型题目的数学语言组织的套路和范式即可；<strong>孩子在这部分出错，我们往往以</strong>粗心** 形容，其实这是算法稳定输出的能力不足。<br>（持续添加 随着我的理解的加深 持续添加）</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 育儿 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>996，到底是谁的“福报”？</title>
+      <link href="/posts/2629179149/"/>
+      <url>/posts/2629179149/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://pica.zhimg.com/v2-b1a4a3bbabf5c0976ad1e617c46d44b9_1440w.jpg?source=172ae18b" alt="996，到底是谁的“福报”？"></p><h1 id="996，到底是谁的“福报”？"><a href="#996，到底是谁的“福报”？" class="headerlink" title="996，到底是谁的“福报”？"></a>996，到底是谁的“福报”？</h1><p>由油气传统制造业至跨境工业品B2B，擅长营销策划 战略管理 项目管理以及财务分析</p><p>7 人赞同了该文章</p><p>马云先生最近提出–“996工作制是员工修来的福报”。 其后又做了解释。作为职业经理人的我，很佩服其中的话术。</p><p>但我想的更多是—996到底是谁的“福报”？</p><h2 id="辛勤的付出换取回报，这是没错的。但前提是公平的游戏规则。"><a href="#辛勤的付出换取回报，这是没错的。但前提是公平的游戏规则。" class="headerlink" title="辛勤的付出换取回报，这是没错的。但前提是公平的游戏规则。"></a>辛勤的付出换取回报，这是没错的。但前提是公平的游戏规则。</h2><p>奥斯维辛里面的犹太人不勤劳么？ 所得呢？</p><p>对员工而言，其知识资源的输出必须得到合理的回报。</p><p>不讳言地说，在金钱资本横行的背景下，我们今天的商业社会是“资本社会”，是一个重资本而轻知识资源，重资本家而轻员工的商业结构。这个商业社会结构的形成是历史演进的自然结果，但随着商业组织的不断成熟和发展，越来越大的商业组织更多出现的时候，这种“资本社会”的组织模式必然会演进到“知本社会”，即更为注重员工的知识资源的投入，在知识资源和资本资源之间更为平衡的模式。</p><p>可以看一下华为的持股模式，华为在这个方面，我认为相比之下，更具有知本和资本的平衡性，如果我们可以更科幻一些地想象一下未来，未来的商业社会模式会是向着华为模式发展么？</p><p>我们不妨脑洞大开的看一下比特币，比特币消除了国度的限制，任何人通过劳动都可以即时持有更小单元的比特币，如果比特币是某个公司的某种特殊具有价值的股票呢？这会不会是更加平衡的“知本社会”的未来呢？公司的内部股票可以被分割为更小的单元，并且其授予和分配更加“实时”，任何人，不仅仅是内部的员工，甚至公司某项业务的外包公司，都可以根据任务完成的情况，相对“即时”地从劳动增值部分获得属于自己的“股份”收益，这些收益有别于现在的薪资和奖金制度，薪资是固定的，无法享受公司增值的红利，而小单位的“股票”，由于更加灵活，而且可以即时交易，这样员工真正获得更多的回报，而且是相对即时的。交易的对象可以是公司的持股会或者社会机构。</p><p>当然，这仅仅是我们今天的畅想，它是否可以实现，需要很多法律、技术以及管理文化等等各方面的成熟到位，在今天的社会框架约束下，是难以实现的。</p><p>但这个话题的讨论，其实揭穿了今天资本社会下，尽管众多资本家巧舌如簧地鼓吹什么996是福报，而普罗大众都嗤之以鼻的真相—-在分配模式不平等的大框架下，996是对更多员工的一种压榨和戕害。</p><h2 id="宗教是996模式下最有效的管理模式"><a href="#宗教是996模式下最有效的管理模式" class="headerlink" title="宗教是996模式下最有效的管理模式"></a>宗教是996模式下最有效的管理模式</h2><p>站在管理的角度去看996的企业现象，996管理模式是企业管理演进方向上的退化，我是管理科班出身，今天西方企业更多强调地是知识和资本的平衡，以及柔性化的管理，其核心本源是承认人的创造性是企业创新的源泉，而人的创造性是产生土壤是全社会的自由、平等以及思想的复杂性，西方企业作为整体社会的一个部分，也承袭了整体社会的这种风气。而我们今天的996，恰恰相反，它的本质就是一种更为严厉地剥削，它的出现是对全社会创新精神的直接反作用。</p><p>而具体在企业管理上看，996表达为典型的宗教型的管理特点—凡是鼓吹996模式的企业，都在内部创造或者正在创造着“神”，就像马云先生之于阿里巴巴，刘强东先生之于京东，造神运动将众多光环加诸在他们身上，使其言行举止具有外部社会地位和内部组织地位上的超凡影响力，而这种“神化”从内在动机意义上探究，恰恰是资本为了维护在组织内部不平等的优势地位所需要的，资本需要集中，而集中需要代理人，代理人需要具有某种“神权”，–当我们对比人类社会文明演进的时候，我们可以更为清醒地知道“资本垄断时代”的脆弱性，它终将会被取代。</p><p>话说回来，这些人造的“神”一旦出现，他们很快就可以发现，当企业越来越复杂和庞大时，任何先进的管理模式都不如宗教式的管理模式来的低成本和快速，利用神化的地位和企业控制力，对内形成宗教式的文化高压，逼迫员工996-ICU式的工作，并美其名曰：“福报”，就不难理解了。</p><p>再次强调—在游戏规则不平等的前提下，谈996就是“耍流氓”，就是对年轻生命的戕害。</p><p>从管理实践意义上，一旦996开始流行，我们的企业创造性将大受影响，社会价值观和文化塑造都将恶化。</p><h2 id="996是企业家精神沦丧的体现"><a href="#996是企业家精神沦丧的体现" class="headerlink" title="996是企业家精神沦丧的体现"></a>996是企业家精神沦丧的体现</h2><p>这点我不想多谈，996之后是什么？ 7*24？ 奥斯维辛集中营？ 也许那些高喊996的企业家乐见这种局面？</p><p><strong>最后，我想说，996的形成的社会原因才是我们真正需要思考的部分。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 996 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>当快递小哥被减薪时，京东工会在哪里</title>
+      <link href="/posts/1234397546/"/>
+      <url>/posts/1234397546/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://pic2.zhimg.com/v2-994a959510895b1a49a9da73426a2c26_1440w.jpg?source=172ae18b" alt="当快递小哥被减薪时，京东工会在哪里?"></p><h2 id="当快递小哥被减薪时，京东工会在哪里"><a href="#当快递小哥被减薪时，京东工会在哪里" class="headerlink" title="当快递小哥被减薪时，京东工会在哪里?"></a>当快递小哥被减薪时，京东工会在哪里?</h2><p>由油气传统制造业至跨境工业品B2B，擅长营销策划 战略管理 项目管理以及财务分析</p><blockquote><p>“工会通过平等协商和集体合同制度，协调劳动关系，维护企业职工劳动权益。”—《中华人民共和国工会法》第六条<br>“企业、事业单位违反职工代表大会制度和其他民主管理制度，工会有权要求纠正，保障职工依法行使民主管理的权利。”—《中华人民共和国工会法》第十九条</p></blockquote><p>昨天网络热议一则新闻—京东将取消旗下快递员的底薪，另外将增加快递收件任务，揽件将计入绩效，直接影响工资收入。也就是说快递员的收入以后全凭绩效了。京东方面称是部分地区试点。京东的强势和快递员个体的弱势引发了各媒体平台上热议。我也谈一下我对这个热点新闻的看法。</p><p><img src="https://pic1.zhimg.com/80/v2-3ad9554fb1d5cc33215962197c925d34_1440w.jpg"></p><p>员工为什么会被贴上“三类人”的标签</p><p>上图就是疑似京东内部邮件中说的“三类人”。</p><p>从企业经营和管理的视角看过去，京东的这些管理决策轻率、不计后果的程度以至于越过了道德和法律的红线。从深一层看：</p><p>—京东“三种人”的内部邮件及降薪的做法反映出京东集团对剩余价值分配游戏规则的“坐庄心态“，我是”庄家“，我想怎么玩就怎么定规矩，缺乏对员工和其他利益方的价值尊重；</p><p>—京东”三种人“的标签文化和相应的降薪、裁员，是对员工实施赤裸裸的歧视化管理和对劳动者追求自由和受尊重的基本道德诉求的侵犯，它也让我们看清了京东集团繁花似锦的外象下低智化的管理思维和手段。</p><p>—京东工会的尸位素餐，导致企业高层对《中华人民共和国工会法》的蔑视和践踏，更导致广大企业员工的权益受到直接侵害。这反映出当下企业界中的工会效能的通病。</p><p>我是一个职业经理人，基于二十多年的企业实践积累，我对管理体会就是—”管理没有任何秘诀，其核心就是管理利益，即把企业、顾客和员工三者的利益平衡好，建立一个利益共同体。首先需要把顾客和员工的利益放在首位，为顾客生产出满足其价值需求的产品，为员工创造发展的平台。在此基础上，需要给企业留出一定的利润，从而为股东和投资者创造价值。“</p><p>通过现象看本源，我猜测京东对利益管理的平衡，其实做的并不好，形成了历史欠账，需要对利益分配进行调整，这本无可厚非，很多企业都会遇到这样的情况，各企业的应对之策也多种多样，其中应该不乏比京东更过分的，只是企业的规模和公众曝光程度不一样，有一些是我们看不到的。但办法总比问题多，现代企业制度和配套环境建设之成熟，无论是从过去企业的实践案例还是从方法、渠道的合规性上看，以京东集团之大，人才之多，完全可以有更为各方接受的管理实现方法的，我猜对于京东而言，企业家本人在巨大成功光环的笼罩下和高居强大控制力的顶峰，他本人对于管理理念和方法的取向，直接导致了京东今天逾越道德和法理的红线。</p><h2 id="京东的工会在做什么"><a href="#京东的工会在做什么" class="headerlink" title="京东的工会在做什么"></a>京东的工会在做什么</h2><p>京东是有工会组织的。根据《中华人民共和国工会法》，工会有保护职工权益的权力和义务，且当企业侵害职工权益时，工会是代表其利益的组织。但翻遍各个信息旮旯，整个事件中最应该站出来代表快递小哥们利益的工会组织，也是必须要站出来说话的京东工会，犹如遁形一般，悄无声息。那我们不禁要问—工会不为民做主，要他何用？</p><p>追本溯源，工会组织就是劳动者自发的，在法律的框架下，为对抗资本的贪婪性，维护劳动者基本权益的自发基层组织。工会组织是全球步入工商业文明时代以后，劳资双方数百年博弈和合作的结果，是一个行之有效的劳资双方问题解决机制。</p><p>为何这样一个好的机制，也上升到了立法层面，但在企业实践中就任由企业家随意践踏？职工的权益就任人鱼肉？</p><p>要知道没有合理的渠道释放和解决劳资矛盾，一味依靠强权，压抑劳资矛盾，最后容易酝酿成大的社会矛盾。这绝不是危言耸听，试看百年以前的芝加哥工人大罢工（1886年5月1日），矛盾激化的结果是双输和社会文明的损失，所以最早步入工商业文明的西方社会才率先有了Labor Day或者劳动节之类的假期，这不仅仅让后人可以稍事休息的法定假日，我们今天的有识之士，应该认识到这是劳资极致对立爆发后的妥协结果。</p><p>按照《工会法》有关规定，工会会员按每月工资收入0.5%的整数部分交纳工会会费。我们不禁要问：“京东工会，你们的尸位素餐对得起那些平时缴纳会费供养你们的数以万计的快递小哥么？“</p><p><strong>我希望看到一个意识到自己应该做什么的京东工会站出来，展现自己维护劳动者利益的实际行动，践行法律赋予的权力。</strong></p><h2 id="对于我国企业界践行《工会法》的关切"><a href="#对于我国企业界践行《工会法》的关切" class="headerlink" title="对于我国企业界践行《工会法》的关切"></a>对于我国企业界践行《工会法》的关切</h2><p>其实，就我多年的企业观察而言，京东的案例是一个非常普遍的案例。企业内部往往具有凌驾于社会道德共识和法律之上的内部价值观歧视和行为要求，这些要求被不平等地施加在劳动者身上，而劳动者往往求告无门。究其根源，这是：</p><p>—二千年前帝制文化形态在企业文化的投射，即对强权文化的崇拜和顺从压抑。当企业的领导人取得较高商业成功或者社会名望时，这种对强者的屈从在企业内部表现的会更明显；</p><p>—我国工商业社会基础仍然比较薄弱。</p><p>下面，我稍微展开说一下：</p><p>企业文化本身会孕育出价值观的追求。但这种价值观的作用是价值导向，其基础是内部共识，而不是强制，如果变成凌驾于法律和社会道德共识之上的强制行为准则，那就变成了对劳动者的戕害。</p><p>我们举一个另外的例子，互联网企业圈子里面一直盛行的996工作制，即每天早9点到岗，一直工作到晚上9点，每周工作6天。一周工作72小时的高强度强制行工作，就是对就业劳动者的戕害，参见996.ICU就知道了。</p><blockquote><p>2019年3月27日，一个名为996ICU的项目在GitHub上传开。在这个项目指向的域名页面上，发起人这样写到：“<a href="https://link.zhihu.com/?target=http://%25E4%25BB%2580%25E4%25B9%2588%25E6%2598%25AF996.ICU">什么是996.ICU</a>？工作996，生病ICU”。他将996工作制下最低72个工时与《劳动合同法》等条文对比，并呼吁“程序员生命为重（Developers’ lives matter）”仅仅三四天后，“996ICU”星数已超过10万，仅15天后，“996ICU”星数达到20万，GitHub排行榜第二 [2] ，而且还在继续增长。</p></blockquote><p><img src="https://pic4.zhimg.com/80/v2-643609718fc95e511cc5104c8f537c9b_1440w.jpg"></p><p>996工作制&#x3D;ICU病房</p><p>可见996工作制是企业为榨取剩余价值而对劳动者实施的强制劳动的戕害，那么这种”冒天下之大不韪“的事情，企业家是如何做的呢？</p><p>别忘了，企业家是最具创造力的一群人。且看，有些”聪明“的企业家是将”奋斗“一词儿泛化和扭曲，而这面变了味儿的”奋斗“大旗，使得企业家们可以对外躲避法律监管和社会谴责，对内形成实际上的组织文化高压对员工进行约束和控制，在企业实践中，这种”奋斗“往往变成对员工实施戕害的遮羞布。</p><p>纵观工业文明的发展史，我们不难发现，这个社会问题并不是中国发展中独有，19世纪美国工业巨子，“汽车大王”亨利·福特曾经有一句在管理学史上非常有名的话：“我雇的明明是两只手怎么却来了一个人。”</p><p>这句话实际上反映了早期企业管理者们的普遍观点，但很遗憾，这种不尊重劳动者的观点在我国当下企业界依然流行，比如上面奉行996工作制的诸多互联网公司的大佬们，他们卡在嗓子里想喊而又不敢喊的话就是：”我雇的明明是一个会编程的脑子，怎么却来了一个人？“</p><p>管理大师德鲁克早就对此进行了批驳：“雇佣一个人，而不是一双手”。人不是实现目的的工具，而是目的本身。我们不仅要关注人的生产力，更要关注到他作为一个正常人的需要，即：要把人当人。</p><p>资本的天然贪婪性，驱使老板们有压榨剩余价值的冲动，但周瑜打黄盖，一个愿打，也需要另一个愿挨才行。作为被戕害的劳动者为什么大多默默承受呢？高的生活成本压力是来自经济方面的直接驱动力，比如高房价，比如房贷、比如子女教育等等，这是沉重的的社会现实，叫人无法回避和扼腕叹息。</p><p>除了经济压力，我还想从文化层面做一个浅层的探析—为什么频频见到所谓的企业家大佬们对成就他们的员工要么如贴上“三种人”的标签，要么偏低为“小白兔”员工？这种现象为什么会频发不绝？ 我在上面已经提出，这其实是两千年来帝制文化传统或者说强权文化在我们社会乃至更微观的组织—企业中的投射。</p><p>企业的组织文化和管理模式是匹配的。欧美企业的管理模式是越来越趋向人性化，即“柔性化管理”，而在我们所居的社会中，企业管理趋势越来越向“威权”方向演化，这是值得每一个企业界人士警惕和反思的。</p><p>其次，盲肠式的企业工会整体现状，也反映出我国社会对于源自欧美的工商业文明的认知浅薄。鸦片战争后，中国从农业文明全面走向工商业文明，在整体规模超英赶美的背后，尤其是改革开放以来，企业的活力并发创造了大量的社会财富的内在层面。由于我们的民众和社会也缺乏对于欧美工商业文明历程的深刻认知，尽管我们每个人初中阶段都学过的《政治经济学》中就有资本贪婪的描述，但很显然大多数人都没有真正认知资本在积极作用背后的可憎的一面，以及西方在几百年时间里面，劳资如何博弈形成今天的局面。这导致了我们尽管大量借鉴了欧美的法律和组织设计，但由于整体社会缺乏理性认知，导致只具其形，而不得其里。民智不举，也间接导致威权盛行。在此，值得拷问的是我国的职业经理人层—-当公司老板举起“奋斗”大旗戕害员工的时候，我们作为职业经理人应该如何处之？</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 劳动法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>黄天已死，苍天当立！褚马也来分一杯后EMBA的唐僧肉</title>
+      <link href="/posts/753197723/"/>
+      <url>/posts/753197723/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://pic4.zhimg.com/v2-428529cc854cba4d9cf0656628be98f6_b.jpg" alt="下雨啦"></p><blockquote><p>褚马学院昨日成立，王石、吴晓波出任名誉院长 2019年03月27日 09:39:25 来源：吴晓波频道</p></blockquote><p><strong>Note: 以色示人者，色衰而爱弛。自2017年EMBA实施全国联考以后，当低门槛的学位获得途径和优质商业社交资源难以为继时，大多数高校商学院的EMBA门庭稀落，招生困难。吴晓波先生在2016年4月就预言：“EMBA死了“。 可谓一语成谶。随着联考前招收的最后一批EMBA学员即将毕业，烈火烹油的EMBA时代徐徐拉上帷幕，我想以一名“末代EMBA学生”的身份，为高校EMBA教育这个渐行渐远的背影做一个小小的注脚。这些感悟应该对我们更理性地看待当下后EMBA时代，社会商学院遍地开花的乱象有一些帮助吧。</strong></p><p>EMBA教育原本是面向企业高级管理人士的一门管理进阶课程体系，我的同学们基本上都是在企业或者组织机构中居于高级管理岗位或者干脆就是企业老板。这群人普遍的画像是：教育背景复杂，从事的行业和职业多样化，社会阅历丰富，有过比较成功的管理实践，但绝大多数都没有接受过系统的管理学科教育。</p><blockquote><p>”EMBA全称Executive Master Of Business Administration，直译为高层管理人员工商管理硕士，通常称为在职MBA。它是由芝加哥大学管理学院首创。读EMBA的学员一般由公司推荐，利用业余时间集中上课，课程内容广泛，理论与实践平相结合。其实质是一种具有学位的在职培训，它对升至公司中、上级而又无MBA学位的管理人员很有意义。“<br>MBA智库</p></blockquote><p>如果在《笑傲江湖》的武侠世界里寻找EMBA这群人，他们就像福州的物流公司—“福威镖局”中的林震南夫妇或是他们的战略联盟企业—“洛阳金刀”王家父子，他们在某个特定的领域或者区域内颇有社会名望，但武学本身的修为并不精纯，可胜在走南闯北，见识颇广，所以武功路数走的是实用主义路线和拿来主义，管理实践中尤其讲究的是“势大力沉”四个字—-身居高位有一定的权势，执行力很强，再加上管理无对错这一护身符，所以在企业中应付问题总能对付和抵挡几下。这一点儿也不影响他们的社会声望和财富的积累。</p><p>林平之同学就出生在这样一个家庭，跟着父母早早学习企业经营，如果一切都可以天随人愿，假以时日，他就可以从“少镖头”转正，在获得青城派和金刀王家的支持后，福威镖局业务范围可以从东南一隅扩大到四川和中原腹地，不消说，小林同学在福布斯排行榜冒头和境外敲钟上市都是指日可待的。</p><p><img src="https://pic1.zhimg.com/80/v2-289050ca098d0400dd8cd8d19d30b2d0_1440w.jpg"></p><p>我就是小林子</p><p>岂料家道中途变故，企业经营大受打击，很是不幸，但其实，企业经营总有周期，类似的极端情况也不是凤毛麟角，况且好的经营者很多都是匡难救危时大显身手的，福威镖局也不是败的毫无翻身资本，还有很多的土地、房屋、品牌等资源可以借以东山再起，要知道华山管院对林平之那可是收了一大笔学费的，连全院师生外出游历考察的开销，都是林平之拉来的金刀王家的慷慨赞助，这可不是一般人家能够负担的。</p><p>但很不幸，林平之同学错误地选择了进入华山大学管理学院去念EMBA，这才是他个人和福威镖局走向衰亡的真正拐点。</p><p>且让我们看一下华山管院的EMBA课程设置吧。让我们读一下金庸老爷子的原文：</p><blockquote><p>“岳灵珊小嘴一扁,道:“这小子不中用得很,一套入门剑法练了三个月,还是没半点样子,偏生用功得紧,日练夜练,教人瞧得生气,”<br>—金庸《笑傲江湖》</p></blockquote><p>又及</p><blockquote><p>“令狐冲微感诧异，道：“他上华山来还只几个月，便练到‘白虹贯日’和‘天绅倒悬’了？小师妹，本派剑法须得按部就班，可不能躁进。”<br>—金庸《笑傲江湖》</p></blockquote><p>仔细品读MBA研二岳灵珊同学的话，是不是大有深意？—林平之入校以前，已经颇有武术根底，但管院一视同仁，EMBA的课程开设和普通MBA大同小异，统统从入门剑法按部就班，请问林平之同学的目的是快速成长，报仇雪恨，一个入门剑法练习三个月，真的不知道该说什么好，这和把令狐冲同学往精修《紫霞神功》和”无双无对，宁氏一剑“的纯学术道路上牵引的课程体系能一样吗？</p><p>而且，由于EMBA的上课时间较短，每个月一次课程，每次集中上课3、四天，每次要讲2门课，假如按照系统的管理学科的方式进行教育，教授们根本来不及讲透，只能择其要点进行大致讲述，根本无暇顾及更深的道的层面，然后丢给弟子们一本厚厚的教材，让弟子们回去勤加修习领悟，所以，尽管小林子的课表进度神速，但令狐冲同学从学术修习的角度看过去，直呼不可思议。</p><p>这样的教育模式，请问林平之同学又能获得什么裨益呢？ 大家动动心思大概就能明白了，既然说到了MBA，也让我不妨也大不敬一下，放胆喷一下MBA的教育吧，还是让我们再从《笑傲江湖》里面挑一个案例出来—劳德诺同学。</p><p><img src="https://pic2.zhimg.com/80/v2-3c72dea2af0d70136e89b2847c30e84d_1440w.jpg"></p><p>华山管院二号弟子劳德诺</p><p>劳同学在考取华山管院的全日制MBA以前，在嵩山大学进修过一段时间，还在云贵那边的几个企业里面混过一阵子，后来考了华山管院的全日制MBA，按说以前有过工作实践，现在管院学了也有年头，应该是理论结合实践，功力蹭蹭涨上去才对，可实际真动起手来，还是被人虐的不行，你别不信，就拿药王庙的实操项目来说吧，那可是华山管院的重大项目，管院一众上下都全力参与，可结果呢：“庙中弟子相继受伤，一一被人制服。”。劳德诺作为华山管院的二号学生代表的实际表现让人大跌眼镜。</p><h2 id="那为什么学院派弟子们一旦实操起来会这样难堪？我们以反面案例教学法的方式，剖析一下令狐冲同学的逆袭成长之路。"><a href="#那为什么学院派弟子们一旦实操起来会这样难堪？我们以反面案例教学法的方式，剖析一下令狐冲同学的逆袭成长之路。" class="headerlink" title="那为什么学院派弟子们一旦实操起来会这样难堪？我们以反面案例教学法的方式，剖析一下令狐冲同学的逆袭成长之路。"></a>那为什么学院派弟子们一旦实操起来会这样难堪？我们以反面案例教学法的方式，剖析一下令狐冲同学的逆袭成长之路。</h2><p>令狐冲同学原本是要继承管院的学术衣钵的，如果没有遇见风清扬，他的实操能力大概比劳德诺强不了太多，但造化弄人，他的学术乃至人生轨迹从遇见风清扬开始发生逆转。</p><p>说起风清扬，话题要回到十多年前管院讨论开设EMBA课程的时候，那时院里爆发了激烈的讨论并分成两派，一派名为剑宗，提倡学以致用，以实际的管理技法和工具以及案例教育为核心，讲究实操，重视形而下；一派名为气宗，提倡以学科教育为主，沿袭MBA教育的模式，传授学科门类中的普遍常识，学生以此为基础通过论文的方式悟道。两派观点严重对立，风导是剑宗阵营的中坚分子，但最后剑气二宗之争以气宗胜出结束，风导一气之下不再参与EMBA教学。</p><p>机缘巧合，令狐同学在思过崖憋论文憋到便秘的时候，遇见了风导。风导是剑宗大家，教育令狐冲只花了几天的时间，他通过把握企业和环境不同适应水平的基本类型及特点，以及资源运动的规律，在当年名噪一时的管理顾问独孤求败的管理操作手册的基础上，继承和丰富了包括股权及治理、战略及组织、财务管理、风险管理等9大类若干小类的应用模型—也就是“独孤九剑”。这九个基本范式的教学效果又如何呢？ 令狐冲现学现卖就击败了田伯光，后来差一点接受了日月神教副教主的offer，要知道任我行教主眼界极高，放眼武林，也只有“三个半人”能叫他佩服一下，连著名企业，老牌上市公司–武当派的首席CEO冲虚先生也只能算的上半个而已，令狐冲最后接手了晋商核心企业–恒山派，成为五大后起之秀的上市公司–五岳剑派中最年轻的CEO，他策划的对百年上市公司少林寺的一次不成功的要约收购以及联合任我行等人对江湖第一大教日月神教公司的重组，在江湖和学界都轰动一时，其实操能力不容怀疑，</p><h3 id="为什么会这样？为什么他和劳德诺会有这样不同的走向？"><a href="#为什么会这样？为什么他和劳德诺会有这样不同的走向？" class="headerlink" title="为什么会这样？为什么他和劳德诺会有这样不同的走向？"></a>为什么会这样？为什么他和劳德诺会有这样不同的走向？</h3><p>风导在书中已经告诉了我们：</p><blockquote><p>“只是招数虽妙，一招招的分开来使，终究能给旁人破了”。令狐冲听到这里，心里一动，隐隐想到了一层剑术的至理，不由得脸现狂喜之色。风清扬道：“你明白了甚么？说给我听听。”令狐冲道：“太师父是不是说，要是各招浑成，敌人便无法可破？”风清扬点了点头，甚是欢喜。<br>—金庸《笑傲江湖》</p></blockquote><p>吴晓波先生在《EMBA死了》一文中说到：</p><blockquote><p>“当今商学院绝大多数的教授们离企业实践实在太远了，他们还在拿哈佛商学院的案例上课，还在用五年前甚至十年前的PPT，或者拿几个网络笑话驱走课堂里的哈欠。过去几年，在几家知名度最高的商学院里，都发生过学员愤怒罢课的尴尬事件。”<br>吴晓波 《EMBA死了》</p></blockquote><p>我以为这话说对了一半，他只说对了EMBA教育尴尬的现状，而到底如何做，没有给出解释。</p><p>的确，目前教学中很多案例的确都年代久远，脱离现实。但我以亲历者来看，EMBA课程林林总总，但设置分散，每门学科都独立成课，如教人盲眼摸象，所得只是片段和独立的科目，所讨论的案例也只是在单一学科视角下的死案例，EMBA学员们都精于世故，个个心里都知道这些死招法出了课堂是万万用不上的，即便是从中感悟到一些东西，但到底管不管用，其实心中也是无数，至于各学科真正在思想层面融汇贯通而建成管理哲学体系，则基本靠自悟，商学院在这个过程中存在感不大。</p><p>我在上面将EMBA教育和《笑傲江湖》穿凿在一起，难免有一些牵强的意图，我也不是强调剑宗的教法就是最好的教学模式，只是希望借助一些熟悉的角色和场景，让大家理解一条本意良善的教育途径为何被教育部和真正求学的学员这么不待见的，为何高校通行的MBA\EMBA学科教育之下，大多只能教育出劳德诺式的学员的原因。</p><p>想来也是，我国整体企业管理水平的提升远远不及EMBA学位颁发的速度。这实在是个令EMBA教育者们难堪的局面。</p><p>但后EMBA时代，高校学科系统教育衰落后，到底什么样的教育模式适合这些企业高级管理者？剑宗的方法就一定好么？似乎没有定数。</p><p>只是诺大的江湖，一时出现了真空，“秦失其鹿，天下共逐“。</p><p>你看，那众多喊着”苍天已死，黄天当立”口号的各色民办商学院遍地开花，各种特色、各种招牌大有乱花渐欲迷人眼的态势，比如最近刚刚在褚老”三七“这天成立的，由王石和吴晓波联袂背书的”褚马商学院“等等~~</p><p>这些商学院究竟如何，我们将在下一篇中穿透现象，回归求知的本源，结合我的EMBA亲身经历谈一下我们这群人到底需要什么样的继续教育和这个行业未来发展的走向展望。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EMBA乱象 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>裁”中干“这件事儿，腾讯和你想的不一样（下）</title>
+      <link href="/posts/3550925761/"/>
+      <url>/posts/3550925761/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="裁”中干“这件事儿，腾讯和你想的不一样（下）"><a href="#裁”中干“这件事儿，腾讯和你想的不一样（下）" class="headerlink" title="裁”中干“这件事儿，腾讯和你想的不一样（下）"></a>裁”中干“这件事儿，腾讯和你想的不一样（下）</h2><h3 id="—-模块化组织是生态类型企业的基本组织形态"><a href="#—-模块化组织是生态类型企业的基本组织形态" class="headerlink" title="— 模块化组织是生态类型企业的基本组织形态"></a><p align="right">— 模块化组织是生态类型企业的基本组织形态</p></h3><div align=center>    <img src="https://i.loli.net/2021/10/08/gDhHxVGIfZlMPLB.jpg"  />    </div><p>前面我们介绍了传企对待裁员以及裁管理中干的基本逻辑动因，以及通过梅特卡夫定量和Logistic函数制约下的生态型企业的大致生命路径。希望你没有被我斑驳不齐的学思介绍弄混了头。如果你有任何问题，可以留言，我们一起探讨。</p><p>既然生态型企业和传企有如此的不同，那么在管理和组织设计偏好上，两者的取向是一致的么？</p><p>显然不是！</p><p>从本质上说，传企升维到生态企业以后，由于管理对象和内容的复杂程度大大提高—它管理对象不仅仅是自身内部的资源和角色，需要外延到价值网络中的不同层级，而管理的目的从服务于单一企业战略目标也复杂到整个价值网络的共同利益，这是一个从封闭走向开放的过程，这使得其不能再继续传统的科层的组织设计。任佩瑜（2013）将解释了管理熵—封闭的企业系统会从有序向无序的退化，也就是管理效率递减规律。</p><blockquote><p>知识点来了：如果你很不幸和我一样，曾是饱受理科生歧视的文科生，看到这里是不是又晕了？ 没关系，这里不是物理课，我们只要知道熵的增加就是混乱过程的增加，系统的有序程度随之降低。管理熵的意思是一个企业的组织系统如果是孤立的，那么它总会表现出一种不可逆的过程：有效能量递减，反观无效能量却是不断增加。这不是熵和管理熵最全面的解释，但这对理解本文已经足够了。</p></blockquote><p>那么有没有一种组织结构类型，它能够更好地面对和管理复杂，可以更加灵活的适应快速调整的外界变化以及具有高度的自律性，自驱动性呢？</p><p>答案是~~有！</p><p>管理学借鉴了耗散结构理论，它提出：一个开发的、远离平衡状态的企业系统，通过与外界环境进行物质、能力和信息交流，在内部各因素的相互作用下，可以实现自组织和自适应，从而在时间、空间或者功能上形成有序稳定的机构，用更接地气的话说就是—-上面句子里面的四个条件时候，企业是能够搭建一个更好的具有自组织和自适应的组织结构的。</p><p>如果说上面的熵增定律在更大维度的演绎可以被理解为世界和人类的命运都会从有序到无序，而熵–也就是无序的递增是不可逆的，这是一个非常灰暗的哲学隐喻，</p><p>幸而比利时学者普利高津（1969）提出—处于远离平衡状态下的开放系统，在与外界环境交换物质和能量的过程中，通过能量的耗散过程和系统内部的非线性动力学机制，能量达到一定的程度，熵流可能为负，系统总熵变可以小于零，则系统通过熵减就能形成‘新的有序结构’这就是著名的”耗散结构“理论，从哲学意义上：只要处于开放的体系中，只要有能量的交换与释放，除了封闭的宇宙之外，任何的自然与人类组织，都有可能实现从无序到有序的逆转，实现“熵减”，实现自身的更新。这无疑是对人类关于奋斗、努力等词义的最大的肯定和褒奖。</p><p>真是谢天谢地！幸而有耗散结构啊。</p><h2 id="模块化组织是生态类型企业的基本组织形态"><a href="#模块化组织是生态类型企业的基本组织形态" class="headerlink" title="模块化组织是生态类型企业的基本组织形态"></a>模块化组织是生态类型企业的基本组织形态</h2><p>凯文·凯利说道：“创造一个能运转的复杂系统的唯一途径，就是先从一个能运转的简单系统开始。试图未曾培育就立即启动高度复杂的组织，主动走向失败。通过将简单且能独立运转的模块组装起来，复杂性就诞生了。”</p><p>耗散结构理论和管理学的进一步结合的产物就是—模块化理论的诞生。模块化理论对于大部分企业而言，是如何”封装“企业核心竞争力，或者可以表达为—企业模块化生长就是封装竞争优势向生态进化的中间态。</p><p>”模块化“是组织设计复杂的产品或过程的有效战略之一。”模块化系统“是由各单位或者模块构成，虽然它是独立设计的，但它和统一的系统一样可以发挥作用。</p><p>我们以海尔来举例说吧。张瑞敏将中层比喻为”烤熟的鹅“，2017年在企业家联合会的一次演进中，他提出：</p><blockquote><p>科层制也会被颠覆，因为互联网的零距离带来的是去中心化，过去的科层制有中心，他的上级领导就是他的中心，直属领导是中心，现在每个人都可以是中心。<br>职能管理也会被颠覆，中层干部没有用所以要去掉。据了解，前些年海尔集团去掉了一万多名中层管理干部，给他们两条路，要么创业要么离开。张瑞敏指出，“当时我们非常担心，外界质疑非常大，但情况并没有想象中那么坏。现在海尔没有中层管理部门，没有中层管理人员，每个人都是中心。”<br>张瑞敏</p></blockquote><p>张瑞敏先生是笔者钦佩的管理学实践前行者，读懂这句话，我们也就明白了，生态型企业将科层管理机制，特别是将中层视之为”盲肠“的价值取向—当企业进化到这一维度，这一层级早晚要砍，而且一旦砍去，是整个层级逐渐消失。</p><p>那海尔是怎样实践模块化的组织设计呢，不妨看一下海尔提出的”自主经营体“，它实际上就是模块化的一种组织应用。（当年自主经营体在海尔横空出世，没多少人能够理解，时隔多年，当今天我们回归理论的高度，向下俯视，应该就可以理解”自主经营体“的内涵了，道理易懂而实践为难，抚今追昔，我们必须为海尔及张瑞敏先生当年勇于进行理论实践的勇气和毅力喝彩）。</p><p>海尔在内部以小微、自经体来构建耗散结构的必要条件，通过人单合一的方式，将价值网络的共同利益（就是所说的共同价值，海尔称之为”单“），进行自驱动。<br>拗回到腾讯等生态企业身上，我们也就彻底理解了他们对管理中干下手的逻辑动因了。</p><p>对本节稍作总结如下：随着技术进步和竞争的恶化，企业的形态演化呈现从简单到复杂的趋势，即从传统技术型企业向平台，乃至生态型企业迁跃，此时传统管理模式难逃管理熵的演绎规律，而模块化是应对复杂化的有效方式之一，将组织模块化以实现自驱动、自适应和自管理是生态企业的组织设计偏好，以此看，生态企业是必然要干掉管理中干的。</p><h2 id="生态型企业演化展望"><a href="#生态型企业演化展望" class="headerlink" title="生态型企业演化展望"></a>生态型企业演化展望</h2><p>笔者想最后花一点时间，不自量力地推测一下生态型企业演化的下一个阶段。在中篇中，我们曾以Logistic函数法则大体推断了生态型企业从快速发展到放缓的约束规律，但生态型企业更长远的未来是什么？</p><p>金岩石先生曾说过：企业是什么，把“企”字劈开，就是人停止了（创始人或者创始股东消亡了），事业还在，马云要曾说希望阿里可以做一个102年的企业，也是希望能够基业长青。可见企业的生命长短也是衡量企业的一个非常重大的长期指标。</p><p>那么生态型企业需要如何延长自身的寿命？或者说每一个企业应该如何延长自身的寿命？</p><p>那就让我们回到上篇中的一张图，这次我们看的是最右边的部分（见图1）</p><p><img src="https://pic1.zhimg.com/80/v2-0f90967c9442b9d125358853bba25d0c_1440w.jpg"></p><p>图1 图片资料来源：韦斯特 《规模》</p><p>凯文·凯利在《技术元素》一书中认为，网络系统的基本形式有两种：有机体和生态系统。公司似有机体，而城市似生态系统，两者虽同为网络系统，但城市和公司的命运却各不相同。在他看来，有机体和生态系统、公司和城市之间发展的区别在于，生态系统和城市都是进化而非成长。成长总是自我限制，而进化则没有限制。进化是无限的游戏，它会不断从内重造自身，因此其增长不可能被追赶上或陷入停滞。所以他直接喊出了：“城市近乎不朽”的宣言。</p><p>以KK的这段话理解次幂规律图片中最右侧的图片，那么就是生态企业的下一个升维也许将是一个近似城市的更为开放、更为复杂，更高维度的生态集群。</p><p>图2简要列出了城市和企业的异同，笔者大胆的设想，其中的差异之处，就是为了全球生态企业进行升维迁跃的方向之所在吧。</p><p><img src="https://pic4.zhimg.com/80/v2-56d1cf8410b48c4eaad6d5668bbed057_1440w.jpg"></p><p>图2 图片资料来源：韦斯特 《规模》</p><p><strong>留在最后的问题：企业真的不会死么？</strong></p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 孟华，朱其中．熵_耗散结构理论与价值网络系统演进[J]．经济论坛，2019（1）：28-33．</p><p>[2] 青木昌彦，安藤晴彦．模块时代：新产业结构的本质[M]．上海：上海远东出版社，2003．</p><p>[3] 卡利斯，吉姆．模块时代的经营[J]．哈佛商业评论（期缺失）：页码范围缺失．</p><p>[4] 凯文·凯利．技术元素[M]．北京：电子工业出版社，2012．</p><p>[5] 任佩瑜，王苗，任竞斐，等．从自然系统到管理系统——熵理论发展的阶段和管理熵规律[J]．管理世界，2013（12）：页码范围缺失．</p><p>后记：动笔前以为一篇小文就可以说清的，结果兜兜转转做成了上中下的三连载。思想兑水看来要比酒精兑水要来的容易得多啊:(。</p><p>Anyway，至此总算得是大致完成，仍然不是很满意，希望日后可以在学术思脉上更精纯，可以用更精炼和简洁的语言对这个话题进行重构。希望以后有这个能力和心气儿可以完善它。而在写这个连载的时候，脑中有了其他思绪的触发，比如模块化的应用和陷阱等，待研究后和大家分享吧。<br>希望本篇的内容也能够对你有所帮助。如果你还希望了解哪些信息和知识，请留言告诉我，我会在后面的文字中和你一起学习、分享。最后谢谢你来看我！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 战略生态位 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>裁”中干“这件事儿，腾讯和你想的不一样（中）</title>
+      <link href="/posts/1459561251/"/>
+      <url>/posts/1459561251/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="从企业生态位角度看腾讯大举裁撤“中干”的必然性"><a href="#从企业生态位角度看腾讯大举裁撤“中干”的必然性" class="headerlink" title="从企业生态位角度看腾讯大举裁撤“中干”的必然性"></a><p align="right">从企业生态位角度看腾讯大举裁撤“中干”的必然性</p></h2><div align=center>    <img src="https://i.loli.net/2021/10/08/XAR23C6PNozLIEU.jpg"  />    </div><p><strong>Note: 今天风光无限的生态类型的企业，Logistic函数是他们挥之不去的梦魇，种种的匪夷所思的收购和管理行为，一旦升维去观察，都可以发现其背后非常清晰的逻辑必然性，他们唯有不断突破一个个临界点，否则就会面临“二向箔打击式”的残酷降维。</strong></p><p>在上篇中，我们剖析了各型各色的神教式传企在次幂法则约束下的裁员逻辑动因，但事实上，技术本身的糅合性和互联网改造所有产业形态的必然性，正在让所有的价值模式发生重组，在此过程中，技术的推动创造了前所未有的消费精神和用户行为，用户的进化尺度因此得以提升，这也促使企业得以不断拓展其进化的边界，实现企业发展目标和实现的维度迁跃，它表现为我们可以直接体验到的新产品和新技术，也表现为我们不易体验到的新的商业模式，以及随之匹配适应的新思维和新的管理方式。以企业的价值构建模式概括来说，我们可以把各色企业分为三类，见下图，他们的数量和生态维度呈金字塔结构：</p><div align=center>    <img src="https://i.loli.net/2021/10/08/UtNorI6lciLR2Kn.jpg"  />    </div><p>我们没有时间在这篇小文里面详细讨论三者的详细异同，我也许会在后面的其他时间里面单独介绍，这里我们简单概括一下：产品型企业是一维度企业，平台型企业是二维企业，而生态型企业则是三维企业。产品型企业价值链策略是锲入，发现需求和市场空白，为成功至不可替代全力以赴；平台型企业则要弯曲某个价值链，缩短供应链两端的距离，借助网络技术去中介化，剔除低效环节；生态型企业则要突破单一价值链的范畴，打破并重塑产业边界，塑造立体的价值网络。</p><p>从竞争角度看，生态型企业有赢者通吃的特性，它是竞争恶化升维的结果，也正是因为这个特性，所以才有那么多企业对生态进化趋之若鹜。<br><strong>PS: 对平台企业感兴趣的同学，可以阅读《平台经济》这本书。它可以为我们描绘出具有普遍意义的平台企业的特点和战略确立。</strong></p><p>下面让我们聚焦三维生态型企业，说一下</p><h3 id="生态型企业心里在想什么鬼"><a href="#生态型企业心里在想什么鬼" class="headerlink" title="生态型企业心里在想什么鬼"></a>生态型企业心里在想什么鬼</h3><p>说起生态型企业，诸如亚马逊、阿里和腾讯乃至微软，三星等等，这些巨头企业一时风光无两，但套用《红楼梦》中凤姐的话就是大家子也有大家子的难处，先让我们给他们“算算命”，来看一下套在这些生态型企业头上的紧箍咒是什么吧！</p><p>2014年，罗伯特·梅特卡夫教授发布了一篇文章，他发现Facebook的收入和其用户数的平方成正比。然后他将这一发现进行了泛化研究，进而指出：网络的价值等于网络节点数的平方，即网络的价值与联网的用户数的平方成正比—-这就是梅特卡夫定律。它揭示了互联网的价值随着用户数量的增长而呈指数级数增长的秘密。（很像我们在上篇里面展示的次幂法则的数轴关系吧）</p><div align=center>    <img src="https://i.loli.net/2021/10/08/RnYM3B1r6x9tzg7.jpg"  />    </div>    <p>张星洲等人在《腾讯和Facebook数据验证梅特卡夫定律》论文中通过分析两家企业近十年的数据，验证了Facebook和腾讯的收入和其月活跃用户数的平方成正比。但假如按照梅特卡夫定量，那生态型企业一旦越过了网络价值和成本的第一个交叉点以后就真的一飞冲天，永生不倒了么？</p><p>显然不是！</p><p>皮埃尔·弗朗索瓦·韦吕勒在1844或1845年在研究Logistic函数曲线与人口增长的关系时发现人口增长（P）的S形曲线。起初阶段大致是指数增长；然后随着开始变得饱和，增加变慢；最后，达到成熟时增加停止，而不是无限增长。这个增长函数（Logistic函数）同样适用于企业增长的描述，这也正是戴在这些生态型企业头上的禁锢儿，实际上，它应该是所有类型企业的禁锢儿，只是生态企业的生存维度太高，这条曲线的数轴上的数量级更大，所以看起来后果更可怕。—-要知道生态型企业一旦无法延申抵达临界点的时间，就会面临被降维的局面，如《三体》中说的“二向箔打击”下的地球，对具体企业而言，那同样不啻于一次天劫！</p><div align=center>    <img src="https://i.loli.net/2021/10/08/mML5cWhb3X8xHoA.jpg"  />    </div>    <p>上图显示Facebook的用户数量从2004年开始有着接近十年的快速增长，到2013年以后增长的势头已经渐渐放缓，呈现出S曲线。当下的腾讯也面临着同样困扰。</p><p>题外说一句：Logistic函数和梅特卡夫定律的结合很好解答了Facebook公司为什么下大力气在印度市场以及大手笔在互联网行业买买买的行为动机，其本质就是寻找下一个巨量用户市场和扩大数据交叉连接的价值，延缓临界点的到来。我们耳熟能详的其他生态企业，如腾讯、阿里、百度、雅虎等等大手笔开拓海外市场、进度2B或者天价收购都是是殊途同归的必然举措。</p><blockquote><p>印象最深刻的就是扎克伯格在2015年以190亿美元天价收购WahtsApp时，外界曾质疑交易对价的合理性，他说过的一句：这是给Facebook买命！当看懂了这背后深层的逻辑，这些看似疯狂的行为看起来都顺理成章了。</p></blockquote><p>最近腾讯公布了2018年第四季度财报和全年财报，堪称腾讯史上最差的一份财报了，营收和净利润增速双双放缓。特别是净利润出现了自2005年以来的第一次同比下滑，而且下滑幅度很大，是有史以来季度最大降幅。结合腾讯最近对10%的管理中干大举裁员之刀，所以网上就有一些诸如企鹅开始衰落的声音。</p><p>在这里，笔者无意唱衰腾讯，笔者反而认为腾讯在用户价值的挖掘和增量市场的潜力是巨大的，远远没有到临界点的地步。笔者只是希望通过升维的思考，和大家分享一些对于生态型企业普适性的发展趋势。</p><blockquote><p>进一步思考的问题： 生态型企业是否是企业形态发展的终点？如果不是，那么生态型企业后面一个发展阶段是什么？推进企业发展到下一个类型的动因是什么？ 动力是什么？ 是技术推动么？ 还是马云预测的从IT推动演进到DT（Data Technology）么？</p></blockquote><p>我们用了足足两篇，大致说清了神教式传企的裁员动因，以及腾讯这样的生态型企业的特点和命运之路的前半段，也正是因为生态型企业和传企的这些根本不同，决定了生态型企业在管理形态和组织演化方面与传企的巨大不同，而这正是我们想就文章题目《裁”中干“这件事儿，腾讯和你想的不一样》所核心表达的—它一定有背后的逻辑必然性，这是由生态企业类型决定的，无论这一季财报是好是坏都会做的。</p><p>我们还将在下篇中对生态型企业的组织管理偏好进行具体剖析，最后，我们也会站在理论研究的高度上对生态型企业的未来做前瞻式的展望。欢迎你继续阅读。</p><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1] 阿里研究院．平台经济[M]．北京：机械工业出版社，2016．</p><p>[2] ZHANG1 Xing-zhou, 2(张星洲)，LIU1 Jing-jie, et al. Tencent and facebook data validate metcalfe’s law[J]. Journal of Computer Science and Technology, 2015, 30(2): 246-251.</p><p>[3] 周文艺．生态战略：设计未来企业新模式[M]．北京：j机械工业出版社，2017．</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 战略生态位 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>裁”中干“这件事儿，腾讯和你想的不一样（上）</title>
+      <link href="/posts/1796912292/"/>
+      <url>/posts/1796912292/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="裁”中干“这件事儿，腾讯和你想的不一样（上）"><a href="#裁”中干“这件事儿，腾讯和你想的不一样（上）" class="headerlink" title="裁”中干“这件事儿，腾讯和你想的不一样（上）"></a>裁”中干“这件事儿，腾讯和你想的不一样（上）</h2><h3 id="—从企业生态位角度看腾讯大举裁撤“中干”的必然性"><a href="#—从企业生态位角度看腾讯大举裁撤“中干”的必然性" class="headerlink" title="—从企业生态位角度看腾讯大举裁撤“中干”的必然性"></a><p align="right">—从企业生态位角度看腾讯大举裁撤“中干”的必然性</p></h3><p><strong>Note：腾讯作为生态企业的特性，决定了其不懈追求资源连接以及去中心化的行为模式，在这个行为模式的驱动下，”管理中干“这一传统管理科层下的产物，必然被员工自管理和资源自组织的模式替代。</strong></p><blockquote><p>据36氪3月19号发布消息称，10%中干去职，腾讯掀起史上最大一轮管理干部裁撤。</p><p align="right">张信宇，公众号：36氪</p></blockquote><p><a href="http://mp.weixin.qq.com/s?__biz=MzI2NDk5NzA0Mw==&mid=2247536217&idx=3&sn=e26b12b2742466f0b79a9a566bbaf444&chksm=eaa61f85ddd19693ecd8313a62087b6e5465d6159d9d25b669b2f565c3db6758b19c798e0c01#rd">10%中干去职：腾讯掀起史上最大一轮管理干部裁撤 | 36氪独家</a></p><p>企鹅帝国无小事，风吹草动都会惊起无数飞鸟，这次也不例外。一周以来，围绕这个热点，网上各种抓眼球的文章层出不穷，有替中干这一夹心层鸣不平的；也有为85前这一尴尬年龄段鸣屈喊冤的，“打江山有份，守天下则没戏，企鹅这样做，大有过河拆桥的意味“；更有文章结合腾讯最新财报乱分析一气，得出企鹅帝国开始走下坡路的奇葩言论。各种品评大有乱花渐欲迷人眼的架势，既是如此，何妨我也来蹭一下这个热度呢？</p><p>在这里，我只是想借助腾讯的个案，结合企业生态以及系统科学等理论观点，稍微深入地剖析其行为的必然性，以及揭示出这一类企业在进行管理行为决策时的逻辑脉络。在这个层面的分析，还是属于比较浅的理论结合实践的整理，想来还不至于让人瞌睡，闲话少说，切入正题吧！</p><p>笔者认为：腾讯作为生态企业的特性，决定了其不懈追求资源连接以及去中心化的行为模式，在这个行为模式的驱动下，中干这一传统管理科层下的”阑尾“，必然被员工自管理和资源自组织的模式替代。这一行为模式是生态形态企业的共同特征，所以裁撤中高级干部的行为不管是在腾讯的未来，还是在其他生态类型的企业中都将不断发生。</p><p>要说清这个观点，我们需要进一步做一下阐述。我会首先介绍传统形态企业中裁员的逻辑思脉，这类企业是大家最熟悉的；然后会花一点文字介绍一下生态型企业的特点，以免大家被副标题中“生态位”搞糊涂了；后面我会说一下生态型企业之于裁“管理中干”的逻辑动因，这解释了腾讯对“管理中干”痛下杀手的逻辑必然性，以及未来生态型企业架构的特征—-这个话题很大，大概是几本专著和博士论文都不易说清的难度，我尽可能提出自己目前对这个问题的一点点片面看法，希望可以引起你的共鸣和思考。</p><p>好，我们开始了！</p><h3 id="传统形态企业的管理视角下，裁员是怎么回事"><a href="#传统形态企业的管理视角下，裁员是怎么回事" class="headerlink" title="传统形态企业的管理视角下，裁员是怎么回事"></a>传统形态企业的管理视角下，裁员是怎么回事</h3><p>裁员从来都不是新鲜事儿，裁员的理由也形形色色，与其在现象层面纠缠，不如升维一下。杰弗里.韦斯特先生在《Scale: The Universal Laws of Life, Growth, and Death in Organisms, Cities, and Companies》（2018）中提出了著名的规模法则和次幂公式。（中译本为<a href="https://book.douban.com/subject/30244461/">《规模》 (豆瓣) (douban.com)</a>）</p><div align=center><img src="https://i.loli.net/2021/10/08/25dZVyW7Aa8MY3D.jpg"  /></div><p align="center">图1 资料来源：韦斯特 《规模》</p><blockquote><p>稍微科普一下规模法则。规模法则所探讨的是在纷繁复杂的世界背后的量化法则，有了规模法则，我们可以更加科学理性的看待系统的演化与生长，也能去解释大量的现实世界的现象。感兴趣的同学，可以注意补充系统科学的知识。<p align="right">杰弗里·韦斯特 《规模》</p></p></blockquote><p>这个公式的含义是Y正比于X的a次幂，X一般代表系统规模，Y则是其他具体可以量化的系统指标。是不是晕了，没关系，我只是简单说一下，目的在于引出下面的具体应用。次幂公式被证明可以适用于很多场景，下图中列举了三个具体例子，我们先看中间这个案例</p><div align=center><img src="https://i.loli.net/2021/10/08/uhsOXKEi9ZkeL7p.jpg"  /></div><p align="center">图2 图片资料来源：韦斯特 《规模》</p><p>可以看出，当企业发展到一定阶段，员工成本的增长会超过销售额的增长，从而损害企业利润的表现。相信有过企业经营实践的同学都有这个感觉吧，当企业面临员工成本和销售额增长的交叉点时，我们往往有两个选择，一个是保守做法，控制用工数量，这在短期内有助于成本的控制，但实际上对企业的进一步发展增长是不利的；另外一个做法就是，谋求开发新的能力或者开展新的业务，使得销售的增长线的斜率升高，但其实，很快，我们又会发现员工成本支出的斜率线赶了上来。</p><p>对上图的升维总结，可以概括绝大多数传统企业进行裁员的基本逻辑动因。传统企业多因为经营业绩的压力，不得不对员工成本进行调整，即裁员，至于裁员的对象，则主要是根据企业战略、经营现状而决定的。传企中往往为了拆除部门墙实现集中或者合并管理的目的，或者由于业务调整的目的而对”管理中干“下手，但传统形态下的企业运行是建立在科层结构上，所以其裁员是组织结构和具体人员的”表”的改变，而科层文化的”里”是岿然不动的。</p><p>掉了半天书袋，估计很多看官都已经昏昏欲睡了，咱们借金庸先生的《笑傲江湖》来穿凿一下具体的例子吧。</p><p>其实，传企的裁员就好像日月神教总助杨莲亭同学对神教实施的人事调整一样。神教前任CEO任我行先生雄心万丈，派了十长老生抢了武林超级IP《葵花宝典》后，就欲一统江湖，大手笔招聘江湖豪士入教，用工成本直线上升，但可惜关键技术《吸星大法》的研发不顺，数年中迟迟不能进行进入量产实用，导致业绩徘徊不前，神教利润大幅下滑，且股东权益受损，导致神教董事会和内部高管不满而换届，摊子交到新任总经理东方不败同学手里后，上来就直接砍了上市无望的《吸星大法》，同时大量清退多余人员，裁员力度不可谓不大，连副总经理向问天都在被裁之列，黄钟公这样的前高管都被降职降薪去了梅庄，而曾在祁连山单掌劈四霸，一剑伏双雄的”一字电剑“丁坚同学以前好歹也混到了中干，这次人事调整也险在被裁之列，最后多亏丹青生走了门路，留在教内做普通职员了。</p><p>可是呢，裁员归裁员，神教还是左右使、堂主、香主的科层管理体制不变。</p><p>神教的这个例子，不仅可以救回被次幂公式弄晕的脑袋，还能形象地告诉我们：科层管理是传企运行机制的依托，传企们的裁员是在科层里子上的表象化行为而已，它和生态型企业视”管理中干“为”盲肠“的态度有着根本的不同。</p><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1] 金庸．金庸作品集(28-31):笑傲江湖(套装共4册)[M]．广州：广州出版社，2013．</p><p>[2] WEST G. Scale: the Universal LAWS of Life, growth, and death in organisms, cities, and companies[M]. United States: Penguin Books, 2018.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 战略生态位 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>管理决策的低智化表现--从中小学校长陪餐说起</title>
+      <link href="/posts/4070371531/"/>
+      <url>/posts/4070371531/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>Note：越简单的管理越有效，但这不意味着管理决策越简单越有效。头痛医头，脚痛医脚的急就章式的应急决策，是低智化的体现。</strong></p><p>3月19日，教育部、国家市场监管总局、国家卫健委共同发布《学校食品安全与营养健康管理规定》，并即宣布规定将从4月1日开始执行，其中最引人瞩目的是这里：</p><blockquote><p>第十三条 中小学、幼儿园应当建立集中用餐陪餐制度，每餐均应当有学校相关负责人与学生共同用餐，做好陪餐记录，及时发现和解决集中用餐过程中存在的问题。 <p align="right">中华人民共和国教育部</p></p></blockquote><p>简单概括就是实施集中用餐的中小学及幼儿园负责人需要被强制陪餐。</p><p>对时事略加关心的都知道，刚刚的“两会”期间，成都7中的霉变食品案闹得沸沸扬扬，比很多国家大事还抓我等升斗百姓的眼球，敏感时期特殊热点，自然要快速反映以示有关部门的决心和效率，对我们而言也是好事一桩，我也是一名小学生的家长，举双手赞成国家对学生用餐安全的重视和基本要求，对于规定中的大部分，我持谨慎赞同的态度。但拉出第十三条就其本身而言，基于多年的管理实践，我对这种急就章式的管理决策的效果并不抱太大希望。</p><p>不妨将思路绕开的远一些，社会上广泛流传着巴顿将军为解决军队降落伞质量不佳的问题，要求降落伞厂的厂长做自己产品的试跳员，结果降落伞质量迅速提升到100%合格。这个故事的逻辑可以说是让校长们陪餐的逻辑参照物–不是校园食品安全堪忧么，那就让校长自己去吃食堂好了。</p><p>可很不幸，巴顿将军和降落伞这个段子经查证，是杜撰出来的土味鸡汤故事，没有任何事实依据。而且这个段子极有可能还是一个中国人假托在巴顿将军身上的“国产货”—我们不能从英文资料上找到其源头。</p><p>其实对这个段子稍加思索就可以知道，产品质量不仅仅是一个厂长的问题，是整个运作流程、技术设计和工艺实现以及检查检测通程保证下来的，用企业管理的语言来说，质量的实现是需要整个机制和流程以及检查的保障的，这也就是诸如ISO等质量标准化体系被创制出来的原因。我想做企业管理，尤其是做质量管理的同学一定对此深有体会。</p><p>可环顾社会，我们可以轻易发现很多这种急就章式的管理决策和其次生逻辑—矿难频发不是么？那就让矿领导跟着一块下井；企业发生安全事故不是么，那就第一时间控制负责人，事儿都出了，那就仔细查，还怕查不到负责人的问题么……结果呢，企业负责人越抓越多，事故也频发不止，其他如此种种就不一一列举。</p><p>在此，我们不用为降落伞厂的厂长们心疼，因为那极有可能是虚构的，但我们必须要为中小学乃至幼儿园的校长和园长等领导们心疼一下，也在此要郑重提示那些立志成为以上人物的大好青年们：要充分做好不能在家饭而要吃食堂的长期准备哦！让我们不妨心理阴暗的推测一下，校长毕竟只有一个，事务繁忙，所以这个陪餐制度可能就变成广大教职员工的轮流福利了。</p><p>这让我想起了钱钟书先生在《围城》中对三闾大学在落实教育部（又是教育部，看来不管民国还是共和国，教育部都容易招惹百姓的揶揄啊）有关导师制时，也有一个陪餐的描述非常传神，不妨摘一些以博一笑：</p><blockquote><p>导师跟学生同餐的那条规则，大家一致抗议，带家眷的人闹得更利害。没带家眷的物理系主任说，除非学校不算导师的饭费，那还可以考虑。家里饭菜有名的汪处厚说，就是学校替导师出饭钱，导师家里照样要开饭，少一个人吃，并不省柴米。韩学愈说他有胃病的，只能吃面食，跟学生同吃米饭，学校是不是担保他生命的安全。李梅亭一口咬定这是部颁的规矩，至多星期六晚饭和星期日三餐可以除外。算学系主任问他怎样把导师向各桌分配，才算难倒了他。有导师资格的教授副教授讲师四十余人，而一百三十余男学生开不到二十桌。假使每桌两位导师，四个学生，那末现在八个人一桌的菜听说已经吃不够、~是不是学校准备贴钱。大家有了数字的援助，更理直气壮了， <p align="right">《围城》作者:钱钟书</p></p></blockquote><p>钱先生若是泉下有知得知若干年前的玩笑文字竟然变成有司之规定，不知道会不会发一封冥函给教育部索要版权呢？</p><p>其实，如果将校餐安全作为一个管理课题，那么管理作为一门独立学科即将诞生百年–1911年泰勒先生就出版了巨著《科学管理原理》，近一个世纪的实践和知识沉淀应该可以给出比较清晰的管理路径或者可以借鉴的案例，这种土味管理对策只能暴露出潦草的管理态度和“抓大头”式的管理思维，是决策低智化的体现。</p><p>究其根本，无外乎四：</p><p>一曰：用行政规定替代体系和标准化管理，如果出事，事情不能怪到有司头上，规定挂在那里啊，出事就是下面没有执行好，那么规定是否具有可执行的框架和体系，则没了下文。规定成了有司挡箭牌和下面的原罪书。二曰：规定摞规定，规定层出不穷。“一个规定出了，问题还管不住，回头再看规定，咦，这么多不合时宜的东西，原来是规定不行，来，不怕，咱们改规定！”，所以老乌龟上摆小乌龟，新“龟腚”摞老“龟腚”，刚刚出炉的这个管理规定最后就有一句：“《学校食堂与学生集体用餐卫生管理规定》同时废止”</p><p>咦，老规定设立的初衷就是为了校园食品安全，2002年颁布的，现在为什么废止呢？没有官方说法，再仔细看，哎，好像更不对了，老规定是教育部和卫生部两个部门颁布的，现在人家卫生部都没有官方点头，教育部一人就把老规定挑落马下，“喂，教育部，你这么干，问过卫生部了么？”，我们身边太多这样的情况，一个规定忽然而至，一个规定嘎然而在，挥一挥手，唉，还是希望这些规定能带走点云彩吧。</p><p>三曰：抓大头，每每读到xx企业发生事故，负责人被控制的新闻，我的心里都不由得猛跳一下，盖因为我也曾做过很久的企业负责人，不由得后怕和暗自庆幸。可仔细思量又觉得非常不妥，未经任何调查和法律程序，凭什么限制公民人身自由？这种先控制再查证定罪的做法岂不是法制社会中的嘎嘎怪事？从管理角度看，这种锯箭杆式的做法对于问题的复发意义非常有限，就好像古时候县衙的差役拿了贿赂，打人屁股时，高高举起，落地响亮，但犯人却并不怎么受罪一般。</p><p>四曰：多龙治水其实是谁也不下雨。有过求人办事经历的都知道，请托最忌讳多方请托，管理其实很多时候也一样，以刚刚出炉的《学校食品安排与营养健康管理规定》来说，是教育部、市场监管总局和卫生健康委联合下发，我想如果不是这个规定，教育部和市场监管总局这两个衙门应该是八杆子都打不着的，很怀疑仅凭一个规定，两个老死不相往来的部门能够有效合作。</p><p>问题就说到这里吧，再说，难免有看人挑担不吃力的嫌疑了。既然规定已经下发，让我们还是期待这个规定可以真的给我们的校园食品安全带来一方长久的保护伞吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 时政 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书摘笔记 《华杉读透孙子兵法》（七）</title>
+      <link href="/posts/2729811852/"/>
+      <url>/posts/2729811852/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>@(孙子兵法)[华杉读透孙子兵法] [兵法] [格局拓展] [思维]</p><h3 id="第五章-兵势第五"><a href="#第五章-兵势第五" class="headerlink" title="第五章 兵势第五"></a>第五章 兵势第五</h3><p>“势”，就是创造“势所必然”。我只要造成那势，就必然得到那结果。<br>曹操注解说：“用兵任势也。”要用兵，就靠势。形和势的关系是什么呢？前面说了，做事先看形，做起来就靠势。“形”是实力，是战略。<br>势呢，也不能简单地说是战术，或者说是执行。经常被引用的荀悦的话：“夫立策决胜之术，其要有三：一曰形，二曰势，三曰情。形者，言其大体得失之数也；势者，言其临时之宜，进退之机也；情者，言其心志可否之实也。故策同、事等而功殊者，三术不同也。”这里对形的议论是准确的，但是将“势”理解为根据事态发展变化的“临时之宜，进退之机”，这不是《孙子兵法》讲的势。<br>孙子讲的势，更是人为地制造出一种势态，俗话说“造势”，就有点这个意思。造势，然后“任势”，用这种制造出来的势态去驱使团队，甚至呼天唤地。孙子更强调通过造势去影响人的心志，所以荀悦所讲的情——其心志可否——在《孙子兵法》中其实也包含在势里面，不管他心志行不行，只要给他造成那个势，他不行也得行！比如韩信的背水一战，就是把士兵造成置之死地之势，他的心一横，也就拼死作战了，<br>《孙子兵法》里讲的“势”，如果说要用现在的话来讲的话，</p><ul><li>一是讲战术，</li><li>二其实主要是讲管理。</li></ul><h4 id="组织架构与指挥系统，是永远的课题-兵法讲这个，就没人爱听了。但能不能打赢，主要秘密都在大家不爱听的，打瞌睡的部分，不在人人都兴奋的那部分。"><a href="#组织架构与指挥系统，是永远的课题-兵法讲这个，就没人爱听了。但能不能打赢，主要秘密都在大家不爱听的，打瞌睡的部分，不在人人都兴奋的那部分。" class="headerlink" title="组织架构与指挥系统，是永远的课题 兵法讲这个，就没人爱听了。但能不能打赢，主要秘密都在大家不爱听的，打瞌睡的部分，不在人人都兴奋的那部分。"></a>组织架构与指挥系统，是永远的课题 兵法讲这个，就没人爱听了。但能不能打赢，主要秘密都在大家不爱听的，打瞌睡的部分，不在人人都兴奋的那部分。</h4><blockquote><p>孙子曰：凡治众如治寡，分数是也。斗众如斗寡，形名是也。</p></blockquote><p>管很多人跟管很少的人一样，是因为有“分数”，就是编制。“分”，就是分成班、连、团、师、军之类，看你怎么分。“数”，就是每个编制单位多少人。编制搞好了，组织架构搞好了，管很多人就跟管很少的人一样，和运用自己的手臂一样方便。<br>整个现代管理学，就是从军队管理发展起来的。这“分数”两个字，怎么分，多少数，那学问大了去了。你看好多公司，成天都在研究组织架构，老也研究不明白。而且业务发展变化越快，对组织架构的变革越多。所以这《势篇》第一句就是讲管理，组织架构问题。分数和形名，和第一篇《计篇》，“五事七计”里的第五事——“法者，曲制、官道、主用也”——基本相通。曹操注解“曲制”，是“部曲、旗帜、金鼓之制”。分数就是部曲之制，后面要讲的形名就是金鼓之制。<br>“斗众”，就是开打了，指挥一支大军作战，跟指挥一个小分队一样，靠什么呢？靠“形名”。曹操注解说：“旌旗曰形，金鼓曰名。”形名就是号令。“形”，顾名思义，是视觉号令，旗帜、狼烟都是“形”；“名”，是听觉号令。名字是喊来听的，《说文解字》里，“名”，来自于“冥”，指晚上。晚上看不见，不知道对面来的是谁，就问：“谁呀？”对方答应出自己名字来。所以名字是用来喊的，不是写纸上看的，是听觉号令。部队晚上用的口令、暗号，也属于“名”。<br>组织架构与指挥系统，是组织永远的课题，一个架构，时间长了就不适应了。公司一发展，原来的架构又不行了。所以不停地要搞组织变革，权限，<br>但能不能打赢， 主要的秘密都在大家不爱听的、 打瞌睡的部分， 不在人人都兴奋的那部分。</p><h4 id="“以正合，以奇胜”：《孙子兵法》被人误读最多的一句话"><a href="#“以正合，以奇胜”：《孙子兵法》被人误读最多的一句话" class="headerlink" title="“以正合，以奇胜”：《孙子兵法》被人误读最多的一句话"></a>“以正合，以奇胜”：《孙子兵法》被人误读最多的一句话</h4><blockquote><p>三军之众，之众，可使必受敌而不败者，奇正是也。兵之所加，如以碫投卵者，虚实是也。<br>凡战者，以正合，以奇胜。故善出奇者，无穷如天地，不竭如江河。终而复始，日月是也。死而复生，四时是也。声不过五，五声之变，不可胜听也。色不过五，五色之变，不可胜观也。味不过五，五味之变，不可胜尝也。战势不过奇正，奇正之变，不可胜穷也。奇正相生，如循环之无端，孰能穷之？</p></blockquote><p>“以正合，以奇胜”，是《孙子兵法》里被误读最多的一句话。最大的误读，就是以奇胜的“奇”，不念qí，念jī，是个数学词汇，奇数、偶数的奇，古人又称为“余奇”，多余的部分。正兵安排好了，余下来的就是奇兵，关键的时候用。简单地说，就是预备队。</p><blockquote><p>曹操注解说：“先出合战为正，后出为奇”，<br>“奇”，“正奇”，就是一个先后概念。不要一下子把所有的牌都打完了，留一张在手上，关键时候打出去。两军对阵，先以正合，正兵合战，双方主帅在后面看着，看到关键的时候，投入预备队——奇兵——决胜，这就叫出奇（jī）制胜。但是大家现在都念出奇（qí）制胜，jī就成了qí，将错就错了。<br>所以战势不过奇正，而奇正的变化却无穷无尽。奇正互相转化，就像圆环一样无始无终，无穷无尽。</p></blockquote><h5 id="奇正之变，不可胜穷也。奇正相生，如循环之无端。"><a href="#奇正之变，不可胜穷也。奇正相生，如循环之无端。" class="headerlink" title="奇正之变，不可胜穷也。奇正相生，如循环之无端。"></a>奇正之变，不可胜穷也。奇正相生，如循环之无端。</h5><p>奇正之间怎么相互转化呢？其实很简单，已经投入战斗的，是正兵；预备队，是奇兵。预备队投上去，就变为正兵了。正在打的部队撤下来，又变成奇兵。<br>《孙子兵法》有三个地方被人误读最多的，</p><ul><li>一是《计篇》，前面说了，“计”是计算衡量，不是奇谋巧计，不是诡道。</li><li>二是“知己知彼，百战不殆”，人人都想去知彼，不知道主要问题是不知己。</li><li>三就是“以正合，以奇胜”，都想贪巧求速，奇袭得胜，实际上孙子的“以奇胜”、出奇制胜，虽然也是出其不意、攻其无备，但这是分战法的排兵布阵，不是讲奇袭。</li></ul><h5 id="仗是怎么打的，从正兵奇兵角度去看，好多仗怎么打就看懂了"><a href="#仗是怎么打的，从正兵奇兵角度去看，好多仗怎么打就看懂了" class="headerlink" title="仗是怎么打的，从正兵奇兵角度去看，好多仗怎么打就看懂了"></a>仗是怎么打的，从正兵奇兵角度去看，好多仗怎么打就看懂了</h5><p>战势不过奇正，简单地说，就是分战法，就是分兵，分为正兵、奇兵，配合着打，而且正奇是动态的，随时相互转换的。不要把所有的兵力放在一块儿，不要把所有的牌一下子打光。在战前，就要分配正兵、奇兵两只兵力，互为掎角，相互配合。交战的时候，也不要把所有的部队一下子派出去，一定要留一张牌在手里，要有预备队。先打出去的是正兵，后打出打出去的是奇兵。看到胜机出现的时候，把奇兵打出去，这叫出奇制胜。<br>.我们用以前学过的案例，再从奇正的角度学习一遍。<br>先讲韩信破赵之战，韩信以一万兵力，在井陉击破号称二十万的赵国军队。韩信出井陉口之前，赵军谋士广武君给主帅成安君建议分兵，说井陉道路狭窄，绵延百里，您给我三万奇兵，先去埋伏，等韩信进了井陉，您深沟高垒不要出战，我在后面绝了他后路，断了他粮草，十天就饿死他，送他人头到您帐下。成安君不听：“我二十万仁义之师，怕他什么，不用跟他搞这些诡计，等他来打！”韩信接到谍报，成安君没有采纳广武君必胜之计，这才敢进兵。后来韩信见了广武君，说如果用您的计策，我已经被擒了。他这是客气话，他不会被擒。因为如果赵军用了广武君计策，他就不会来，他想别的招，或者等着，不打。这就是先胜后战，不胜不战。他有谍报知道这计策没被采纳，他才来。韩信有没有分兵呢，他分了。离出井陉口还有三十里，他半夜先分了两千奇兵出去，分配了任务，如此这般。大清早出了井陉口，他先派了一万兵力背水列阵。赵军望见大笑，没见过这么列阵的，我们一个冲锋，不就把他们冲水里去了么？汉军也认识到这一点，咱们背后是水，无路可逃，只有殊死作战，这就是“背水一战”成语的来历。<br>两千奇兵半夜已经派出去了，清早把一万人的背水阵列好，韩信这才把自己的大将旗鼓仪仗列好，自己大张旗鼓，耀武扬威从井陉口出来，开始表演。所以我们看见韩信把兵分了三支，半夜先派出去一支两千人，背水列阵一支一万人，自己带了一支，史书上没说多少人。我们看哪支是正兵，哪支是奇兵，怎么转换，怎么打。赵军看见韩信大将旗鼓仪仗，都红了眼，立功就在眼前，擒贼先擒王，开营出击，韩信接战。所以这时韩信的兵力是一正两奇，先出为正，后出为奇。他自己带的那支部队先打，是正兵。还有两只预备队等着，背水列阵的是一支，奇兵；半夜派出去现在不知道躲在哪儿的是另一支，奇兵。赵军有没有分正奇呢？开战前他没分，没有分兵去堵井陉口，都在这大营里。现在有没有分呢，有！出营来作战的是正兵，没有出营的预备队是奇兵。<br>韩信的下一步，就是要把他营里的奇兵也调出来，叫他空营。两军交战，“大战良久”，还是赵军人多，韩信看似支持不住了，开始败退，而且退得比较狼狈，大将旗鼓仪仗也丢地上了——这是为了引诱赵军来抢——自己退入水边军营中。然后又率水边那一万人杀出来，殊死作战。这时韩信的兵不是一正两奇了，是一正一奇，他自己带的部队，和水边的预备队合兵一处，一处，是正兵。半夜那两千人是奇兵，还没出来，在等胜机，胜机出现，再出奇，制胜。胜机靠什么呢，就靠韩信丢在地上的大将旗鼓仪仗，赵军看见仪仗，两个反应，一是已经胜了，韩信兵败如山倒，全被咱们撵到水边了，再一冲就都喂鱼了；二是战利品，得到韩信仪仗，是巨大的荣耀和赏赐，要去抢功劳！胜机出现，该出奇，制胜了，赵军的奇兵——留在军营里的预备队——就倾巢出动了。<br>这时候赵军没有奇兵了，手里的牌全部打出去了。但韩信手里还有一张牌没打呢！韩信等的就这一刻，他的胜机出现了，出奇制胜的时候到了，半夜派出埋伏的两千奇兵，出发时一人带了一面汉军红旗，冲击夺了赵军军营，就干一件事，把赵军旗帜拔了，插上汉军红旗。最后这一阶段，韩信的正奇又是怎么转换的呢？那两千奇兵，变成了正兵，打出去就是正，没打的就是奇。正兵夺了敌营，敌人败退，其实还没败，但是心里败了，要退，一退就真败了。敌人败退，守住营不能让他退回来。这时韩信水边的部队变成奇兵。敌人要来解决军营的问题，看后面鼓噪，自己的军营已全部插上汉军红旗，老窝给端了，要回师夺回军营。韩信部队从后面追上来。赵军前不得入营，后无战心，就崩溃了。韩信此战，破赵军二十万，斩了成安君，生擒了赵王歇。<br>从此战中我们就看到了正奇之用，韩信始终有正有奇，赵军则有正无奇。如果赵军营能有两千人备着，汉军两千人也攻不进去。但是韩信丢盔弃甲，甚至自己的大将仪仗都丢得满地狼藉，营里的赵军就以为战斗已经结束，再不冲出去抢战利品，就上不了功劳簿了。</p><h5 id="用足球赛来理解正奇之用，控球的就是正兵，跑位的就是奇兵。球一旦传出去，正奇就转换，接到球的变为正，刚才传球的变为奇。球场就是战场，到处都是，分分秒秒都是奇正转换。奇正之变，不可胜穷。"><a href="#用足球赛来理解正奇之用，控球的就是正兵，跑位的就是奇兵。球一旦传出去，正奇就转换，接到球的变为正，刚才传球的变为奇。球场就是战场，到处都是，分分秒秒都是奇正转换。奇正之变，不可胜穷。" class="headerlink" title="用足球赛来理解正奇之用，控球的就是正兵，跑位的就是奇兵。球一旦传出去，正奇就转换，接到球的变为正，刚才传球的变为奇。球场就是战场，到处都是，分分秒秒都是奇正转换。奇正之变，不可胜穷。"></a>用足球赛来理解正奇之用，控球的就是正兵，跑位的就是奇兵。球一旦传出去，正奇就转换，接到球的变为正，刚才传球的变为奇。球场就是战场，到处都是，分分秒秒都是奇正转换。奇正之变，不可胜穷。</h5><p>韩信破赵之战，再分解一下战阵中的奇正转换过程，一共转换了三次：<br>所以我们看到正兵奇兵，不是一次规定好，谁是正，谁是奇，而是随时在变，彼此相用，循环无穷。韩信排兵布阵，是正奇之用，战阵中的伍长、卒长呢，也是正奇。就在战阵中，每一个战斗单位，都有正有奇。从微观上讲，正奇就是战术配合，不是一窝蜂冲上去乱打，而是有章法，有先后，有配合。所以孙子说战势不过<br>奇正，奇正之变，不可胜穷。正兵奇兵，并不是大部队才用。项羽到了乌江边，只剩二十八骑，这二十八骑，也不是一起冲杀，而是分为两组，一正一奇，首尾相助，这是战斗的基本原理。<br>这一段里，还有一句话，“兵法之所加，如以碫投卵者，虚实是也。”以石击卵的虚实之道，因为《势篇》之后，专门有一篇《虚实》，就留到下一篇再讲了。</p><h4 id="把动作搞简单了，动手就那一下子"><a href="#把动作搞简单了，动手就那一下子" class="headerlink" title="把动作搞简单了，动手就那一下子"></a>把动作搞简单了，动手就那一下子</h4><blockquote><p>激水之疾，至于漂石者，势也；鸷鸟之疾，至于毁折者，节也。是故善战者，其势险，其节短；势如彍（guō）弩，节如发机。</p></blockquote><p>湍急之水能将巨石冲走，是借助水势；鹰隼迅飞猛扑，以至能将鸟雀捕杀，这乃是靠掌握发动的时机和距离。所以，善于用兵打仗的人，他的兵势是迅猛的，他的行动节奏是短促的。险峻的兵势就像张满的弓弩，短促的节奏就像猝发弩机。<br>这里的关键是“其势险，其节短”。势险和节短，关键把握节短。“短”，就是近，距离近、时间短。“势险”，是积累的势能最大，力量最大，“节短”，是释放能量的距离最短、时间最短，那就能准确命中而且有最大杀伤力。李筌注得最本质：“矢不疾，则不远；矢不近，则不中。”如果你射箭的力量不够大，箭速不够快，你就射不远。但是，如果你离目标不够近，你就射不中！</p><h5 id="善射者不靠百步穿杨"><a href="#善射者不靠百步穿杨" class="headerlink" title="善射者不靠百步穿杨"></a>善射者不靠百步穿杨</h5><p>从小听的都是百步穿杨的故事，兵法则告诉你不要指望百步穿杨，要十步之外射簸箕，那样才能射中、射穿。就像猎豹妈妈教小猎豹猎羚羊，不能在百步之外发动追击，要悄悄地摸到五步之内，然后从草丛中一跃而起，最重要的是一跃就扑倒它。一下没扑到，它一跑，就不一定追得上了。<br><strong>势险和节短，是我们设计任何工作方案的基本原则，</strong> 就是前期准备、策划很充分，最后动手事很少很简单很有效。最怕说一个年度方案，说了两小时还没说完，先这样，然后再那样，这边如何如何，那边如何互动配合，整个一巨大的交响乐，少了一个乐手都不行。最后这事肯定弄不好。我们要把一张弓，拉得满满的，摸到猎物眼皮底下，射出致命一击。<u><strong>战，要一战而定；击，要一发而中。所有的工夫，都在研究这一击，蓄积这一击的能量，打磨这一击的箭头，选择这一击的时间地点，而不是乱箭齐发。因为准备好的，其势险、其节短的一击，能保证必中，而且只需要射一箭。而乱箭齐发，不仅射不中，一大堆人，每一支箭，都要花钱花精力。</strong> </u><br>这就是《孙子兵法》的一贯思想。</p><h4 id="勇还是怯，不是人的问题，是势的问题"><a href="#勇还是怯，不是人的问题，是势的问题" class="headerlink" title="勇还是怯，不是人的问题，是势的问题"></a>勇还是怯，不是人的问题，是势的问题</h4><blockquote><p>纷纷纭纭，斗乱而不可乱也；浑浑沌沌，形圆而不可败也。乱生于治，怯生于勇，弱生于强。治乱，数也；勇怯，势也；强弱，形也。故善动敌者，形之，敌必从之；予之，敌必取之。以利动之，以卒待之。</p></blockquote><h5 id="纷纷纭纭，斗乱而不可乱也；混混沌沌，形圆而不可败也。"><a href="#纷纷纭纭，斗乱而不可乱也；混混沌沌，形圆而不可败也。" class="headerlink" title="纷纷纭纭，斗乱而不可乱也；混混沌沌，形圆而不可败也。"></a>纷纷纭纭，斗乱而不可乱也；混混沌沌，形圆而不可败也。</h5><p>纷纷纭纭，看似混乱却有条不紊，混混沌沌，阵容圆整无懈可击。<br>曹操注解说：“旌旗乱也，示敌若乱，以金股齐之。车骑转而形圆者，出入有道，齐整也。”<br>这一段都是讲“动敌”。让敌人感觉我很混乱，很弱小，很胆怯，实际上我很齐整，很强大，很勇敢。<br>王皙注解说：“将欲内明而外暗，内治而外混，所以示敌之轻己者也。”总之是为了欺骗敌人。</p><h6 id="混混沌沌，形圆而不可败也。"><a href="#混混沌沌，形圆而不可败也。" class="headerlink" title="混混沌沌，形圆而不可败也。"></a>混混沌沌，形圆而不可败也。</h6><p>这是讲阵法。<br>怎么形圆而不可败呢？杜牧引用了《握奇文》的解释，就是我们前面说到的黄帝兵法：“四为正，四为奇，余奇为握，先出游军定两端。”这叫“阵数有九，中心有零，大将握之不动，以制四面八陈”。军队一共分九个部分，四部正兵，开仗时先出击的；四部奇兵，预备队，看战势发展变化，关键时投入战斗制胜的。还有个零头，叫握兵，握在主帅手里的，不动。《孙子兵法》后面有一句，叫“不动如山”，这主帅不能动，主帅一动，往前动是胜利了，战斗结束了；往后<br>往后动那就是全军溃败了。所以就算敌人杀到主帅面前，有那握兵上去抵挡，主帅是不能动的，帅旗是不能倒的，主帅一动，帅旗一倒，军心就倒了，那就大家都逃吧。当然该逃的时候也得逃。“先出游军定两端”，是布阵的时候，游军举着各个部队的旗帜，先定地界，哪支部队站哪儿，游军插上旗帜，定好地界，各部队在各自旗下各就各位。四为正，四为奇，这就是传说中的《八阵图》，不是诸葛亮的发明，首创是黄帝和他的大将风后，又叫《风后八阵兵法图》。《握奇文》，又叫《风后握奇文》，孙子的用兵思想，也是继承了风后的思想，后来诸葛亮的《八阵图》，包括唐太宗还编成大型歌舞剧《秦王破阵乐舞》，原型都是《风后八阵图》，距今四千五百年历史了。</p><h5 id="乱生于治，怯生于勇，弱生于强。"><a href="#乱生于治，怯生于勇，弱生于强。" class="headerlink" title="乱生于治，怯生于勇，弱生于强。"></a>乱生于治，怯生于勇，弱生于强。</h5><p>曹操注解：“皆毁形匿情也。”这些都是假装给敌人看，隐藏我军实情的。让他看见乱，其实是治；让他看见怯，其实是勇；让他看见弱，其实是强。乱生于治，要军纪治理非常严明，才能做到表面乱糟糟，实际井井有条；怯生于勇，<br>要有超出一般的勇敢，才能上去假装败退吸引敌人；弱生于强，要有超强的实力，才敢示弱让敌人倾巢来攻。<br>所以，“治乱，数也；勇怯，势也；强弱，形也”。</p><blockquote><p>这里包蕴着另外的意思—-大治之前，不妨大乱，而一直以勇示人的，往往顾虑在累多，勇怯之间的转换也在悄然变换。这里是一个转换的思想。像阴阳。—Cory 读感</p></blockquote><p>治还是乱，是分数问题。分数，《势篇》第一句讲过了，“凡治众如治寡，分数是也”。分，是分别，数，是人数，是组织架构，部曲行伍，每一部队分别人数多少。<br>勇还是怯，是兵势问题。所谓“驱市人以战”，如果要把没经过军事训练的人驱使去作战，他怎么能勇敢呢？那就置之死地而后生，不战就得死，在这个形势逼迫下，就每个人都变成亡命徒了。怎么让士兵勇敢，韩信就让他们背水一战。所以勇还是怯，不是人的问题，是势的问题。<br>强弱，是一个示形的问题。刘邦派使者去看匈奴冒顿。冒顿全给他看老弱病残，人是老弱病残，马也是老弱病残。刘邦就上当了，结果三十万大军，在白登为冒顿包围，差点回不来。<br>最后总结：故善动敌者，形之，敌必从之；予之，敌必取之。以利动之，以卒待之。<br>所以，善于调动敌人的人，无论向对方展示出什么样的军形，敌人总是听从；给予敌人一点小利，敌人就必然会来夺取。用小利去诱动敌人，再用强兵劲卒去对付它。</p><h4 id="择人任势，任三个势：气势、地势、因势"><a href="#择人任势，任三个势：气势、地势、因势" class="headerlink" title="择人任势，任三个势：气势、地势、因势"></a>择人任势，任三个势：气势、地势、因势</h4><blockquote><p>故善战者，求之于势，不责于人，故能择人而任势。任势者，其战人也，如转木石。木石之性，安则静，危则动，方则止，圆则行。故善战人之势，如转圆石于千仞之山者，势也。</p></blockquote><p><strong>这里粗读，有这样的感觉，善战者，求势而不是一味责人。但建立这样的价值观以后，还是要择人，这很重要，人是最大的资源和变量。而任势首先要理解人性，人性就像木头和石头一样。外部环境安全则人心平静，外部有大的威胁变动，则人心浮动。方则止，圆则行，则是说了两层意思，一层是要想让人行动起来，需要有方圆就是规矩，价值观和做事的流程。第二层要通达人性，知道方止圆行的道理。</strong><br>俗话说，形势比人强，胜负之道，在于怎么造势，这得主帅自己研究，而不求之于下面的人。什么事没干好，你不能骂下面的人不行，执行力太差，或者强力逼下面的人去干，是你自己没安排好。即便是人不行，也是你自己没选对人。<br>所以优秀的领导者，求之于势，不责怪下面人。能够造好势，选对人。<br>杜牧注解说：“善战者先量度兵势，然后量人之才，随短长以任之，不责怪说下面人不成器。”就是在对的地方，用对的人。地方不对，人不对，都是领导者自己不对。<br>李世民的大将李靖说，兵有三势，一是气势，二是地势，三是因势。气势是什么，首先是你内心强大，然后别人也认为你强大。李靖说：“将轻敌，士乐战，志励青云，气等飘风，谓之气势。”这叫在战略上藐视敌人，在战术上重视敌人，气壮山河，就真有山河一般的力量。我们平时在工作中、谈判中，都有体会，关键是气势，气势就是权力，如果别人见了你，就先让你三分，你就先赚了三分。气势不是虚的，是真的，是实力积累出来的。虚张声势是装不出来的。<br>每个成功人士都可以体会自己气势的变化，那真不是虚的，越成功，社会越认可你，你气势越大，所向披靡，做事越顺。<br>气势，一是实力做底，那叫有底气，有底气，气势才上的来，然后呢，就是别人得认，你的气势可以压倒他，压不倒，那就还得较量较量。<br>什么是地势呢？ 李靖说：关山狭路，羊肠狗门，一夫守之，千人不过，谓之地势。<br>天时地利人和，地势，就是占尽地利，这就是你的王牌，这张王牌抓手上了，不管他天大本事，谁也无法跟你抗衡。你如何能得到这张王牌呢？就是谁也没看到他的价值的时候，你先占了。<br>那地，一直在那里，就像那牌，一直在那里，谁摸到是谁的，关键是你的知道那张牌是王牌。就像诸葛亮失街亭，街亭就是王牌，就是地势。街亭在，地势就在。街亭没了，地势就没了。地势没了，怎么打也没用，只有撤退。<br>第三，因势。因势，就是因人之势，根据对方的势，来因势利导。<br>李靖说：“因敌怠慢，劳役饥渴，前营未舍，后军半济，谓之因势。”前面说到曹操的锦囊妙计，就是知道孙权来的人多，人多的，必然要利用人多的优势，先到的，必然心态上就等着大部队到齐了再动手，利用他这个兵势，趁他前营未舍，先头部队军营还没安顿好，后军半济，后面的军队还没有到齐，先给他一个迎头痛击，他的气势就被打下去了，我军的气势就壮了。所以因势就是纵横捭阖，捭阖就是开合，一开一合，调动对方，根据对方兵势变化，随时痛击。</p><h5 id="任势者，其战人也，如转木石，木石之性，安则静，危则动，方则止，圆则行。"><a href="#任势者，其战人也，如转木石，木石之性，安则静，危则动，方则止，圆则行。" class="headerlink" title="任势者，其战人也，如转木石，木石之性，安则静，危则动，方则止，圆则行。"></a>任势者，其战人也，如转木石，木石之性，安则静，危则动，方则止，圆则行。</h5><p>“任势”，曹操注解说，就是“任自然势”，顺其自然，你要先设计好“自然”，把对的人放到对的地方，那就一切自然而然。<br>人的性情是固定的，投之安地则安，投之危地则危，那木头石头自己是不会回避的。<br>梅尧臣注解说：“木石，中五也，易以势动，难以力移。”但如果你放至山顶，利用山势，而不是蛮力，那就轻轻一推，它就雷霆万钧地滚下去了。<br>军队呢，“三军，至众也，可以势战，不可以力使，自然之道也。”</p><h5 id="故善战人之势，如转圆石于千仞之山者，势也。"><a href="#故善战人之势，如转圆石于千仞之山者，势也。" class="headerlink" title="故善战人之势，如转圆石于千仞之山者，势也。"></a>故善战人之势，如转圆石于千仞之山者，势也。</h5><p>《势篇》最后，孙子总结，什么是势，就是在一千仞那么高的山上推下来一颗圆石，谁能抵挡！<br>杜牧注解说：“转石于千仞之山，不可遏止者，再山不在石也；故人有百胜之勇，强弱一贯者，在势不在人也。”<br>所以善战者，任势不任人，任势而后择人，把对的人放到对的地方，才是领导力所在。</p><h4 id="附录《兵势篇》全文"><a href="#附录《兵势篇》全文" class="headerlink" title="附录《兵势篇》全文"></a>附录《兵势篇》全文</h4><blockquote><p>孙子曰：凡治众如治寡，分数是也；斗众如斗寡，形名是也；三军之众，可使必受敌而无败者，奇正是也；兵之所加，如以碫投卵者，虚实是也。<br>凡战者，以正合，以奇胜。故善出奇者，无穷如天地，不竭如江海。终而复始，日月是也。死而更生，四时是也。声不过五，五声之变，不可胜听也；色不过五，五色之变，不可胜观也；味不过五，五味之变，不可胜尝也；战势不过奇正，奇正之变，不可胜穷也。奇正相生，如循环之无端，孰能穷之哉！<br>激水之疾，至于漂石者，势也；鸷鸟之疾，至于毁折者，节也。故善战者，其势险，其节短。势如彍弩，节如发机。纷纷纭纭，斗乱而不可乱；浑浑沌沌，形圆而不可败。乱生于治，怯生于勇，弱生于强。治乱，数也；勇怯，势也；强弱，形也。<br>故善动敌者，形之，敌必从之；予之，敌必取之。以利动之，以卒待之。故善战者，求之于势，不责于人故能择人而任势。任势者，其战人也，如转木石。木石之性，安则静，危则动，方则止，圆则行。<br>故善战人之势，如转圆石于千仞之山者，势也。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书摘笔记 《华杉读透孙子兵法》（六）</title>
+      <link href="/posts/1890969619/"/>
+      <url>/posts/1890969619/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>@(孙子兵法)[华杉读透孙子兵法] [兵法] [格局拓展] [思维]</p><hr><h3 id="第四章-军形第四"><a href="#第四章-军形第四" class="headerlink" title="第四章 军形第四"></a>第四章 军形第四</h3><p>《孙子兵法》第四篇是《形篇》，《形篇》后面是《势篇》，“形势”这个词就是从这儿来的。<br><strong>什么是“形”？</strong></p><blockquote><p>曹操注解说：“军之形也，我动彼应，两敌相察情也。”</p></blockquote><p>形，是可以观察到的，我动彼应，我动一动，看你怎么回应；你动一动，看我怎么回应，相互试探，相互观察。比如我们熟悉的“火力侦察”，就是先给你打一梭子，看你暴露出什么“形”来。</p><blockquote><p>张预注解说：“两军攻守之形也，隐于中，则敌不可得而知，见于外，则敌乘隙而至。”</p></blockquote><p>双方军形都尽量不让对方刺探，一接战，一攻一守，两军的军形就相互暴露了。<br>所以，“形”，是在战前。“势”，则是在战斗中。<br>汉代荀悦有一段话讲形势，比较准确：</p><blockquote><p>夫立策决胜之术，其要有三：一曰形，二曰势，三曰情。形者，言其大体得失之数也；势者，言其临时之宜，进退之机也；情者，言其心志可否之实也。故策同、事等而功殊者，三术不同也。</p></blockquote><p>这段话意思是说，“形”是大体得失的计算，你胜算有多大，这是算得出来的。算清楚了再做，算不清楚别做。做事先看形，行不行。做起来就靠势，<br>荀悦说是“临时之宜，进退之机”。可以这么说，不过孙子在《势篇》里讲得更深刻。荀悦还讲了“情”，就是主将的意志力和团队的士气，“心志可否”，这个“情”，在《孙子兵法》里也归为“势”。所以荀悦的“形”“势”“情”三要，实际还是“形”“势”二要。“形”和“势”讲清楚了，战胜的过程，就是形胜和势胜两个过程。《形篇》，就是讲形胜的。</p><h4 id="赢了再打"><a href="#赢了再打" class="headerlink" title="赢了再打"></a>赢了再打</h4><blockquote><p>孙子曰：昔之善战者，先为不可胜，以待敌之可胜。不可胜在己，可胜在敌，故善战者，能为不可胜，不能使敌之可胜。故曰：胜可知，而不可为。</p></blockquote><p>古代真正善于作战的人，先规划自己，让自己成为不可战胜的，然后等待可以战胜敌人的时机。不可战胜，在于你自个儿，能否战胜敌人，在于对方有没有给你可胜之机。所以说，善战者，能够做到自己不被敌人战胜，却做不到敌人一定会被我战胜。胜利可以预见，但如果条件不具备，是不可以强为。“先为不可胜，以待敌之可胜”，正可以和上一章的“知己知彼，百战不殆”相对应。先规划自己，让自己成为不可战胜的，就是知己；然后等待敌人什么时候可以被战胜的时机，就是知彼。</p><h5 id="不可胜在己，可胜在敌。故善战者，能为不可胜，不能使敌之可胜。"><a href="#不可胜在己，可胜在敌。故善战者，能为不可胜，不能使敌之可胜。" class="headerlink" title="不可胜在己，可胜在敌。故善战者，能为不可胜，不能使敌之可胜。"></a>不可胜在己，可胜在敌。故善战者，能为不可胜，不能使敌之可胜。</h5><p>一句话，人管得了自己，管不了别人。先管好自己，再观察敌人。敌人如果无懈可击，我们是没有办法取胜的。</p><h5 id="不可能，不能强求，我们怎么办？"><a href="#不可能，不能强求，我们怎么办？" class="headerlink" title="不可能，不能强求，我们怎么办？"></a>不可能，不能强求，我们怎么办？</h5><h6 id="首先是不办。"><a href="#首先是不办。" class="headerlink" title="首先是不办。"></a>首先是不办。</h6><p>很多人，败就败在不知道事情可以不办。所谓不作死，就不会死。办不到的事，就不要强求。留的青山在，不怕没柴烧。如果非要办，就会输光了老本。<br>很多人接受不了这一点，认为这就是不作为。必须要有所作为，自己才心安。这是一种战略焦虑症。忘了作为的代价、损失和风险。事实上不出手并非不作为，而是积累自己，等待时机。</p><h6 id="第二个策略就是等待"><a href="#第二个策略就是等待" class="headerlink" title="第二个策略就是等待"></a>第二个策略就是等待</h6><p>等待，在很多情况下，都是最好的选择。等待什么？ 等待形势变化，就是形变化为形胜，势变化为势胜。<br>形胜，是在等待中积累，让自己不可胜，越来越强。势胜，是胜机出现，抓住机会，一战而定。<br>等什么呢？一是等形胜，积累自己；二是等势胜，等对方失误。对方一失误，胜机就出现了。对方不失误，我们就没法赢，或者战胜的代价太大，不如再等一等划算。</p><h6 id="第三个策略-能不能引诱对方失误？"><a href="#第三个策略-能不能引诱对方失误？" class="headerlink" title="第三个策略 能不能引诱对方失误？"></a>第三个策略 能不能引诱对方失误？</h6><p>这就是《唐太宗李卫公问对》里说的：“观古今兵法，一言以蔽之：多方以误。”想方设法引他失误。</p><h4 id="成功必有大量的、充分的、长期的积累，便能活在他人想象之外。"><a href="#成功必有大量的、充分的、长期的积累，便能活在他人想象之外。" class="headerlink" title="成功必有大量的、充分的、长期的积累，便能活在他人想象之外。"></a>成功必有大量的、充分的、长期的积累，便能活在他人想象之外。</h4><blockquote><p>不可胜者，守也；可胜者，攻也。守则不足，攻则有余。善守者藏于九地之下，善攻者动于九天之上，故能自保而全胜也。</p></blockquote><h5 id="不可胜者，守也。"><a href="#不可胜者，守也。" class="headerlink" title="不可胜者，守也。"></a>不可胜者，守也。</h5><p>没有看见敌人形势的虚实有可胜之理，则亦固守。</p><h5 id="可胜者，攻也。"><a href="#可胜者，攻也。" class="headerlink" title="可胜者，攻也。"></a>可胜者，攻也。</h5><p>杜牧注解说：敌人有可胜之形，则当出而攻之。</p><h5 id="守则不足-攻则有余"><a href="#守则不足-攻则有余" class="headerlink" title="守则不足 攻则有余"></a>守则不足 攻则有余</h5><p>孙子的思想，一贯谨慎。守则不足，知道自己力有不足，就守。要力量多大才攻呢？一定要“有余”才攻。光力量够了还不行，一定要有余，要留有余地，要多留余地，要有压倒性的优势才攻。</p><h5 id="善守者藏于九地之下，善攻者动于九天之上。"><a href="#善守者藏于九地之下，善攻者动于九天之上。" class="headerlink" title="善守者藏于九地之下，善攻者动于九天之上。"></a>善守者藏于九地之下，善攻者动于九天之上。</h5><p>梅尧臣注解说：“九地，言深不可知。九天，言高不可测。”<br>杜牧注解说：“守者，韬声灭迹，幽比鬼神，在于地下，不可得而见之；攻者，势迅声烈，疾若雷电，如来天上，不可得而备也。”所以善守的人，如藏于九地之下，守得敌人一点都不知道。善攻的人，一攻起来，雷霆万顷，覆天盖地，让人根本没有反应的机会和还手之力。“故能自保而全胜也”。<br>守，能保全自己。攻，能获得全胜。孙子的全胜思想，全胜的全，不光是要保全自己，也要保全城池物资，甚至还要保全敌人。一是自己保全，不要杀敌一千，自伤八百；二是争取把对方也保全，不要他败退的时候把桥梁、道路、城池等基础设施都破坏了，把粮仓物资也烧了，要把这些东西都保全，为我所用。最好，人也不要杀他们的，把他们的军队也保全，一看我们从天而降，没有战斗意志了，放下武器投降，加入我们的军队，我们的队伍就壮大了。<br><strong>“善守者藏于九地之下”，千万别以为“守”是保守的，是不进取的。</strong><br>守，本身就是胜的积累，而且是加速积累！从企业经营来说，简单的类比可以讲专业化和多元化的问题，你每进入一个新的领域都是攻，深耕在一个领域就是守。王石当初把所有的公司都卖掉，就守住一个房地产，就守出了一个万科。从个人来讲，行行出状元，就是专注、坚持。任何一个人只要专注一个领域，五年成为专家，十年成为权威，十五年成为世界顶尖。在经营上，你守住一个地方，能守出一个世界顶尖来，就能活在他人想象之外！所以守，是一个从量变到质变的积累，是深深地藏于九地之下，没人知道你水有多深，因为他们没有在一个地方耕耘过这么久，没有达到过这么深，你就能形成最高的竞争壁垒，别人进不来。<br>那什么叫“善攻者动于九天之上”呢？<br>就是你觉得他在攻击你的时候，他根本没攻击你！这有点像现在说的“降维攻击”，毁灭你，但与你无关。因为，他在九天之上，他跟你不在一个平台，不在一个层面，不在一个战场。现在所有的互联网企业都要拿移动互联网门票，那门票却不是由谁来发的，都是你自己画的，画成什么样？每个人逻辑都不一样，各在各的天空，不是一回事，哪有什么竞争！都是自己的事。<br><strong>什么叫竞争？竞争的本质是要你没法跟我争，而不是我要跟你争。</strong><br>这就是《孙子兵法》孙子兵法》说的“善战者先为己之不可胜”，也是《道德经》说的“夫不争，则天下莫能与之争”。一旦你想去跟某某争，你已经输了。动于“九天之上”的人，根本没觉得自己在跟谁争，只是被他带起的风刮倒的人，自己觉得自己的东西被他争走了。当你在“九地之下”的时候，你要耐得住寂寞，耐得住别人比自己风光，就像当初华为不进房地产，阿里巴巴不做游戏，专心磨炼自己的核心能力。当你厚积薄发、横空出世，人人看你都是“动于九天之上”，别人想学你，得坐时光机器回到十年前去学，甚至回到你的幼儿园去跟你一起学起，哪里学得来！他们看到的，都不是你成功的原因，因为你已经活在众人的想象之外。</p><h4 id="真的智将，他的功劳，常常只有他自己知道"><a href="#真的智将，他的功劳，常常只有他自己知道" class="headerlink" title="真的智将，他的功劳，常常只有他自己知道"></a>真的智将，他的功劳，常常只有他自己知道</h4><blockquote><p>见胜不过众人之所知，非善之善者也；战胜而天下曰善，非善之善者也。故举秋毫不为多力，见日月不为明目，闻雷霆不为聪耳。<br>古之所谓善战者，胜于易胜者也。故善战者之胜也，无智名，无勇功，故其战胜不忒。不忒者，其所措必胜，胜已败者也。故善战者，立于不败之地，而不失敌之败也。是故胜兵先胜而后求战，败兵先战而后求胜。善用兵者，修道而保法，故能为胜败之政。</p></blockquote><h5 id="见胜不过众人之所知，非善之善者也。"><a href="#见胜不过众人之所知，非善之善者也。" class="headerlink" title="见胜不过众人之所知，非善之善者也。"></a>见胜不过众人之所知，非善之善者也。</h5><p>人人都能看出来的胜，你也看出来，那不算本事。<br>曹操注了四个字：”当见未萌”。没发生的，美显现出来的，你能洞察到，那才是本事。<br>我们评论一件事时，总是说：“看结果！结果最说明问题！”结果不一定能真正说明问题。因为今天的结果来自昨天的决策，换一个决策，结果是比这个好，还是差，谁也不能回去再走一遍试试，而且对结果的认识和解释，每个人还不一样。我们要讨论的，永远都是对未来的判断，这一步下去，未来会怎样，那每个人看法差距就大了。<br>李荃注解说：“知不出众知，非善也。”<br>你能看到的，都是大家能看到的，那不算本事。要能看到别人看不到的。</p><h5 id="战胜而天下曰善，非善之善者也。"><a href="#战胜而天下曰善，非善之善者也。" class="headerlink" title="战胜而天下曰善，非善之善者也。"></a>战胜而天下曰善，非善之善者也。</h5><p>因为这事不常发生，不是有把握的事儿。比如你用一万人击败了敌军二十万人，那必然天下闻名，全天下人都说你厉害，两千年后史书上还写着你的案例。你若用二十万人吃掉了敌军一万人，没人会记你一笔。但是，一万人击败二十万人是小概率事件。你这将军怎么带的兵，居然让一万人和敌军二十万人遭遇呢？靠着运气和对方是个笨蛋，居然让你赢了。<br>我们要特别警惕那种“战胜而天下曰善”的精彩案例，自以为可以复制，结果你一上手却复制不了！韩信背水一战得胜，你背水一战，可能就被人撵水里喂鱼了。</p><h5 id="举秋毫不为多力，见日月不为明目，闻雷霆不为聪耳。"><a href="#举秋毫不为多力，见日月不为明目，闻雷霆不为聪耳。" class="headerlink" title="举秋毫不为多力，见日月不为明目，闻雷霆不为聪耳。"></a>举秋毫不为多力，见日月不为明目，闻雷霆不为聪耳。</h5><h5 id="古之所谓善战者，胜易于胜者也。故善战者之胜也。无智名，无勇功，故其战胜不忒，不忒者，其所措必胜，胜已败者也。"><a href="#古之所谓善战者，胜易于胜者也。故善战者之胜也。无智名，无勇功，故其战胜不忒，不忒者，其所措必胜，胜已败者也。" class="headerlink" title="古之所谓善战者，胜易于胜者也。故善战者之胜也。无智名，无勇功，故其战胜不忒，不忒者，其所措必胜，胜已败者也。"></a>古之所谓善战者，胜易于胜者也。故善战者之胜也。无智名，无勇功，故其战胜不忒，不忒者，其所措必胜，胜已败者也。</h5><p><strong>胜已败者也！这句话要再强调一遍。真正的善战者，不是把敌人打败，而是看见敌人已经败了，他才开打！</strong></p><h6 id="善战者之胜也，无智名，无勇功。"><a href="#善战者之胜也，无智名，无勇功。" class="headerlink" title="善战者之胜也，无智名，无勇功。"></a>善战者之胜也，无智名，无勇功。</h6><p>曹操注解说：敌兵形未成，胜之无赫赫之功也。<br>这和中医的“上医治未病”理念是一个道理。梅尧臣注解说：大智不彰，大功不扬，见微胜易，何勇何智？<br>何氏曰：患销未形，人谁称智？不战而服，人谁言勇？<br>所以有的人比较坏，他明明早就看出来，可以解决的问题，他一定要等它烂到谁也收拾不了，他才出手，就是不愿意人家看不见他的功劳。</p><h4 id="《孙子兵法》的核心：先胜后战"><a href="#《孙子兵法》的核心：先胜后战" class="headerlink" title="《孙子兵法》的核心：先胜后战"></a>《孙子兵法》的核心：先胜后战</h4><blockquote><p>故善战者，立于不败之地，而不失敌之败也。是故胜兵先胜而后求战，败兵先战而后求胜。</p></blockquote><h5 id="立于不败之地，而不失敌之败也。"><a href="#立于不败之地，而不失敌之败也。" class="headerlink" title="立于不败之地，而不失敌之败也。"></a>立于不败之地，而不失敌之败也。</h5><p>所以《唐太宗李卫公问对》说：“古今胜败，一误而已。比如弈棋，一着失误，满盘皆输。”就像下棋一样，错了一步，被对方抓住了，你天大本事也救不回来。<br>如果对方是个笨蛋，没看出来，那就乌龙对乌龙继续走下去，也是你来我往，杀得可歌可泣。实际工作中，还是大家都笨，整体水平都低的情况比较普遍。所以有句话说嘛：“我们得以生存，不是因为我们做得好，是因为竞争对手做得更差。”成功者都有这体会，因为知道自己做得真不咋的，但居然就成了大师了。敌人失误的时候，你不要错过。敌人不失误呢，当然也不是干等着，就想办法勾引他失误。<br>所以李世民说所有兵法就一句话：“多方以误。”想各种办法引他失误。所谓兵不厌诈，“<br>兵不厌诈，“兵者，诡道也。故能而示之不能，用而示之不用，近而示之远，远而示之近。利而诱之，乱而取之，实而备之，强而避之，怒而挠之，卑而骄之，佚而劳之，亲而离之。”所有的诡诈全在这儿。<br>因为大家都熟悉兵不厌诈，所以很多人认为诡道是兵法的核心，用兵就是诡诈。非也，所有的诡诈，都是为了调动敌人，不是自己的基本面。对方不上你的钩，你诡诈也没有用。你不上他的钩，他诡诈也是白表演。<br><strong><u>《孙子兵法》真正的核心在于下面这句话：胜兵先胜而后求战，败兵先战而后求胜。</u></strong><br>打胜仗的军队，总是先获得胜利地位，获得取胜条件之后，才投入战斗。而打败仗的军队，总是冲上去就打，企图在战斗中捕捉机会侥幸获胜。先胜后战，在取得压倒性优势的前提下作战，绝不心存侥幸，这就是孙子的思想。有人会说，你这是强者的兵法，弱者怎么能有压倒性优势呢？创业者怎么能立于不败之地呢？这样理解就错了，这不是强者的兵法，而是所有的兵法。弱者怎么能有压倒性优势，就是形成局部优势，所谓集中优势兵力打歼灭战。创业者怎么能立于不败之地，手艺资源积累充足了再创业就能立于不败之地。啥都没弄明白就冲上去创业，那就只有看能不能中彩成为“名将”了。</p><h4 id="永远的基本面-先胜后战，“胜”和“战”要分开来看，是两个阶段。先是胜，基础工作、基本面就是胜，然后才是战。我们的问题在于，总是关注“战”，不关注“胜”，就想取巧求速，所以没有胜就去战了。那就没有胜算。"><a href="#永远的基本面-先胜后战，“胜”和“战”要分开来看，是两个阶段。先是胜，基础工作、基本面就是胜，然后才是战。我们的问题在于，总是关注“战”，不关注“胜”，就想取巧求速，所以没有胜就去战了。那就没有胜算。" class="headerlink" title="永远的基本面 先胜后战，“胜”和“战”要分开来看，是两个阶段。先是胜，基础工作、基本面就是胜，然后才是战。我们的问题在于，总是关注“战”，不关注“胜”，就想取巧求速，所以没有胜就去战了。那就没有胜算。"></a>永远的基本面 先胜后战，“胜”和“战”要分开来看，是两个阶段。先是胜，基础工作、基本面就是胜，然后才是战。我们的问题在于，总是关注“战”，不关注“胜”，就想取巧求速，所以没有胜就去战了。那就没有胜算。</h4><blockquote><p>善用兵者，修道而保法，故能为胜败之政。<br>兵法：一曰度，二曰量，三曰数，四曰称，五曰胜。地生度，度生量，量生数，数生称，称生胜。故胜兵若以镒称铢，败兵若以铢称镒。胜者之战民也，若决积水于千仞之溪者，形也。</p></blockquote><p>修道保法，胜败之政，是讲政治，讲纪律。政治上人民拥戴你，纪律上秋毫无犯。这可一点也不是诡道了。</p><h5 id="修道保法"><a href="#修道保法" class="headerlink" title="修道保法"></a>修道保法</h5><blockquote><p>李荃注解说：以顺讨逆，不伐无罪之国，军至，勿掳掠，不伐树木，污井；所过山川、城社、陵祠，必涤而除之，不习亡国之事，谓之道法也。军严肃，有死无犯，赏罚信义，立将若此者，能胜敌之败政也。</p></blockquote><blockquote><p>杜牧注解说：道者，仁义也；法者，法制也。善用兵者，先修仁义，保守法制，自为不可胜之政。伺敌有可败之隙，则攻能胜之。</p></blockquote><h5 id="兵法：一曰度，二曰量，三曰数，四曰称，五曰胜。地生度，度生量，量生数，数生称，称生胜。"><a href="#兵法：一曰度，二曰量，三曰数，四曰称，五曰胜。地生度，度生量，量生数，数生称，称生胜。" class="headerlink" title="兵法：一曰度，二曰量，三曰数，四曰称，五曰胜。地生度，度生量，量生数，数生称，称生胜。"></a>兵法：一曰度，二曰量，三曰数，四曰称，五曰胜。地生度，度生量，量生数，数生称，称生胜。</h5><p>这里的“度”“量”“数”“称”，就是第一篇《计篇》里的敌我实力计算比较了。</p><h6 id="故胜兵若以镒称铢，败兵若以铢称镒。"><a href="#故胜兵若以镒称铢，败兵若以铢称镒。" class="headerlink" title="故胜兵若以镒称铢，败兵若以铢称镒。"></a>故胜兵若以镒称铢，败兵若以铢称镒。</h6><h5 id="胜者之战民也，若决积于千仞之溪者，形也。"><a href="#胜者之战民也，若决积于千仞之溪者，形也。" class="headerlink" title="胜者之战民也，若决积于千仞之溪者，形也。"></a>胜者之战民也，若决积于千仞之溪者，形也。</h5><h4 id="《形篇》总结"><a href="#《形篇》总结" class="headerlink" title="《形篇》总结"></a>《形篇》总结</h4><p>所以到了《形篇》最后，孙子又讲回了基本面：国家实力、政治进步、法制严明。<br>在本书最开篇，我们就说了，《孙子兵法》和三十六计是两回事，是两个价值观。三十六计全部是诡道，是奇谋巧计，是兵不厌诈。孙子虽然也讲诡道，但诡道在《孙子兵法》里占很不重要的一部分。孙子始终强调的都是基础和实力。<br>成功都来自于日积月累，而不是奇思妙想。成功者都是一直在做最基础的工作，而且始终关注基本面，关注基础工作。<br>我们说《孙子兵法》的核心是先胜后战，胜和战要分开来看，是两个阶段。先是胜，基础工作就是胜，基本面就是胜。然后是战，那时候可以想点巧妙的主意。<br>我们的问题往往在于，总是关注“战”，不关注“胜”，就想取巧求速，所以没有胜就去战了，那就没有胜算。</p><h4 id="附录：《形篇》全文"><a href="#附录：《形篇》全文" class="headerlink" title="附录：《形篇》全文"></a>附录：《形篇》全文</h4><blockquote><p>孙子曰：昔之善战者，先为不可胜，以待敌之可胜。不可胜在己，可胜在敌。故善战者，能为不可胜，不能使敌之必可胜。故曰：胜可知，而不可为。<br>不可胜者，守也；可胜者，攻也。守则不足，攻则有余。善守者藏于九地之下，善攻者动于九天之上，故能自保而全胜也。<br>见胜不过众人之所知，非善之善者也；战胜而天下曰善，非善之善者也。故举秋毫不为多力，见日月不为明目，闻雷霆不为聪耳。古之所谓善战者，胜于易胜者也。故善战者之胜也，无智名，无勇功，故其战胜不忒，不忒者，其所措必胜，胜已败者也。故善战者，立于不败之地，而不失敌之败也。是故胜兵先胜而后求战，败兵先战而后求胜。善用兵者，修道而保法，故能为胜败之政。<br>兵法：一曰度，二曰量，三曰数，四曰称，五曰胜。地生度，度生量，量生数，数生称，称生胜。故胜兵若以镒称铢，败兵若以铢称镒。胜者之战民也，若决积水于千仞之溪者，形也。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>“美”是不美好的尺度</title>
+      <link href="/posts/1849290900/"/>
+      <url>/posts/1849290900/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote><p>凡物皆有可观，苟有可观，皆有可乐，非必怪奇伟丽者也。—-苏东坡</p></blockquote><p>画家齐白石曾说，“美”的意境全在似与不似之间。“似”则流于媚俗，“不似”又流于欺世，可这两者之间如何叫人量度，又何如叫人立足呢？看来，“美”实在是一种恼人的迷恋，它越是扑朔迷离就越显得美，由此造成不可企及的无限追求——是困顿，还是陶醉？是明白，还是迷惘？是收获，还是失却？是欣赏，还是占有？此乃永恒的两难，又是无尽的焦灼。所以培根说，形体之美胜于颜色之美，而优雅之美又胜于形体之美。那是由于颜色之美尽在眼前，形体之美已有些难于描述，而优雅之美纯属精神化的幻觉，因而它才美不胜收。也所以，最深刻的三位大哲，即柏拉图、康德和黑格尔都要把美的渊源归于“理念”，那是由于客观的东西你尽可以信手拈来，获取的瞬间便丢失了美感，唯有将其化为意蕴，含蓄心田，美的芬芳才会弥漫开来。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>书摘笔记 《华杉读透孙子兵法》（五）</title>
       <link href="/posts/364618698/"/>
       <url>/posts/364618698/</url>
@@ -898,6 +1223,583 @@
         <tags>
             
             <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书摘笔记 《华杉读透孙子兵法》（四）</title>
+      <link href="/posts/2049271437/"/>
+      <url>/posts/2049271437/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>@(孙子兵法)[华杉读透孙子兵法] [兵法] [格局拓展] [思维]</p><h3 id="第二章-作战第二"><a href="#第二章-作战第二" class="headerlink" title="第二章 作战第二"></a>第二章 作战第二</h3><h4 id="打仗不是打兵马，是打钱粮"><a href="#打仗不是打兵马，是打钱粮" class="headerlink" title="打仗不是打兵马，是打钱粮"></a>打仗不是打兵马，是打钱粮</h4><blockquote><p>“孙子曰：凡用兵之法，驰车千驷，革车千乘，带甲十万，千里馈粮，则内外之费，宾客之用，胶漆之材，车甲之奉，日费千金，然后十万之师举矣。”——《作战篇》</p></blockquote><blockquote><p>“欲战，必先算其费，务因粮于敌也。” —–（魏）曹操<br>要打仗，先算算要花多少钱，想想能不能从敌人那里搞到粮食</p></blockquote><p>所以《孙子兵法》第一篇讲实力对比，风险评估，胜算几何，第二篇就讲费用预算，资源资源保障，这和我们经营的道理，真是一模一样。</p><h4 id="汉武大帝，一世英名，毁于军费"><a href="#汉武大帝，一世英名，毁于军费" class="headerlink" title="汉武大帝，一世英名，毁于军费"></a>汉武大帝，一世英名，毁于军费</h4><blockquote><p>”其用战也胜，久则钝兵挫锐，攻城则力屈，久暴师则国用不足。“———《作战篇》</p></blockquote><h4 id="”拙速“，就是准备要慢，动手要快"><a href="#”拙速“，就是准备要慢，动手要快" class="headerlink" title="”拙速“，就是准备要慢，动手要快"></a>”拙速“，就是准备要慢，动手要快</h4><blockquote><p>”夫钝兵挫锐，屈力殚货，则诸侯乘其弊而起，虽有智者，不能不能善其后矣。故兵闻拙速，未睹巧之久也。“——-《作战篇》</p></blockquote><h4 id="利害关系，先考虑避害，再考虑趋利"><a href="#利害关系，先考虑避害，再考虑趋利" class="headerlink" title="利害关系，先考虑避害，再考虑趋利"></a>利害关系，先考虑避害，再考虑趋利</h4><blockquote><p>“夫兵久而国利者，未之有也。故不能尽知用兵之害者，则不能尽知用兵之利也。”——-《作战篇》</p></blockquote><p>先能避害，然后才可趋利。因为利今天没有，明天还可以再图。而害却可能让我输掉老本，彻底出局。所以避害比趋利重要得多。</p><h4 id="把战争成本降低，就能提高胜算"><a href="#把战争成本降低，就能提高胜算" class="headerlink" title="把战争成本降低，就能提高胜算"></a>把战争成本降低，就能提高胜算</h4><blockquote><p>“善用兵者，役不再籍，粮不三载。取用于国，因粮于敌，故军食可足也。国之贫于师者远输，远输则百姓贫。近于师者贵卖，贵卖则百姓财竭，财竭则急于丘役。”——–《作战篇》</p></blockquote><blockquote><p>“善用兵者，役不再籍，粮不三载”—–《作战篇》<br>一次把事情做对，一定搞定，不返工，就是最高效率。看来做任何事的道理都一样。</p></blockquote><blockquote><p>“国之贫于师则远输，远输则百姓贫，近于师者贵卖，贵卖则百姓财竭。财竭则急于丘役。”—-《作战篇》</p></blockquote><h4 id="不当家不知柴米油盐贵，不知柴米油盐贵者不可当家"><a href="#不当家不知柴米油盐贵，不知柴米油盐贵者不可当家" class="headerlink" title="不当家不知柴米油盐贵，不知柴米油盐贵者不可当家"></a>不当家不知柴米油盐贵，不知柴米油盐贵者不可当家</h4><blockquote><p>“力屈、财殚，中原内虚于家。百姓之费，十去其七；公家之费，破车罢马，甲胄矢弩，戟楯蔽橹，丘牛大车，十去其六。故智将务食于敌，食敌一钟，当吾二十钟；萁（qí）秆一石，当吾二十石。” ——-《作战篇》</p></blockquote><h4 id="激怒与利诱，让士兵变成亡命徒"><a href="#激怒与利诱，让士兵变成亡命徒" class="headerlink" title="激怒与利诱，让士兵变成亡命徒"></a>激怒与利诱，让士兵变成亡命徒</h4><blockquote><p>“故能杀敌者，怒也，取敌之利者，货也。”——-《作战篇》</p></blockquote><p>有两种感情可以让人忘记生命危险，一是愤怒，怒气上来，就什么也不顾；二是贪婪，人为财死，鸟为食亡。<br>古今名将，都有一个共同点，就是舍得给大家分钱。最典型的，就是凡是抢得敌人或民间财物，全部分给兄弟们，自己分文不取。我只要皇上赏赐的，抢来的都归你们。因为他自己不参与分，觉得分得不公平的人也没话说。这样大家都愿意跟他打仗，他的胜仗就多，升官就快了。</p><h4 id="要看清楚谁第一个登上城墙"><a href="#要看清楚谁第一个登上城墙" class="headerlink" title="要看清楚谁第一个登上城墙"></a>要看清楚谁第一个登上城墙</h4><blockquote><p>“车战，得车十乘以上，赏其先得者，而更其旌旗，车杂而乘之，卒善而养之，是谓胜敌而益强。故兵贵胜，不贵久。故知兵之将，生民之司命，国家安危之主也。”——《作战篇》</p></blockquote><p>古人用兵，必使车夺车，骑夺骑，步夺步。吴起与秦军作战，号令三军说：“若车不得车，骑不得骑，徒不得徒，虽破军，皆无功！”这就是一个考核标准，不是杀敌战胜就行。战车部队一定要夺得对方的战车，骑兵要夺对方骑兵的马和装备，步兵要缴获敌方步兵武器，这才能记功领赏。<br>所以孙子的思想是“求全”，先保全自己，再追求全胜，最好把敌人也保全。他的整个军事思想，是慎战的思想，不战的思想，和速战的思想。</p><h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><blockquote><p>孙子曰：凡用兵之法，驰车千驷，革车千乘，带甲十万，千里馈粮。则内外之费，宾客之用，胶漆之材，车甲之奉，日费千金，然后十万之师举矣。<br>其用战也胜，久则钝兵挫锐，攻城则力屈，久暴师则国用不足。夫钝兵挫锐，屈力殚货，则诸侯乘其弊而起，虽有智者不能善其后矣。故兵闻拙速，未睹巧之久也。夫兵久而国利者，未之有也。故不尽知用兵之害者，则不能尽知用兵之利也。<br>善用兵者，役不再籍，粮不三载，取用于国，因粮于敌，故军食可足也。国之贫于师者远输，远输则百姓贫；近师者贵卖，贵卖则百姓财竭，财竭则急于丘役。力屈、财殚，中原、内虚于家，百姓之费，十去其七；公家之费，破军罢马，甲胄矢弓，戟盾矛橹，丘牛大车，十去其六。故智将务食于敌，食敌一钟，当吾二十钟；萁秆一石，当吾二十石。故杀敌者，怒也；取敌之利者，货也。车战得车十乘以上，赏其先得者而更其旌旗。车杂而乘之，卒善而养之，是谓胜敌而益强。<br>故兵贵胜，不贵久。<br>故知兵之将，民之司命。国家安危之主也。————-《作战篇》</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书摘笔记 《华杉读透孙子兵法》（三）</title>
+      <link href="/posts/3439886312/"/>
+      <url>/posts/3439886312/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>@(孙子兵法)[华杉读透孙子兵法] [兵法] [格局拓展] [思维]</p><h4 id="不能胜利就要能等待"><a href="#不能胜利就要能等待" class="headerlink" title="不能胜利就要能等待"></a>不能胜利就要能等待</h4><blockquote><p>”实而备之，强而避之。“—–《计篇》<br>”观其虚则进，见其实则止“—-（唐）李靖</p></blockquote><p>所以当敌方实而强，我们一要防备避战；二要耐心忍耐；三要外交协调；四要伺其虚懈，等他犯错，引他失误，如李世民言：“多方以误”；五则看准时机，一鼓而下。</p><h4 id="忘了本谋，是每个人常犯的毛病"><a href="#忘了本谋，是每个人常犯的毛病" class="headerlink" title="忘了本谋，是每个人常犯的毛病"></a>忘了本谋，是每个人常犯的毛病</h4><blockquote><p>”怒而挠之“—-《计篇》</p></blockquote><p>本谋，这是我们每个人常犯的毛病，不仅仅是因为愤怒，任何的干扰都会令我们越来越远离本质的目的，而自己完全意识不到，追求枝节，而忘了本质。&#96;</p><h4 id="示弱不是羞耻，争什么不要争气，特别是不要争一时之气"><a href="#示弱不是羞耻，争什么不要争气，特别是不要争一时之气" class="headerlink" title="示弱不是羞耻，争什么不要争气，特别是不要争一时之气"></a>示弱不是羞耻，争什么不要争气，特别是不要争一时之气</h4><blockquote><p>”卑而骄之“—-《计篇》<br>假装谦卑，让对方骄傲，让对方轻视自己，轻视就不会防备，不防备就可以发动突然袭击。</p></blockquote><h4 id="疲劳战"><a href="#疲劳战" class="headerlink" title="疲劳战"></a>疲劳战</h4><blockquote><p>”佚而劳之“—-《计篇》</p></blockquote><p>胸中要有全局，是你调动敌人，不是敌人调动你&#96;&#96;&#96;<br>表面上是对敌情没有判断，本质上是对自己没有判断</p><h4 id="我们为什么会中”离间计“"><a href="#我们为什么会中”离间计“" class="headerlink" title="我们为什么会中”离间计“"></a>我们为什么会中”离间计“</h4><blockquote><p>”亲而离之“—–《计篇》</p></blockquote><p>李筌注解说：“破其行约，间其君臣，而后改也。”<br>就是破坏他的外交盟友，离间他的君臣关系。<br>为什么会中离间计？ 还是人性弱点：亲人之间的恩恩怨怨。我们和敌人的关系很简单，就是利益之争，打打谈谈，亲人之间的关系就比较复杂，成了爱恨情仇，有多大恩，就有多大怨。<br>离间计，就是外部竞争者，打破竞争的边界，参与到敌方的内部竞争中去，那就四两拨千斤。<br>要想不中离间计，还是靠领导者自己的人格和胸怀，别忘了，堡垒都是从内部攻破的。</p><h4 id="要保持紧张，不可懈怠"><a href="#要保持紧张，不可懈怠" class="headerlink" title="要保持紧张，不可懈怠"></a>要保持紧张，不可懈怠</h4><blockquote><p>”攻其不备，出其不意“—-《计篇》</p></blockquote><p><code>”击其懈怠，出其空虚”---（魏）曹操</code><br>领导者要随时注意，保持团队的紧张状态，看他松懈了，就要把发条给他紧一紧，因为松懈就会失败。特别是在战场上，敌人挖空心思都在研究你什么地方会松懈。你认为没问题，可以放松一下的地方，差不多就是他的研究结论。</p><h4 id="事以密成，语以泄败"><a href="#事以密成，语以泄败" class="headerlink" title="事以密成，语以泄败"></a>事以密成，语以泄败</h4><blockquote><p>“此兵家之胜，不可先传也”—-《计篇》<br>道。阴谋诡计要成功，最重要的是不能让人知道。人家知道了，诡计就没用了。不能让敌人知道，也不能让自己人知道。因为知道的人多了，秘密就容易泄漏。</p></blockquote><h4 id="三十六计技术含量很低，但一听就让人兴奋；“五事七计”技术含量很高，但一听就让人打瞌睡"><a href="#三十六计技术含量很低，但一听就让人兴奋；“五事七计”技术含量很高，但一听就让人打瞌睡" class="headerlink" title="三十六计技术含量很低，但一听就让人兴奋；“五事七计”技术含量很高，但一听就让人打瞌睡"></a>三十六计技术含量很低，但一听就让人兴奋；“五事七计”技术含量很高，但一听就让人打瞌睡</h4><blockquote><p>“夫未战而庙算胜者，得算多也，未战而庙算不胜者，得算少也，多算胜，少算不胜，而况无算乎？吾以此观之，胜负见矣”——–《计篇》</p></blockquote><hr><h2 id="以上是《孙子兵法》第一篇，《计篇》。《计篇》的内容，概括说就是“五事七计，十二诡道”。“五事七计”，是基本面、实力面、战略面。“五事”，是道、天、地、将、法，计算比较敌我双方这五个方面，得到“七计”，七个计算比较的结果：主孰有道？将孰有能？天地孰得？法令孰行？兵众孰强？士卒孰练？赏罚孰明？-兵法讲庙算，算的就是这“五事七计”，算下来就知道胜负。胜了才打，没有胜算就不打，就韬光养晦，继续准备。准备什么？还是准备“五事七计”，把自己那七个方面的分数打上去。所以这“五事七计”才是兵法的根本。赢了再打，庙算算赢了，再兴师动众，到战场上去见个分晓。上了战场，“兵者，诡道也”，才开始阴谋诡计的发挥，“多方以误之”，想办法引对方失误，这就有“十二诡道”：能而示之不能；用而示之不用；近而示之远，远而示之近；利而诱之；乱而取之；实而备之；强而避之；怒而挠之；卑而骄之；佚而劳之；亲而离之；攻其无备，出其不意。这“十二诡道”，就和三十六计差不多，都是奇谋巧计，都是“招”，最能让人津津乐道，引发无数四两拨千斤、花小钱办大事、贪巧求速的遐思。-我们经营也是一样，你踏踏实实把产品，把服务做好，别老想着有什么“招”。实际上，奇谋诡道很容易，就那几招，其实技术含量很低，主要技术要点在于演戏要演得像而已。但是“五事七计”技术含量就太高了，全是真功夫，是人格，是智慧，是汗水，是时间，是积累。所以人们爱听三十六计，不爱听“五事七计”。"><a href="#以上是《孙子兵法》第一篇，《计篇》。《计篇》的内容，概括说就是“五事七计，十二诡道”。“五事七计”，是基本面、实力面、战略面。“五事”，是道、天、地、将、法，计算比较敌我双方这五个方面，得到“七计”，七个计算比较的结果：主孰有道？将孰有能？天地孰得？法令孰行？兵众孰强？士卒孰练？赏罚孰明？-兵法讲庙算，算的就是这“五事七计”，算下来就知道胜负。胜了才打，没有胜算就不打，就韬光养晦，继续准备。准备什么？还是准备“五事七计”，把自己那七个方面的分数打上去。所以这“五事七计”才是兵法的根本。赢了再打，庙算算赢了，再兴师动众，到战场上去见个分晓。上了战场，“兵者，诡道也”，才开始阴谋诡计的发挥，“多方以误之”，想办法引对方失误，这就有“十二诡道”：能而示之不能；用而示之不用；近而示之远，远而示之近；利而诱之；乱而取之；实而备之；强而避之；怒而挠之；卑而骄之；佚而劳之；亲而离之；攻其无备，出其不意。这“十二诡道”，就和三十六计差不多，都是奇谋巧计，都是“招”，最能让人津津乐道，引发无数四两拨千斤、花小钱办大事、贪巧求速的遐思。-我们经营也是一样，你踏踏实实把产品，把服务做好，别老想着有什么“招”。实际上，奇谋诡道很容易，就那几招，其实技术含量很低，主要技术要点在于演戏要演得像而已。但是“五事七计”技术含量就太高了，全是真功夫，是人格，是智慧，是汗水，是时间，是积累。所以人们爱听三十六计，不爱听“五事七计”。" class="headerlink" title="以上是《孙子兵法》第一篇，《计篇》。《计篇》的内容，概括说就是“五事七计，十二诡道”。“五事七计”，是基本面、实力面、战略面。“五事”，是道、天、地、将、法，计算比较敌我双方这五个方面，得到“七计”，七个计算比较的结果：主孰有道？将孰有能？天地孰得？法令孰行？兵众孰强？士卒孰练？赏罚孰明？ 兵法讲庙算，算的就是这“五事七计”，算下来就知道胜负。胜了才打，没有胜算就不打，就韬光养晦，继续准备。准备什么？还是准备“五事七计”，把自己那七个方面的分数打上去。所以这“五事七计”才是兵法的根本。赢了再打，庙算算赢了，再兴师动众，到战场上去见个分晓。上了战场，“兵者，诡道也”，才开始阴谋诡计的发挥，“多方以误之”，想办法引对方失误，这就有“十二诡道”：能而示之不能；用而示之不用；近而示之远，远而示之近；利而诱之；乱而取之；实而备之；强而避之；怒而挠之；卑而骄之；佚而劳之；亲而离之；攻其无备，出其不意。这“十二诡道”，就和三十六计差不多，都是奇谋巧计，都是“招”，最能让人津津乐道，引发无数四两拨千斤、花小钱办大事、贪巧求速的遐思。 我们经营也是一样，你踏踏实实把产品，把服务做好，别老想着有什么“招”。实际上，奇谋诡道很容易，就那几招，其实技术含量很低，主要技术要点在于演戏要演得像而已。但是“五事七计”技术含量就太高了，全是真功夫，是人格，是智慧，是汗水，是时间，是积累。所以人们爱听三十六计，不爱听“五事七计”。"></a><code>以上是《孙子兵法》第一篇，《计篇》。《计篇》的内容，概括说就是“五事七计，十二诡道”。“五事七计”，是基本面、实力面、战略面。“五事”，是道、天、地、将、法，计算比较敌我双方这五个方面，得到“七计”，七个计算比较的结果：主孰有道？将孰有能？天地孰得？法令孰行？兵众孰强？士卒孰练？赏罚孰明？ 兵法讲庙算，算的就是这“五事七计”，算下来就知道胜负。胜了才打，没有胜算就不打，就韬光养晦，继续准备。准备什么？还是准备“五事七计”，把自己那七个方面的分数打上去。所以这“五事七计”才是兵法的根本。赢了再打，庙算算赢了，再兴师动众，到战场上去见个分晓。上了战场，“兵者，诡道也”，才开始阴谋诡计的发挥，“多方以误之”，想办法引对方失误，这就有“十二诡道”：能而示之不能；用而示之不用；近而示之远，远而示之近；利而诱之；乱而取之；实而备之；强而避之；怒而挠之；卑而骄之；佚而劳之；亲而离之；攻其无备，出其不意。这“十二诡道”，就和三十六计差不多，都是奇谋巧计，都是“招”，最能让人津津乐道，引发无数四两拨千斤、花小钱办大事、贪巧求速的遐思。 我们经营也是一样，你踏踏实实把产品，把服务做好，别老想着有什么“招”。实际上，奇谋诡道很容易，就那几招，其实技术含量很低，主要技术要点在于演戏要演得像而已。但是“五事七计”技术含量就太高了，全是真功夫，是人格，是智慧，是汗水，是时间，是积累。所以人们爱听三十六计，不爱听“五事七计”。</code></h2><h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><blockquote><p>“孙子曰：兵者，国之大事，死生之地，存亡之道，不可不察也。故经之以五事，校之以计而索其情：一曰道，二曰天，三曰地，四曰将，五曰法。道者，令民与上同意也，故可以与之死，可以与之生，而不畏危。天者，阴阳、寒暑、时制也。地者，远近、险易、广狭、死生也。将者，智、信、仁、勇、严也。法者，曲制、官道、主用也。凡此五者，将莫不闻，知之者胜，不知者不胜。故校之以计而索其情，曰：主孰有道？将孰有能？天地孰得？法令孰行？兵众孰强？士卒孰练？赏罚孰明？吾以此知胜负矣。将听吾计，用之必胜，留之；将不听吾计，用之必败，去之。计利以听，乃为之势，以佐其外。势者，因利而制权也。兵者，诡道也。故能而示之不能，用而示之不用，近而示之远，远而示之近；利而诱之，乱而取之，实而备之，强而避之，怒而挠之，卑而骄之，佚而劳之，亲而离之。攻其无备，出其不意。此兵家之胜，不可先传也。夫未战而庙算胜者，得算多也；未战而庙算不胜者，得算少也。多算胜，少算不胜，而况于无算乎！吾以此观之，胜负见矣。”———-《计篇》</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>荐书 《中国最美诗词典评套装珍藏版》</title>
+      <link href="/posts/791918874/"/>
+      <url>/posts/791918874/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>@(阅读笔记)[红帆船读书群][传统文化][人间词话][诗词][苏缨]</p><hr><p><strong>《中国最美诗词典评套装珍藏版》</strong>是一部专为对中国古诗词有兴趣的读者编辑的全六册的古诗词赏析的“书丛”。典评人苏缨用优美易懂的语言解读了我们耳熟能详的诸多诗词，同时对于诗人、诗词背景等都有非常精当的交待，让读者可以产生更多对古诗词的意境和词义的共鸣。<br>特点概述：</p><ul><li><strong>典评优美</strong> ：其中对于《人间词话》的解读，很有独见。</li><li><strong>配置丰富</strong> ：丛书包括了苏缨本人对于唐诗、宋词、以及《人间词话》的释读，更包括了独立的《唐诗三百首》和《宋词三百首》单本，以及一本对于纳兰性德诗词的释读本。</li><li><strong>贵、一口气读不完</strong> ：价格就不说了，关键是好几本，耐读的很（不知道这算不算优点）</li></ul><hr><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="纳兰词典评"><a href="#纳兰词典评" class="headerlink" title="纳兰词典评"></a>纳兰词典评</h3><h3 id="大宋词人往事：浅斟低唱里的风雅与忧伤"><a href="#大宋词人往事：浅斟低唱里的风雅与忧伤" class="headerlink" title="大宋词人往事：浅斟低唱里的风雅与忧伤"></a>大宋词人往事：浅斟低唱里的风雅与忧伤</h3><h3 id="大唐诗人往事：锦绣江山里的飞扬与沉潜"><a href="#大唐诗人往事：锦绣江山里的飞扬与沉潜" class="headerlink" title="大唐诗人往事：锦绣江山里的飞扬与沉潜"></a>大唐诗人往事：锦绣江山里的飞扬与沉潜</h3><h3 id="人间词话精读"><a href="#人间词话精读" class="headerlink" title="人间词话精读"></a>人间词话精读</h3><h3 id="唐诗三百首：插图珍藏本"><a href="#唐诗三百首：插图珍藏本" class="headerlink" title="唐诗三百首：插图珍藏本"></a>唐诗三百首：插图珍藏本</h3><h3 id="宋词三百首：插图珍藏本"><a href="#宋词三百首：插图珍藏本" class="headerlink" title="宋词三百首：插图珍藏本"></a>宋词三百首：插图珍藏本</h3><hr><p>以下节选诗人李白的部分，只是部分节选，</p><h4 id="李白-一个从不肯脚踏实地的天才"><a href="#李白-一个从不肯脚踏实地的天才" class="headerlink" title="李白 一个从不肯脚踏实地的天才"></a>李白 一个从不肯脚踏实地的天才</h4><p><strong><em>关键词：<br>痛饮狂歌<br>警句：<br>天生我材必有用，千金散尽还复来</em></strong></p><h5 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h5><p>你是否愿意和这样一个人成为朋友：他总是大言不惭，自恋到令人发指的程度，酗酒成性，花钱如流水，从来不肯脚踏实地，永远耽于不切实际的空想……<br>如果你有一点小市民习气的话，和这个人交往一定只会占尽便宜；如果你是一个性情中人，并且真的把他当朋友的话，他一定会为你两肋插刀，甚至不惜犯险杀人；如果你是他的同行，你会怨恨苍天为什么要让你生活在他的时代里；如果他是你的属下，你一定对他又爱又恨，而最终恨意会占据上风，你恨不得马上就把他踢到十万八千里外；如果你是他的妻子，你会用全部的婚前时光来向往，然后用全部的婚后时间来后悔；如果你是他的子女，你或许会记得他对你讲过的每一句话，因为他总共也没对你说过几句话。这个人，就是李白。</p><h5 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h5><p>“痛饮狂歌空度日，飞扬跋扈为谁雄”，这是杜甫对李白的印象。<br>李白是富二代出身，其先世数代定居西域，直到李白的父亲这一辈方才大举迁居，由胡入蜀。这大约是为了躲避仇家或官府的缘故，而当时李白已有五岁，西域的风俗文化成为他身上最早植下的文化基因。<br>定居巴蜀之后，李白的父亲过着深居简出的低调生活，李白却以极其高调的姿态成长起来了。自幼锦衣玉食惯了，李白当真视金钱如粪土，完全有痛饮狂歌、飞扬跋扈的经济基础。<br>李白有太多的忧心事，为天下兴亡忧心，为政治前途忧心，为修仙大业忧心，为朋友的困境忧心，唯独不曾为钱财忧心。“天生我材必有用，千金散尽还复来”，这样的诗句，贫寒出身的诗人无论再天才也写不出。必须感谢李白的父祖，若没有他们，李白的诗怕也写不出这样的豪气。于是腰缠十万贯，巴蜀任游学，李白就是这样度过了自己的青葱岁月。<br>巴蜀民风与中原大不同，有任侠仗义之风，重经济纵横之术。相形之下，按部就班地读书应举实在是一件太过无聊的事情，是李白绝对不愿去做的。大丈夫志在四方，如愿有所成就，那就是成就姜太公、诸葛亮那样的事业，由布衣之士跃升为帝王之师，于谈笑之间安定天下。<br>后来的事实一再证明，这种眼高手低的毛病实在害了李白一辈子。</p><h5 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h5><p>年纪稍长之后，李白便离蜀东行，“仗剑去国，辞亲远游”。所谓“仗剑去国”，这倒不是诗人为了渲染气氛而说出的大话，李白当真学过剑术，也当真在远游的旅途中像小说里的侠客一样“头不离肩，剑不离身”。<br>李白自称曾经手刃数人，据李白研究专家周勋初的意见，在这件事上李白应该没有吹牛，也算是小小实现了“十步杀一人，千里不留行”的侠客大梦。当然，侠义精神绝不仅仅是剑术好，敢杀人，李白远游途中接下来发生的这件事才是真正有任侠风骨的。古人的生命远比现代人脆弱，与李白同游的同乡好友吴指南不幸死在洞庭湖畔。李白为之服丧恸哭，就算有猛虎靠近也不为所动。所幸猛虎于此时保持了必要的审慎，没有轻率地葬送这位中国诗歌史上最伟大的天才的性命。李白本着巴蜀旧俗，将好友的尸身殡而不葬，留在当地。几年之后，李白重新寻来，检视好友的尸身，见筋肉尚在，于是一边哭着一边持刀剔尽了尸身上的筋肉，再将骨骼洗净之后包裹起来，随身携带，长途跋涉到鄂城之东，将好友正式营葬。<br>这件事情的全部经过是李白在写给安州长史裴宽的干谒书信里亲自讲出来的，为的是举证说明自己是如何一个任侠仗义的性情中人。但这种“南蛮”的丧葬方式与中原传统大不相同，在中原士人看来简直有点令人毛骨悚然。</p><h5 id="4"><a href="#4" class="headerlink" title="4."></a>4.</h5><p>有一种因果关系很难辨识清楚：究竟是一本书影响了一个人，还是一个人总会选择与自己性情投合的书籍来看。<br>这两种情形应当是同时存在的，所以我们读书其实很难改造自我或者塑造一个新的自我，反而只是强化了固有的性情与观念罢了。越是感性重于理性的人，这一规律在他的身上也就越发适用。<br>李白，当然是最逃不过这一规律的。<br>我们读李白的诗集，可以从他的遣词造句与用典当中晓得他都读过哪些书，更晓得他最爱读的是什么书。答案一点都不会令人吃惊：李白最爱读的就是《世说新语》，他对魏晋名士的做派简直到了痴狂的地步，简直有点亦步亦趋地学着他们的样子。然而不幸的是，魏晋风度是要有门第做支撑的，而李白的家庭只有财富，却没有门第。既然没有门第，那就索性挣一个门第出来吧。<br><code>太多了，不摘了，感兴趣的看书吧，以下跳转到《将进酒》</code></p><h5 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h5><p>李白的诗，向来写得汪洋纵恣，不带一点人间烟火气，仿佛他从来都生活在现实世界之外。<br>而现实世界果然也一再地辜负他和他的后人，这倒也不能说是命运不公。<br>我们今天读他的《将进酒》，感觉何等豪气，何等酣畅，何等激励人心，只是，若我们蓦然想起李白的一生，以及他那两个孙女的遭际，不知道还会不会相信“天生我材必有用，千金散尽还复来”：</p><blockquote><p>君不见黄河之水天上来，奔流到海不复回。<br>君不见高堂明镜悲白发，朝如青丝暮成雪。<br>人生得意须尽欢，莫使金樽空对月。<br>天生我材必有用，千金散尽还复来。<br>烹羊宰牛且为乐，会须一饮三百杯。<br>岑夫子，丹丘生，将进酒，杯莫停。<br>与君歌一曲，请君为我倾耳听。<br>钟鼓馔玉不足贵，但愿长醉不复醒。<br>古来圣贤皆寂寞，惟有饮者留其名。<br>陈王昔时宴平乐，斗酒十千恣欢谑。<br>主人何为言少钱，径须酤取对君酌。<br>五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。</p></blockquote><p>在这首《将进酒》里，我们完全可以看出李白诗歌最显著的两大特色，即夸张与任性。李白之夸张，一说发愁便是“白发三千丈”，说喝酒便是“百年三万六千日，一日须倾三百杯”，一说打仗平叛便是“为君谈笑静胡沙”；李白之任性，写诗讲话全凭一时的情绪，一高兴就认为“天生我材必有用”，一受点挫折就抱怨“骅骝拳跼不能食，蹇驴得志鸣春风”，四处干谒求达官贵人引荐的时候就说“生不用封万户侯，但愿一识韩荆州”，偃蹇不顺的时候就慨叹“安能摧眉折腰事权贵，使我不得开心颜”。<br>若脱去全部文学的伪装，他不过是个一辈子都不曾长大的孩子。<br>李白名字考李白，字太白。李白的母亲在生育李白那晚，梦见长庚星入怀；长庚星即启明星，又称太白金星，所以因梦名之为白。太白，即太白金星的简称。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 荐书 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书摘笔记 《华杉读透孙子兵法》（二）</title>
+      <link href="/posts/2148981946/"/>
+      <url>/posts/2148981946/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="书摘笔记-《华杉读透孙子兵法》"><a href="#书摘笔记-《华杉读透孙子兵法》" class="headerlink" title="书摘笔记 《华杉读透孙子兵法》"></a>书摘笔记 《华杉读透孙子兵法》</h1><p>@(孙子兵法)[华杉读透孙子兵法] [兵法] [格局拓展] [思维]</p><h4 id="为将者的大半工作，是制定军法"><a href="#为将者的大半工作，是制定军法" class="headerlink" title="为将者的大半工作，是制定军法"></a>为将者的大半工作，是制定军法</h4><blockquote><p>“法者，曲制、官道、主用也。<br>凡此五者，将莫不闻，知之者胜，不知者不胜。“<br>《计篇》</p></blockquote><p>事实上，这一条的技术含量很高，为将者大半工作都在这儿。交战倒就是那一下子。  </p><blockquote><p>曹操注解说：“曲制者，部曲、幡帜、金鼓之制也；官者，百官之分也；道者，粮路也；主者，主军费用也。”“曲制”是组织架构、部队编制、指挥系统。“官道”是人事制度。“主用”是物资管理和财务制度。“法”，是管理，是管理办法。管理在现代社会成为一个专业词汇，而现代管理学，就脱胎于军队的管理。&#96;</p></blockquote><p>曹操注解的”曲制“，在企业管理中就是组织架构。而”官“，则是岗位设置和岗位职责和人力资源成本。”主用“，就是说物资管理和财务制度。</p><p>总结：“道、天、地”，是大略；“将”和“法”，则是雄才，能组织、动员、驾御、推动。我们看成功的企业家，都是雄才大略兼备。而雄才又比大略重要。因为大略可以问别人，可以请顾问，而雄才只能在自己身上。只有雄才，没有大略，也可成为大企业家。只有大略，没有雄才，在古代就做谋士幕僚，在今天就开咨询公司吧。</p><h4 id="所谓”道“，就是软实力"><a href="#所谓”道“，就是软实力" class="headerlink" title="所谓”道“，就是软实力"></a>所谓”道“，就是软实力</h4><blockquote><p>“故校之以计，而索其情，曰：主孰有道~~~~” 《计篇》</p></blockquote><p>“主孰有道”， 前面说的是“令民与上同意也”。 要上下一心同欲， 就要共享胜利果实， 对民众政策得当，对部下舍得封赏。</p><h4 id="“五事七计”，而后知胜负。知胜负，而后举兵决战"><a href="#“五事七计”，而后知胜负。知胜负，而后举兵决战" class="headerlink" title="“五事七计”，而后知胜负。知胜负，而后举兵决战"></a>“五事七计”，而后知胜负。知胜负，而后举兵决战</h4><blockquote><p>”曰：主孰有道？将孰有能？天地孰得？法令孰行？兵众孰强？士卒孰练？赏罚孰明？吾以此知胜负矣。将听吾计，用之必胜，留之；将不听吾计，用之必败，去之。“—-《计篇》</p></blockquote><p><strong>赏罚的关键，主要是两条，一是及时，二是恰当。</strong><br>《司马法》说：“赏不逾时，欲民速得为善之利也。罚不迁列，欲民速睹为不善之害也。”这是讲赏罚要及时，做好事的利益，让他马上得到；做坏事的惩罚，让大家马上看到。如果不能及时，效果就要大打折扣。<br>王子（《孙子兵法》早期注家）注说：“赏无度，则费而无恩；罚无度，则戮而无威。”这是讲赏罚要适度，滥赏无度，大家拿了还不感激你；滥罚无度呢，人人愤恨，你也没有威信。</p><h4 id="正道与诡道"><a href="#正道与诡道" class="headerlink" title="正道与诡道"></a>正道与诡道</h4><blockquote><p>”计利以听，乃为之势，以佐其外。势者，因利而制权也。兵者，诡道也。“—-《计篇》</p></blockquote><p><em>曹操注：“ 常法之外也。“</em><br><em>李筌注：“计利既定，乃乘形势之变也，佐其外者，常法之外也。”</em><br>所以<strong>“势”</strong>，是形势的势，到了战场上，根据形势的变化，如何趋利避害，如何化不利为有利、相机行事，如何借势，如何造势。《孙子兵法》十三篇里专门有《形篇》和《势篇》，详细讲这个问题，是孙子思想的精华。</p><h4 id="不能等待，是巨大的性格缺陷"><a href="#不能等待，是巨大的性格缺陷" class="headerlink" title="不能等待，是巨大的性格缺陷"></a>不能等待，是巨大的性格缺陷</h4><blockquote><p>“兵者，诡道也。故能而示之不能。用而示之不用。近而示之远，远而示之近。利而诱之，乱而取之，实而备之，强而避之，怒而挠之，卑而骄之，佚而劳之，亲而离之。攻其不备，出其不意。此兵家之胜，不可先传也。”—《计篇》</p></blockquote><p>孙子在这里一口气讲了十二条诡道，_大多数诡道的出发点是造成对方的错误判断，引诱对方失误。对方不上当，不失误，怎么办呢？等待，跟他熬，派间谍，各种布置安排。总之，一定要等到平衡打破，胜算已见，才能出战_。<strong>孙子的观念是先胜后战，不胜不战。没有胜算就等。不能等待，是巨大的性格缺陷。</strong>总觉得要战斗才是英雄男子汉，不懂得等待是战斗的一部分，而且是非常重要的组成部分。</p><blockquote><p>《唐太宗李卫公问对》中记载，李世民说：“我读古今兵书，发现关键就四个字，‘多方以误’，就是想尽各种办法引对方误判，做出错误举动，把破绽露出来。”李靖说：“对，打仗就像下棋，一着失误，满盘皆输，捞都捞不回来。”</p></blockquote><p>十二条诡道，十一家注解战列颇多，我们逐条学习</p><h4 id="一战而定是真名将"><a href="#一战而定是真名将" class="headerlink" title="一战而定是真名将"></a>一战而定是真名将</h4><blockquote><p>“能而示之不能”—《计篇》</p></blockquote><p>李牧、白起、廉颇、王翦的战例。<br><code>张预曰：“实强而示之弱，实勇而示之怯，李牧败匈奴，孙膑斩庞涓之是也。</code></p><p>做任何事都是这个道理，不该动作时什么也不做，做 一次就解决问题。多少事，都误 在频频动作。<br>小心你的“焦虑性动作”，那是最能毁你的。<strong>真正最重要的工作有两项：一是准备，二是等待。</strong>准备是自己的事，积蓄实力，操练兵马，鼓舞士气。等待，是等待敌人犯错，等待时机出现。敌人如果不犯错，我们就很难赢。兵法的诡道，如李世民言，多方以误，就是想方设法引诱对方失误。“能而示之不能”，是其中一个方法，也是最主要的，使用最频繁，而且屡试不爽的方法。</p><h4 id="计策都很简单，就那么几个，关键是戏怎么演"><a href="#计策都很简单，就那么几个，关键是戏怎么演" class="headerlink" title="计策都很简单，就那么几个，关键是戏怎么演"></a>计策都很简单，就那么几个，关键是戏怎么演</h4><blockquote><p>?用而示之不用”—《计篇》<br>“用而示之不用”和“能而示之不能”是一个意思。</p></blockquote><h4 id="成败无定，领导者要自己负决策责任"><a href="#成败无定，领导者要自己负决策责任" class="headerlink" title="成败无定，领导者要自己负决策责任"></a>成败无定，领导者要自己负决策责任</h4><h4 id="踢球每一步都有假动作，但那不是赢球的本质"><a href="#踢球每一步都有假动作，但那不是赢球的本质" class="headerlink" title="踢球每一步都有假动作，但那不是赢球的本质"></a>踢球每一步都有假动作，但那不是赢球的本质</h4><blockquote><p>“近而示之远，远而示之近”—《计篇》</p></blockquote><p>这叫“战略欺骗”，核心就是“使敌无备也”，让他没防备。因为他若有防备，我就没胜算；他若没防备，而我把全部力量投掷过去，他就垮了。<br><code>偷袭珍珠港</code></p><h4 id="成大事者有三戒，戒贪是第一"><a href="#成大事者有三戒，戒贪是第一" class="headerlink" title="成大事者有三戒，戒贪是第一"></a>成大事者有三戒，戒贪是第一</h4><blockquote><p>“利而诱之，乱而取之”—《计篇》<br>“夫霸天下者有三戒：毋贪，毋忿，毋急。贪则多失，忿则多难，急则多蹶。夫审大小而图之，乌用贪？衡彼己而施之，乌用忿？酌缓急而布之，乌用急？君能戒此三者，于霸也近矣。”—骞叔（春秋 秦）</p></blockquote><p>霸天下的人有三戒：戒贪，戒忿，戒急。贪心，就会失去越多；忿怒，就容易有难；急躁，就会摔跟头。审查利害大小而图之，哪需要贪呢？将心比心，换位思考，衡量彼己，哪需要生对方的气呢？斟酌事情的缓急，从容计划安排，哪需要急躁呢？您能持这三条戒，霸业就近了。下判断、做事业，要把握两条：趋利、避害。趋利和避害的权重，应该至少是相当的，五十对五十。但是，往往都成了七比三，甚至九比一。为什么，因为利往往在明处，在眼前，让人激动；而害在暗处，在远处，让人心生侥幸。<br><code>心存侥幸者，赌徒也。</code><br><strong>不贪心，就不会上当。所有的骗局，都是从“贪”字入手。这骗局，可不是别人来骗你说工地上挖到宝，是你自己会骗自己。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书摘笔记 《华杉读透孙子兵法》（一）</title>
+      <link href="/posts/2952802402/"/>
+      <url>/posts/2952802402/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="书摘笔记-《华杉读透孙子兵法》"><a href="#书摘笔记-《华杉读透孙子兵法》" class="headerlink" title="书摘笔记 《华杉读透孙子兵法》"></a>书摘笔记 《华杉读透孙子兵法》</h1><p>@(孙子兵法)[华杉读透孙子兵法] [兵法] [格局拓展] [思维]</p><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><strong>这本书</strong>的开始的目录和其他书的目录都不是很一样，细读一下，其实真正的精华已经被提炼到这些看似长长的目录中了，将这些目录的文字记录下来就是一张最好的学习地图和日后的对照表。</p><h3 id="自序"><a href="#自序" class="headerlink" title="自序"></a>自序</h3><h3 id="第一章-计篇第一"><a href="#第一章-计篇第一" class="headerlink" title="第一章 计篇第一"></a>第一章 计篇第一</h3><ul><li><strong>《孙子兵法》</strong>的价值观</li><li>孙子的敬畏心</li><li>孙子的优劣势分析法：“五事七计”之五事</li><li>上下同欲者胜</li><li>天时就是军事气象学</li><li>行军必是无人之境，交火必是有利地形</li><li>心里装着对方的利益，并让对方知道</li><li>为将者的大半工作，是制定军法</li><li>所谓“道”，就是软实力</li><li>“五事七计”，而后知胜负。知胜负，而后举兵决战</li><li>正道与诡道</li><li>不能等待，是巨大的性格缺陷</li><li>一战而定是真名将</li><li>计策都很简单，就那几个，关键是戏怎么演</li><li>成败无定，领导者要自己负决策责任</li><li>踢球每一步都有假动作，但那不是赢球的本质</li><li>成大事者有三戒，戒贪是第一</li><li>不能胜利就要等等待</li><li>忘了本谋，是每个人常犯的毛病</li><li>示弱不是羞耻，争什么不要争气，特别是不要争一时之气</li><li>疲劳战</li><li>我们为什么会中“离间计”</li><li>要保持紧张，不可懈怠</li><li>事以密成，语以泄败</li><li>三十六计技术含量很低，但一听就让人兴奋；</li><li>“五事七计”技术含量很高，但一听就让人打瞌睡</li><li>附录：《计篇》全文</li></ul><h4 id="《孙子兵法》的价值观"><a href="#《孙子兵法》的价值观" class="headerlink" title="《孙子兵法》的价值观"></a>《孙子兵法》的价值观</h4><p><strong>孙子兵法</strong>中的“计”是计算的计，是讲计算，不是讲计谋，这里的计和“三十六计”中的_计_不是一回事。<strong>《孙子兵法》</strong>不是讲奇计得胜的书，是讲实力决胜的书。<br>“孙子”的“计”，是基本面，不是操作面。是最拙的，不是最巧的。<br>“计”是计算实例对比，对比计算的科目有五项，叫做<strong>“五事七计”</strong>。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**七计**是--主孰有道、将孰有能、天地孰得、法令孰行、兵众孰强、士卒孰练、赏罚孰明。就是比较敌我双方的政治、天时、地利、人才和法治.```</span><br><span class="line"></span><br><span class="line">所以孙子的计，相当于咱们现代管理学将的SWOT分析，就是比较敌我双方的优势（Strength）、劣势（Weakness）、机会（Opportunity）和威胁（Threat）。</span><br><span class="line">计的目的是什么呢？是为了知胜。比较这五个方面，七个科目，在战前就能判断胜负。通过计算定胜负，胜了才打，这就叫胜算。</span><br><span class="line">**孙子的核心思想：先胜后战**，简称*“赢了再打”*。</span><br><span class="line">&gt;计，算也。曰：计算何事？曰：下之五事，所谓道、天、地、将、法也。于庙堂之上，先以彼我之五事计算优劣，然后定胜负，胜负既定，然后兴师动众。用兵之道，莫先此五事，故为篇首耳。    ---------杜牧（唐）</span><br><span class="line"></span><br><span class="line">####**孙子的敬畏心**</span><br><span class="line">**孙子兵法不是战法，是不战之法；不是战胜之法，是不战而胜之法；不是战而后生之法，是先胜而后战之法。**</span><br><span class="line">####孙子的优劣势分析法：”五事七计“之五事</span><br><span class="line">&gt;故经之以五事，校之以计，而索其情。一曰道、二曰天、三曰地、四曰将、五曰法。----《计篇》 </span><br><span class="line"></span><br><span class="line">**”道“**，是恩信使民。你的人民听不听你的。你的君主是有道明君，还是无道昏君。所以道就是比较双方的政治，比较双方君主的领导力。</span><br><span class="line">**”天“**，是上顺天时，**”地“**是下知地利。同样一件事，有时机才能干的成，时机不对就不能干。</span><br><span class="line">**”将“**，是委任贤能。</span><br><span class="line">**”法“**，不是国内的法治，是军法。</span><br><span class="line">用五事校计彼我之优劣，探索胜负之情状。</span><br><span class="line">####**上下同欲者胜**</span><br><span class="line">&gt;道者，令民与上同意也。故可以与之死，可以与之生，而不畏危。---《计篇》</span><br><span class="line"></span><br><span class="line">兵家的道，不是宇宙的真理，就是问人民支不支持战争，效不效忠君主，能不能为国捐躯。</span><br><span class="line">####天时，就是军事气象学</span><br><span class="line">&gt;天者，阴阳，寒暑，时制也。-----《计篇》</span><br><span class="line"></span><br><span class="line">兵家讲天，应说有三层含义。</span><br><span class="line">- 天下大势，顺天应人；</span><br><span class="line">```这一层是大形势，大战略，举兵前已经定了。```</span><br><span class="line">- 所谓夜观星相，望云望气，龟灼占卜；</span><br><span class="line">```这一层说的最多，但都是宣传给别人听，&quot;以惑下愚&quot;，自己从来不信，如姜太公所言：“智者不法，愚者拘之。”```</span><br><span class="line">- 寒暑四时，天气预报，利用气象条件作战。</span><br><span class="line">```这一层如吴起兵法所讲的疾风、大寒、盛夏、炎热之类，因其厉害而制宜，利用气象作为武器作战。```</span><br><span class="line"></span><br><span class="line">所以中国人说天时地利人和，天时里面主要也是人和。人和是自己人的和。天时是天下人之和。</span><br><span class="line">####行军必是无人之境，交火必是有利地形</span><br><span class="line">&gt;地者，远近、险易、广狭、死生也。----《计篇》</span><br><span class="line"></span><br><span class="line">*行军，在正确的时间、正确的地点，出现正确的兵力，这才是决定胜负的关键。*</span><br><span class="line">####心里装着对方的利益，并让对方知道</span><br><span class="line">&gt;将者，智、信、仁、勇、严也。----《计篇》</span><br><span class="line"></span><br><span class="line">这是孙子对“将”的人格排序</span><br><span class="line">- 什么是“智”？</span><br><span class="line">```能谋虑，通权变。```</span><br><span class="line">- 什么是“信”？</span><br><span class="line">```就是赏罚分明，每个人都非常清楚，犯什么错受什么刑，立什么功受什么赏。</span><br><span class="line">信，有赏罚分明之信，也有默契之信。因为很多时候你不是最高统帅，不是国君，不掌握赏罚的全部权力。但是你也是一级领导，也要带兵打仗。这种情况，*西点军校有一条对领导力的要求——心里装着对方的利益，并有能力让对方清楚这一点。*所以信不仅是一种机制，更是一种人格力量。首先你心里要装着对方，这点很本质。心里没装着，就没法真信。其次你要有能力让对方知道。别你装着他，他却不知道，他跑了。```</span><br><span class="line">- 什么是“仁”？</span><br><span class="line">```仁者，爱人悯物，知勤劳也。```</span><br><span class="line">- 什么是“勇”？</span><br><span class="line">```勇，就是决谋合战，当机立断，勇往直前，没有勇，一是决断不了，而是好不容易决定了，执行又不坚决，老想缩回来。最后真把自己缩没了。没有勇，就做不成事。```</span><br><span class="line"></span><br><span class="line">- 什么是“严”？</span><br><span class="line">```严，以威刑肃三军也。</span><br><span class="line">所以做人，靠什么不要靠靠山。你的靠山跟别的山稍微磕碰一下，你就粉身碎骨。你以为你是山的一部分，但一阵风就会把你刮下山崖。如果靠山倒了，那更可怕，靠在那山上的人全被活埋。所以君子行中道，靠自己的独立人格、独立价值安身立命，遵纪、守法、知止。找靠山，是小人之心，也就只能是小人的命。```</span><br><span class="line"></span><br><span class="line">**“明”**，就是要把下属的表现一一看明。临阵之际，是谁冲锋陷阵，是谁随后助势，是谁拼死阻击，又是谁见危先避，全部看明记清。</span><br><span class="line">在平时，每个人办事的勤惰虚实也逐细考核。这样奖惩就能及时准确恰当。作为将领，是否身先士卒倒在其次。因为你往往是在后面指挥，不是在前面冲杀。最重要的甚至也不是计谋高超，指挥若定，而是分配公平，谁有什么功劳你都清楚，都能准确衡量赏罚，则个个放心，人人奋勇，都给你卖命。</span><br><span class="line">**所以做领导的，不要只关注事，要关注人。**不要事情办好了就万事大吉了，要对在办这事的过程中，你手下每个人发挥了什么作用都非常清楚，并能作出奖惩，你的事才能越办越好。</span><br><span class="line">曾国藩说，以“廉明”二字为基础，“智信仁勇严”可以积累而得。没有“廉明”的基础，自己不能服众，赏罚又不准确，“智信</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>从沟帮子熏鸡到火车的餐饮</title>
+      <link href="/posts/2103466024/"/>
+      <url>/posts/2103466024/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote><p>“过去的“中国四大名鸡”——德州扒鸡、道口烧鸡、符离集烧鸡、沟帮子熏鸡，分别以德州（津浦路&#x2F;今京沪铁路）、道口（平汉路&#x2F;今京广铁路）、符离集（津浦路）、沟帮子（京奉路或北宁路&#x2F;今京沈京哈铁路）这些车站集散地命名。都是清末民初随着铁路发展而渐渐有名的。在周边农村炮制，到车站集中发售，一百余年里随着铁路发展而名声传遍全国。”——阎京生老师语</p></blockquote><p><img src="https://upload-images.jianshu.io/upload_images/9660670-7bebcc71dfc8ea30.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp"></p><p>沟帮子熏鸡</p><p>近日去盘锦出差，途中辗转，在沟帮子停下午饭。在当地朋友的引荐下，有机会品尝到了大名鼎鼎的沟帮子熏鸡。味道确实不错，只可惜我们来去匆匆，也就是一个小时的午饭时间，吃到的是凉的熏鸡，风味大减。但也足以想象刚出锅时候的鲜香。</p><p>其实，今天还在流传的很多美食都和交通有关系，就不一一列举了。</p><p>对比之下，这次旅途中，高铁广播中反复强调—本次列车的餐饮是由全国xx强的双瑞公司供应（ <a href="https://link.jianshu.com/?t=http://www.stsrsp.com/">替双瑞走个免费广告</a>），到了中午饭点就点了一份，服务生服务很好，便当拿来的时候非常烫手，不得已放在小桌板上等，少凉以后，又发现第二个难题，内层的隔热塑料层非常坚固，再加上烫手的关系，很不容易撕开，就这样别别扭扭的吃完一顿饭，感受很不好。</p><p>其实，真正成功的火车餐饮，是让人下了火车还想再买一份带回家或者回到家还想从网上再买一次，能做成这样才算成功。不然只是靠把持了流量入口，而以垄断的思维去做经营，那就是典型的靠山吃山靠水吃水，若想从此过 留下买路财的不思进取的思维，只要还是这样的经营，再号称全国业内多少多少强的企业，也只是大而不当，大而不强。</p><p>最后忍不住再八卦一遍，双瑞的网站上—高铁便当的宣传词，真没出息，中国人火车出行有没有100年历史？100年了，我们今天的火车餐饮还停在便当的水准~~~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 美食 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>正月理发妨舅舅～～古老剃头匠们的纳什均衡</title>
+      <link href="/posts/1973654125/"/>
+      <url>/posts/1973654125/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>   “正月理发不理发，理发妨舅舅”</p><p>        这个民俗广泛流传于我大天朝的很多地区。更有甚者，将“妨”上升至生死，是之为–正月理发死舅舅，不由得让人更加心惊肉跳了。 </p><p>        恶咒如此，我自小开始每每春节前的一周左右，家中大人就带我去理一个比平日短之有短的发型。盖因为之后要有整整一个月的时间，在老妈炯炯的目光下任由头发肆意生长，非要拖到阴历二月二去理发，讨一个口彩—“二月二龙抬头”。</p><p>        也曾问过大人这其中的原因，家中老人也说不清楚。这遂成了我心中的一桩玄案。长大后见闻增长，渐渐相信—-此风俗比较可信的源头应该是起自清初，当权者强令大明子民将发型改为满族式样—将头发从前部到脑顶剃去，再将四周的发际全部剃光，只留下中间集中的一块和一个长长的大辫子。此举遭到汉族人士的激烈反对，虽然最终还是屈服在异族强权下，但仍有很多地区，在春节的这个月故意蓄发，以示“思旧”–思念故朝之意。但这个纪念因为和当权者相忤，只好偷偷流传。年华蹉跎，大清已经雨打风吹去，而大明终也没有复国，这个风俗传着传着就变成了“死舅”，这个说法有大历史的印迹，也有着强烈的民族色彩，不由得人宁愿选择相信。</p><p><img src="https://upload-images.jianshu.io/upload_images/9660670-e48c5e5e5b87774b.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/600/format/webp"></p><p>剃头挑子一头热</p><p>        不过，这并不妨碍我们从经济的角度去歪解一下这个民俗。 这个风俗从博弈论的角度看，恰恰是那些古老剃头匠们的“纳什均衡”。</p><p>        先把拗口的名词解释放在一边，我们不妨穿越到古时候想象一下当时的场景吧：</p><p>       古时候的剃头匠和今天的理发沙龙的经营业态很不一样，理发师（我们还是用理发师这个词来称呼吧）们采取流动营业的方式，整副家当就是一架剃头挑子，走村串户，并不固定在一个场所，也正是因为这样，所以理发师们活动往往局限性很大，彼此间市场毗邻，有很强的“地盘”观念，这是可以想见的。</p><p>        忙碌一年，特别是正月时节仍属寒冬，大家都在家里团圆过年，理发师们也都觉得在凛凛寒风中负重前行的滋味实在是不好受，可如果自顾自地休息十天半个月，顾客们又恰是正月中走亲串邻，自己休息不打紧，可能隔壁村阿牛师傅很可能不自觉地跑到这边地盘上揽客，更有可能庙会上可能冷不丁就冒出那个草根做起了这门生意，可不休息，那终日北风吹骨的滋味着实不好受呢。</p><p>        那，该怎么办？</p><p>        假如，所有的顾客在正月这个月中都不理发，大家都没有了顾客，自然不担心别人撬生意，更可以好好休息一个月，而且一出正月，市场区域不变，游戏规则不变，竞争没有因为歇业而加剧，生意还能立刻兴隆，这样对于大多数守规矩的理发师来说是相安无事的最好结果，也就是所谓的纳什均衡咯。</p><p>        那，不妨就借这个思旧的民俗，把思旧改成死舅—思念故朝的人毕竟只是一少部分，而有舅舅的人比比皆是了，顾客们心有忌惮，目的自然达成了。</p><p>        So，正月不剪发这个民俗就这样和博弈论中的纳什均衡印证了。</p><p><img src="https://upload-images.jianshu.io/upload_images/9660670-5f8116d16af5a8a2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/505/format/webp"></p><p>纳什教授</p><p>关于纳什均衡，百度百科如是说：纳什均衡是指博弈中这样的局面，对于每个参与者来说，只要其他人不改变策略，他就无法改善自己的状况。</p><p>也可以参考MBA百科：</p><hr><p><strong>纳什均衡</strong>，又称为<strong>非合作博弈均衡</strong>，是<a href="https://link.jianshu.com/?t=http://wiki.mbalib.com/wiki/%25E5%258D%259A%25E5%25BC%2588%25E8%25AE%25BA">博弈论</a>的一个重要术语，以<a href="https://link.jianshu.com/?t=http://wiki.mbalib.com/wiki/%25E7%25BA%25A6%25E7%25BF%25B0%25C2%25B7%25E7%25BA%25B3%25E4%25BB%2580">约翰·纳什</a>命名。在一个博弈过程中，无论对方的策略选择如何，当事人一方都会选择某个确定的策略，则该策略被称作支配性策略。如果两个<a href="https://link.jianshu.com/?t=http://wiki.mbalib.com/wiki/%25E5%258D%259A%25E5%25BC%2588">博弈</a>的当事人的策略组合分别构成各自的支配性策略，那么这个组合就被定义为纳什均衡。</p><p>　　一个策略组合被称为纳什均衡，当每个博弈者的均衡策略都是为了达到自己期望收益的最大值，与此同时，其他所有博弈者也遵循这样的策略。</p><hr><p>本文目的不在于给大家科普纳什均衡，感兴趣的同学可以点击<a href="https://link.jianshu.com/?t=http://wiki.mbalib.com/wiki/%25E7%25BA%25B3%25E4%25BB%2580%25E5%259D%2587%25E8%25A1%25A1">这里</a>自行学习吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 纳什均衡 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>人人车 要橙子 不要橙子市场</title>
+      <link href="/posts/1186426967/"/>
+      <url>/posts/1186426967/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>很少看电视，不知道从什么时候开始@黄渤 开始在电视上为人人车做广告呢，只是这次春节期间有时间看电视，正好人人车借助春晚的黄金时间，我不得不”被轰炸“到而已。</p><p>要首先声明的是，我对人人车没有什么负面或者正面的看法，虽然我正处于一个换车还是不换的档口，那是题外插话。我只想从一个也许不是所有看电视的同学，特别是部分营销人和广告人不熟悉的角度来解构一下这个人人车—”好车不和坏车买“的营销构思吧  @叶茂中。</p><p><img src="https://upload-images.jianshu.io/upload_images/9660670-9045523b97df8957.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/670/format/webp"></p><p> 好橙子？ 坏橙子？</p><p>下面是书摘  我比较更肯定，这就是人人车春晚广告片的创意源泉了！</p><hr><p>在市场竞争中，正常的选择法则是择优汰劣，但是在实际生活中，却有一种现象是优不胜劣不汰，甚至是劣胜优汰，这就是逆向选择。 逆向选择最经典的例子是美国著名经济学家乔治·阿克尔洛夫在1970年发表的《柠檬市场：产品质量的不确定性与市场机制》中提出的“柠檬市场”的一个特例——著名的二手车市场模型。阿克尔洛夫是规范描绘“柠檬市场”的第一人，此后涉及信息不对称和逆向选择的市场问题，都归类为“柠檬问题”。 何谓柠檬市场？ 在解答这个问题之前，我们先对柠檬做一个大致的了解。柠檬是世界上最有药用价值的水果之一，它富含维生素C、柠檬酸、苹果酸、高量钾元素和低量钠元素等，对人体十分有益。因其味奇酸，肝虚孕妇最喜食，故又称益母果或益母子。 柠檬的表皮金黄诱人，但内瓤却酸涩不堪，所以，美国人通常把从外观难以发现的次品或不中用的产品比喻为“柠檬”。柠檬市场，又称为次品市场，是指信息不对称（即在市场买卖中，产品卖方对产品的质量拥有比买方更多的信息）的市场，旨在说明逆向选择导致了市场的低效率，市场失灵。</p><p>柠檬的表皮金黄诱人，但内瓤却酸涩不堪，所以，美国人通常把从外观难以发现的次品或不中用的产品比喻为“柠檬”。柠檬市场，又称为次品市场，是指信息不对称（即在市场买卖中，产品卖方对产品的质量拥有比买方更多的信息）的市场，旨在说明逆向选择导致了市场的低效率，市场失灵。 二手车市场不同于买主直接从厂家或经销商处买车的一手车市场，在购一手车时，买主可以认牌子、认商标，厂商可以提供产品的质量保证，从而可以有效地降低顾客因产品质量的信息不对称而可能造成的损失。但是，在二手车市场里，处于待卖中的车都是旧车，此时只看品牌来确定车的质量高低就显得不那么奏效了，因为旧车中加入了更多的车在以前使用过程中的磨损。 在二手车市场上，买主与卖主之间对于所要交易的旧车存在着严重的信息不对称，卖车人比买车人掌握了更多有关所售汽车的质量情况的信息，但卖车人是不会将这些信息完完本本地告诉买车人的。潜在的买车人当然也知道这一情形，但他要想确切地辨认出所买的二手汽车质量的好坏是非常困难的，最多只能通过外观、介绍及简单的现场试验等来获取有关此车质量的信息，然而，潜在买车人可以获得的这些信息又很难准备地判断出此车的质量，因为旧车的真实质量只有通过日后长时间的使用才能看出，但这一有效途径在旧车市场上是不可能实现的。所以说，二手车市场上的买车人在购买汽车之前，无从得知哪辆汽车是高质量的，哪辆汽车是低质量的，他们只知道二手车的平均质量。 在这种情况下，买车人唯一可以有效避免信息不对称带来的风险损失的手段就是按照平均质量出价。这样一来，卖车人自然只会把平均质量以下的车摆上台面，从而导致高质量汽车的卖者将他们的汽车撤出二手车市场，低质量的汽车充斥着整个二手车市场。 在二手车市场上，高质量的汽车在竞争中失败了，市场选择了低质量的汽车。这与常规的市场规律“高价格诱导出高质量，低价格导致低质量”相悖，二手车市场上出现的逆向选择使得市场上出现了价格决定质量的反常现象。如果二手车市场不加约束，继续采取放任态度，最后必然是自取灭亡。</p><hr><p>现在回来继续解构 </p><p><img src="https://upload-images.jianshu.io/upload_images/9660670-fa90ae637c74973c.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480/format/webp"></p><p>人人车春晚创意广告</p><p>人人车，在首轮完成流量阶段以后，不可避免遇到了橙子市场的魔咒。所以，从产品运营的角度，必须要撇开劣币驱除良币的味道。 即是商业要求使然，也是融资要求使然。</p><p>但，“野蛮生产”的原罪，不是一天可以漂白滴，到底如何，我们拭目以待吧</p><p>后面附上<a href="https://link.jianshu.com/?t=https://wenku.baidu.com/view/880b7389172ded630a1cb62a.html">柠檬市场：质量的不确定性和市场机制(中英对照)</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 纳什均衡 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>哈什蚂，跳到我的碗里来！</title>
+      <link href="/posts/2414943228/"/>
+      <url>/posts/2414943228/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>_哈什蚂_，对于吃货的我来说，有着强烈的吸引力和好奇。从来只是从相声《报菜名》里面听到“清蒸哈什蚂”，但见识庐山真面目才是今天。说到这，必须要隆重感谢岳母和她在东北的妹妹（三姨）。感谢三姨的厚赐，也要感谢岳母的不辞辛苦，居然真的将鲜活蹦跳的哈什蚂带回山东，又非常“土豪”地大炒两盘，算是给我开了洋荤。美食美意当前，本当浮一大白，可惜午间有事需要驾驶，意兴不减，特此敲字一篇，也算是给微信圈里面关注的朋友们一个统一回复。</strong></p><h3 id="哈什蚂，罕布拉，东北林蛙，油蛤蟆-说的都是它！"><a href="#哈什蚂，罕布拉，东北林蛙，油蛤蟆-说的都是它！" class="headerlink" title="哈什蚂，罕布拉，东北林蛙，油蛤蟆~~~说的都是它！"></a>哈什蚂，罕布拉，东北林蛙，油蛤蟆~~~说的都是它！</h3><p><img src="https://upload-images.jianshu.io/upload_images/9660670-cc475df4ccc913bc.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp"></p><p>“哈什蚂” 这个词，我想现在知道的人可能越来越少了，大概现在能认识它的，怕多半是要有一点阅历的东北同学了。</p><p>其实也不奇怪，哈什蚂这个词原本出自满语，原本就是指的生活在东北地区的林蛙，在漫漫岁月中，叫法几经变迁，清朝年间还有一个词–罕布拉，据著名清俗学家唐鲁孙说，罕布拉也是指哈什蚂了。也有人研究哈什蚂是哈士蟆的谐音演化而来，其依据为清史《辽丛书》所载：哈士蟆形似田鸡腹有油如粉，可做羹，味极美，唯兴京一带（<a href="https://link.jianshu.com/?t=https://baike.baidu.com/item/%25E6%258A%259A%25E9%25A1%25BA">抚顺</a>东部区清原、<a href="https://link.jianshu.com/?t=https://baike.baidu.com/item/%25E6%2596%25B0%25E5%25AE%25BE">新宾</a>）有之，又称红肚蛤蟆。</p><p>民间因为哈什蚂油（林蛙油）极为金贵，也俗称为“油蛤蟆”。</p><p>而哈什蚂另外一个更广泛流传的名字是“_雪蛤_”，对，就是你在饭店吃到的木瓜雪蛤，其实这道名贵菜品的更准确的说法是木瓜雪蛤油，专取哈什蚂腹内的蛙油和木瓜烹制而成，我们吃到的时候全然看不到哈什蚂而蛙油尽入木瓜之内，极少人会因此联想到而已。</p><h3 id="人参-鹿茸-哈什蚂–东北三宝"><a href="#人参-鹿茸-哈什蚂–东北三宝" class="headerlink" title="人参 鹿茸 哈什蚂–东北三宝"></a>人参 鹿茸 哈什蚂–东北三宝</h3><p>哈什蚂是老满族极为珍视的食材兼药材。人参、鹿茸、鹿胎都是中医中热补的用途，清时富有的旗人家庭多有以人参鹿茸敬老的习惯，而中年人，男以熊掌，女以阿胶温补，至于哈什蚂和燕窝同属清补，男女老幼都可服用。哈什蚂最为人珍视的是腹内的蛙油。固精润肺，更对女士有美颜抗老的特殊功效呢！曾有“蛙油贵而金贱”的说法，我多次在航班的内插广告看到蛙油产品的介绍，相比之下，确实要比同重的黄金价格远远高出太多。</p><p><img src="https://upload-images.jianshu.io/upload_images/9660670-c9624876618af9e3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp"></p><p>我曾在朋友圈发图，请朋友猜这是什么，有朋友说-“林蛙”，其实并不十分正确，林蛙有很多种，更准确的说法是东北林蛙，绕来绕去，我们还是用哈什蚂来称呼吧。</p><p>初见之下，林蛙并不如我在山东随处可见的青蛙或者蛤蟆，个头很小，手掌之上可以并排放下2只，通体黑褐色，皮肤非常光滑，腿足纤细，也远比华北各地的青蛙要细瘦。</p><p>夫人的老家在辽宁丹东，青山绿水，天钟毓秀，所产丰富，而这里的哈什蚂栖居的山溪河流也很有特点，水底不是黄泥而是青石，所以水质非常清澈，哈什蚂自秋天而后进入水中繁衍、孕育、冬眠，全赖着清澈的水源。在一年中的春夏秋三季，哈什蚂自水中返入山林，那里的山抵近中朝边境，偏僻幽静无污染，也是极佳的生活环境。据岳父讲，他小时候进入秋后巡河而走就可以捡拾很多，只是此物由于上山下河的习性，不易养殖，而历经捕捉，近年来越来越少，身价也更是不菲，家中有客来访，主人要是烹制哈什蚂待客，那是极敬重的意思了。</p><p>不得不再提一下，这个季节能在山东吃到活的哈什蚂，真的要感谢岳母和三姨，哈什蚂入冬都在冰封的河底冬眠，这个季节破冰取出，恰是满籽和蛙油鲜美的时候，只是一路南下入鲁，温度升高，为了让我们能吃到，一路上很是添了很多麻烦，即便是带回山东，由于家里温度高，不得不频频放入冰袋保持水的温度才能让我们一快朵颐。承情之至！</p><h3 id="如何吃哈什蚂"><a href="#如何吃哈什蚂" class="headerlink" title="如何吃哈什蚂"></a>如何吃哈什蚂</h3><p>说了半天哈什蚂是什么，到底如何烹制，味道如何，怕是耐着性子读到这里的各位吃货朋友最关心的，敲黑板划重点咯！</p><p>岳父母用的是老家非常地道方式烹制–酱焖哈什蚂</p><p>热水烫一下哈什蚂，然后整只整只放入锅内，放入大酱和几段干红椒，少量料酒去腥，混入土豆略炒，哈什蚂的形状不能破坏，加入一点水，加盖焖熟。开盖时满屋飘香。</p><p>这个烹制方法让我这个没见过世面的女婿目瞪口呆，小时候也在山东家乡捉过几次青蛙，大人都是斩头开膛剥皮，去掉内脏，仅仅留下躯干和四肢，多以辣椒炒制，吃的是蛙腿肌肉的Q弹和清甜，以后也曾见过大只的牛蛙进行烤制，夏天配上冰啤也是一绝呢，而哈什蚂这样整只下锅，我还是非常惊讶，老人告诉我：林蛙入冬后在冰水下冬眠不吃不喝，腹内非常干净，无须清理。</p><p><img src="https://upload-images.jianshu.io/upload_images/9660670-c985da8dd96c1505.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp"></p><p>这就是上盘后的酱焖哈什蚂咯。</p><p>哈什蚂，烹熟后，腹部鼓起，皮极嫩，入口根本感觉不到皮肤的阻碍，蛙腿并不如华北青蛙的壮硕，但肉质细嫩，一小条一小条的，很有质感；岳母此时带回的哈什蚂非常饱满，躯干中一半是籽儿，一半娃油。蛙籽儿颜色是黑色，很特别，颗粒如黑米，软糯香甜，松软而不散，紧致有度，蛙籽儿吸收了土豆的糖分和黄豆发酵后的酱香，香味清新而浓郁，一口下去像咬到火腿糯米烧麦的那种感觉，略有粘牙，最妙的是蛙籽儿就那么不多不少的一口，待你满怀期待的再咬下去的时候却发现刚刚好没有了，就像XO酒版，精精致致的迷你瓶子内不多不少就是一口，每种口味只此一瓶，妥妥的吊足了你的胃口。</p><p>另一半是蛙油，我大概只能用鲜甜来形容了，即便是经过热油烹制，蛙油并没有变成一包没有质感的汤水，而是有点像布丁的感觉，用力一啜可以吸吮到，入口，整个口腔里面登时被一种特殊的甜美充满，这种味道不像鸡汤那么香浓，甚至说甜美中还有一点点苦的味道，但就像最高级的巧克力不是甜味浓的化不开的纯巧克力，恰恰是有先苦后厚重的黑松露巧克力，此时的蛙油可以给我们的就是这样的一种享受。这种特殊的味感值得你停下咀嚼回味一下的。</p><p>哈什蚂的骨头而小小软软，完全不需要担心。</p><p>哈什蚂入馔，自满族入关前就有了，古时是和熊掌、鹿茸、飞龙起名的东北四大山珍。入关后，旗人把这个珍贵的食材，带入了宫廷菜系中，也就有了满汉全席中的清蒸哈什蚂。</p><p>更有老饕留下哈什蚂和土鸡炖汤的说法，没有验证，或许这样更有营养，但很担心这样的做饭，鸡汤的香气盖住了哈什蚂呢。</p><p>身居山东，冬天可以吃到鲜活的哈什蚂，实在是幸事，再次感谢！ </p><p>PS：哈什蚂也有干制，是为哈什蚂干，我想这个干制的大概就是那位老饕说的炖汤的佳品了，喜欢的朋友可以去某猫上找找看吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 美食 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>妖猫传--从出发点到结果都不好的错误？</title>
+      <link href="/posts/359393669/"/>
+      <url>/posts/359393669/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/10/juXmsDFR1hrfH9E.jpg" alt="p2506794097.jpg"></p><p>#妖猫传 </p><p>看过这部片子后沉默了一阵子，在想一个答案—-一直以来，无论对待自己还是别人，都可以将错误划分为六个等级：</p><ul><li>★好心犯下的错误；</li><li>★坏心犯下的错误；</li><li>★ 认识不足犯下的错误；</li><li>★故意犯下的错误；</li><li>★出发点 虽好但结果不好的错误；</li><li>★从出发点到结果都不好的错误。</li></ul><p>坦白说，有《一个馒头引发的血案》这部神片的光辉过去，我对陈凯歌导演讲故事的情怀是心中有所准备的，但这部片子在我心中还是一个“错误”，杨玉环之死，有专门的纪录片做过各种推测，其实，编剧可以学一下怎么利索地讲故事；而整部剧拍成这样，我觉得是从出发点到结果都不好的错误！而且是累犯的错误！</p><p>平心而论，这部电影我在豆瓣上给了三颗星 一颗给陈导 进步了，这次的电影我只睡了一小会儿，一颗给美术指导 憋屈了 这cosplay的水平让我梦回章怀太子墓，一颗给安禄山 你才是最佳配角。一句台词都木有，还是非常出色地传达了角色本身！ 本该给五星的，缺了2颗主要是：不要指望心理阴暗的人有好作品；就像中了蛊毒一样，烂了，是硬伤。</p><p>当然，在对待错误时—— 这包括由我们自己和别人犯下的一切过失，我们必须分清“犯错误人”与“错误”的区分，这是第一个判断原则，也是一条基本原则，不能够把“错误”与“犯错误人”混为一谈；我们还要善待犯错误的人，而不是善待错误，尤其不能够因善待错误而去善待那些犯错误的人—— 自己也不例外。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/posts/0/"/>
+      <url>/posts/0/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><hr><p>title: 我如此爱你 王凯琪版本<br>date: 2016-11-15 23:58:36<br>updated:<br>tags: 乐评<br>categories: 音乐<br>keywords: 流行歌<br>description:<br>top_img: ‘<a href="https://s2.loli.net/2022/03/20/k92DFMo1OYuWxVn.jpg&#39;">https://s2.loli.net/2022/03/20/k92DFMo1OYuWxVn.jpg&#39;</a><br>comments:<br>cover: ‘<a href="https://i.loli.net/2021/10/10/oR1QMkAhvqIcpzL.jpg&#39;">https://i.loli.net/2021/10/10/oR1QMkAhvqIcpzL.jpg&#39;</a><br>toc:<br>toc_number:<br>toc_style_simple:<br>copyright:<br>copyright_author:<br>copyright_author_href:<br>copyright_url:<br>copyright_info:<br>mathjax:<br>katex:<br>aplayer:<br>highlight_shrink:<br>aside:</p><hr><p><img src="https://i.loli.net/2021/10/10/oR1QMkAhvqIcpzL.jpg" alt="src_http___5b0988e595225.cdn.sohucs.com_images_20170929_2e44450deea5476cac1e36318f650f64.jpeg_refer_http___5b0988e595225.cdn.sohucs.jpeg"></p><p>我最爱的一首歌《我如此爱你》。原唱汪峰，我推荐的是王凯琪在好声音第三季的翻唱。很喜欢。唱出了比汪更细腻的感情。歌词和旋律非常简单，一句“我如此爱你“反复地吟唱，可简单的重复背后可以听到女主角是分别将这句话唱给远方的恋人，自己的内心，甚至可以想像出海边岩石上美丽的女主角将这句话倾诉给大海，几次重复表达出的感情力度明显有变化。真难得！联想起李白那首有名的《蜀道难》，其中一句“蜀道难，难于上青天“反复几次出现，便如一个青衣书生沿山路拾级而上，愈行愈难，不由得反复咏叹。歌词与古诗的创作手法一致，更赖王凯琪将之以歌声淋漓尽致地表现出来。真不错！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 听音乐 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 流行歌 </tag>
+            
+            <tag> 王凯琪 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>荒芜已久</title>
+      <link href="/posts/1915877274/"/>
+      <url>/posts/1915877274/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>上周青岛查体后，看着满满两页的身体病症描述，欲哭无泪。</p><p>36岁，当打之年，只是因为自己不良的生活作息，过度透支了自己的健康。</p><p>这几天，一直在反思自己的生活和工作。做的太辛苦，也太累了。</p><p>一定有更好的方式去活着，也一定有更轻松的方法去实现，需要好好考虑考虑了。</p><p> </p><p>浮躁，浮躁，心浮躁了，身体也浮躁了~~~</p><p>好好反思反思吧</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>别了2012，欢迎2013</title>
+      <link href="/posts/885102204/"/>
+      <url>/posts/885102204/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>匆匆地，2012就要和我说再见了~~~</p><p>过去的这一年是值得特别记忆的一年。</p><p>在一年里面，老婆在十个月的辛苦之后，终于顺利生产，Wendy宝贝呱呱坠地~~~也从这一刻开始，我又多了一个头衔—-父亲。</p><p>从这一刻开始，我和老婆之间除了甜蜜的爱情，又多了一份浓浓的亲情~~~</p><p>老婆，你知道么，我有多爱你和宝贝儿，每天能够听到你们欢快的笑声，一切烦恼都消失的无影无踪~~~</p><p>宝宝，知道么，虽然你总喜欢叫妈妈多过爸爸，但爸爸真心疼爱你，看着你每天的进步，看着你无邪的双眸，爸爸心里就有了无限的动力！</p><p>我希望无论是我们的小家庭还是大家庭都有更加和睦和甜蜜的生活，不为健康忧虑，不为金钱犯愁，开开心心的享受美好的生活，团团圆圆地聚在一起！</p><p>在这一年里，我辞掉了坚守了15年的首份工作，开始了一段新的旅途。我非常满意现在的事业，有好的平台，各方的信赖和支持，和睦的同事关系，受人尊敬的名头~~~在这里工作的我，真的体会到那种做自己喜欢工作的愉悦感，每天的成就感和紧迫感，超越了我对金钱的欲求。薪资已经不再重要，那是随着自己的努力和成绩滚滚而来的了。</p><p>我希望能够在未来的一年中，能够真真正正地把这个企业做成全国行业第一，我的目标是在国际市场上真正和那些百年美国品牌去竞争！</p><p>老婆，你的毛笔字好，帮我写一副字挂在办公室吧：</p><p>清廉，一生平安  实干 造福职工</p><p>2013，是我的本命年，我期待在这新一年中家人平安喜乐，事业兴旺！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于钓鱼岛、辽宁号和日中关系</title>
+      <link href="/posts/4249328631/"/>
+      <url>/posts/4249328631/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/08/zbhXQMt1psGSI6j.jpg" alt="钓鱼岛"> </p><p>鲜有时间码字了。难得下午有些许时间，看到网上关于 [钓鱼岛][1] 问题和辽宁号的一些评论，忍不住说几句。</p><p>我和日本人打交道好多年，我痛恨他们但也在一些方面佩服他们。日本是那种你把他打死他还向你鞠躬，而一旦你示弱，他永远都想咬你一口的民族。中华民族过去200年内没有打赢日本，无论陆地还是海上，所以日本人把中国看成肉，只有强硬才是对日关系的通行证。</p><p>有愤青或许会说中国强大了，现在可以打一战。错了，我们今天的中国没有比过去强很多，如果我们真的强，今天就不会有菲律宾、越南、印度这些周边国家不断蚕食中国领土领海！你不会真的以为这些国家都在一个时间里面失心疯了吧?如果疯了，为什么墨西哥不去蚕食美国领土，为什么日本不敢动俄罗斯？</p><p>真正原因就是全世界都知道中国好欺负，因为中国的执政不强，因为中国只是一个外表看起来还好的纸老虎。</p><p>晓不晓得，棒子总统李明博去了独岛，并且宣称如果日本不对战争暴行道歉，韩国就永远视日本为敌人。结果怎么样，日本天皇说要去韩国道歉。好笑吧，给韩国道歉，为什么不给中国道歉？因为在日本人眼里，中国连韩国的国力水平都不如。</p><p>棒子总统都敢去独岛遛一下，我们的总理、书记在911日本宣布购岛的时候都在做什么，我就不信我们的领导人上钓鱼岛，日本敢开枪！！！可很悲哀，俄罗斯的领导人去北方四岛，日本人表示遗憾，李明博上独岛，日本表示遗憾，可tmd日本购岛，中国现政府表示遗憾！这就是现状，好，那么请你告诉我，现在你觉得今天的中国敢开战么？</p><p>今天的big news就是辽宁号了，很多愤青为之发狂，似乎有了航母，中国就可以跻身强国之列。错了，我告诉你，1894年以前的清朝海军是全球第三！定远、镇远两舰访问日本的时候日本人吓得要死，没见过这大的家伙。可最后怎么样，大东沟海战的结果我不想说了，我建议大家读一下日本写的日清战史，混乱的战船指挥和腐败污烂的军官体系毁掉了这个庞大的舰队~~不得不提的是，日清两军的很多军官都出自英国皇家海军学院。</p><p>历史告诉我们，决定一个国家强大与否的从来不是几个卫星和几艘航母，更不是几块奥利匹克金牌。面对着层出不穷的“表哥”，你真的以为我们今天的吏治就比清朝好？ 我们舰队的实力比清朝当时就强？ </p><p>我觉得我们这代人完全可以看到中日一战，中日很快就会在海上再见面，我也告诉你，我对战事很悲观。为什么？因为朱镕基的一句话：我们的政府没有公信力，我们的企业没有诚信。</p><p>我真心希望我们的政府换届以后能够有所作为，真的希望祖国和祖国的人民真正富强、平等、自由！希望我们的子孙不会做亡国奴！ </p><p>[1] : <a href="https://baike.baidu.com/item/%E9%92%93%E9%B1%BC%E5%B2%9B/13344?fr=aladdin">钓鱼岛（中华人民共和国东海固有群岛）_百度百科 (baidu.com)</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 时政 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>三星galaxy使用初感</title>
+      <link href="/posts/2234877714/"/>
+      <url>/posts/2234877714/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>今天你“补钙”了么？</p><p><img src="https://i.loli.net/2021/10/08/APxjao9uS2rMY34.jpg" alt="src_http___img35.ddimg.cn_82_6_1069811605-1_w_1.jpg_refer_http___img35.ddimg.jpeg"></p><p>呵呵，开个玩笑，我喜欢把三星galaxy S3–中文名称“盖世”，叫做“钙”。</p><p>跳槽几个月，终于第一次休一天了，早早答应了老婆，这一天都是属于她的。本想抱着小Wendy一起逛街，可天公不作美，下雨。就把Wendy留在姥姥家，我们两个也难得地重温一下二人世界，呵呵。</p><p>想买一部S3送给老婆做七夕礼物，一逛之下，我也心动了，两人都补了钙，呵呵。价格和性能什么的，网上都有很多测评，我就不多说了，只是说说，我对这部S3入手的初感吧</p><p>首先，介绍一下背景，本人从事管理工作，日常高度依赖电邮和谷歌日历和备忘录，过去五年里面，被两部黑莓（8320curve和9700bold）宠坏了，早已经习惯了在全键盘运指如飞和一手掌控的感觉。</p><p>因为是移动手机的关系，所以入手了i9308，装入Sim后，发现该有的基本都有了，基本没有什么程序的需求了。 手机屏幕比较漂亮，色彩比较尖锐，摄像头，老婆评价不错，比ip4强。老婆觉得这个手机的size比较不好拿，相对ip4而言。</p><p>操作很流畅，没有停顿的感觉，只是新浪天气找不到东营，小沮丧。不过，盖世提供了很多智能的动作，人机对话教学也做得比苹果好很多。比ip4轻薄，而且电池可换。</p><p>硬件上，盖世没说的。</p><p>可是，软件方面，我对触摸输入极为不适应，其实一直在用ipad的输入，但都是简单敲几个微博而已，平日大量输入的时候，还是用黑莓在回邮件比较多。黑莓和ip4在设置方面都非常简单明了，盖世让我觉得有点复杂，可能还不是很熟悉吧，老婆掌握的就比我快，我买回以后就放一边了，老婆摸索了几个小时，很熟练了已经。</p><p>个人认为，现在的安卓系统根本无法与苹果抗衡，根本不在一个数量级别上。 为什么呢，原因很明显，苹果正在“下一盘很大的棋”，他们正在有条不紊的构架一个封闭而且强大的“生态圈”，icloud+message center+IOS和MAC OS的融合，你会发现，当你拥有的苹果物件越来越多的时候，他们会逐渐融合封闭成一个圈子，在这个圈子里面，信息流都是共享的，而且相互的融合以及互联都非常方便和和谐。安卓更像一个刚刚起步的孩子，这个孩子十八般武艺都会，可这个孩子十孤零零一个，现阶段根本无法和苹果相提并论。这也就是为什么苹果手机从第一代到现在都很少变化的原因吧—-既然我已经傲视群雄，先进几年以上，没有必要频频做革命性变动，等对手赶得差不多的时候，再抛出更革命性的产品拉开距离。</p><p>一点初感，总体说，在ip5没有问世以前，但就硬件而言，盖世已经到了巅峰。软件方面和其他安卓手机相比，三星交互和操作体验都比较出色，但是和苹果的软件相比，明显弱很多，特别是考虑到苹果整个软生态圈，安卓系统还有好久的路要走呢~~~~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Galaxy </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>谁说杨康就不好了</title>
+      <link href="/posts/2492672205/"/>
+      <url>/posts/2492672205/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>小时候初看金庸的《射雕》时，总是会沉迷在金老构建的世界里面，连善恶判断也完全跟着金老走了，慢慢长大以后，才开始有了自己的判断，也因此对杨康这个悲情的角色有了不同的看法。  </p><p><img src="https://i.loli.net/2021/10/08/lbhdDnegK7HLNyV.jpg" alt="p1047839386.jpg"></p><p>谨以此文，为杨康同志正名！  </p><h2 id="杨康Vs郭靖，简直就是云泥之别"><a href="#杨康Vs郭靖，简直就是云泥之别" class="headerlink" title="杨康Vs郭靖，简直就是云泥之别"></a>杨康Vs郭靖，简直就是云泥之别</h2><ul><li><strong>优点1、大智大勇</strong></li></ul><p>杨康聪颖应变快，有胆有识，有勇有谋。每每到了危险时刻都能凭借自己的急变化险为夷。凭借黄蓉在牛家村慌忙间失落的一根打狗棒就可以搞的江湖风起云涌，搞的天下第一大帮－－丐帮分裂内讧。而在君山大会上败局已定的情况下，终能脱众而出，这等心机、这等胆色，放眼江湖，谁人可及？郭大侠如果没有了黄蓉，估计连猴通海智商的一半都没有，就算傻姑也比他记性好些。  </p><ul><li><strong>优点2、亲和力强，领导能力出众</strong></li></ul><p>杨康是金国小王爷，但是出入草莽间，他并不以此自傲，往往放下身价结交武林中能人异士，而且心胸豁达，对于沙通天、猴通海这样不懂礼数的混人也能一视同仁。在他的身边紧紧团结着一支凝聚力好，作风顽强、战斗能力出色的江湖团队。<br>更加难能可贵的是，杨康年纪轻轻就具有了超强的领导能力，作为整个团队的带头人，他总能维才用人，赏罚分明，使团队中的每个成员都能充分发挥主观能动性。在他的苦心经营下，团队成员不断壮大，像西毒欧阳峰这样的天下顶尖高手也甘心为其所用，除去西毒外，麾下的裘千仞也是一人力敌全真七子的狠角色，以下如铁尸梅超风、丐帮彭长老、灵智上人、梁子瓮等等又哪一个不是身怀绝技，随便挑出一个就能和丘处机叫板的高手呢？若是把这一票儿杀人直如儿戏，行止大异常人的高手交给郭靖，你认为凭郭靖的木鱼脑袋能不能管的好呢？只怕不出一柱香的功夫郭大侠的小命儿就会被这帮人收了去。或许有人会反驳，在射雕的后传《神雕》中提及郭靖镇守襄阳十几年领导能力也很强，其实明眼人谁不知那根本就是黄蓉在守襄阳，而我们的郭大侠白白拿着《武穆遗书》而不知其用，岳将军在天有灵的话，一定会被这个白痴气死的。  </p><p>-** 优点3、用情专一，矢志不渝**  </p><p>在杨康短暂而有充满传奇色彩的一生中，穆念慈始终是他的最爱，这一点就算他的敌人也不可否认。自从比武招亲一见钟情，杨康和穆念慈这对来自对立阵营的苦命情侣，在江湖的颠沛流离中演绎出了一幕比《罗密欧于朱丽叶》更加凄婉动人的爱情故事。<br>反观郭靖郭大侠的桃花运就算和欧阳克比也一点不差。真是令人称羡！<br>作为成吉思汗的金刀驸马，华筝公主的青梅郎君，郭大侠居然满脸诚意的上桃花岛向黄老邪求婚，而当华筝黄蓉相遇，戏法穿帮时，才不得不说出自己已经领了蒙古国民政部颁发的烫金结婚证的真相。估计要是华筝不是是在等急了出来找丈夫，又那么巧和黄蓉碰见的话，郭靖郭大侠绝对能够让这件事彻底烂到肚子里，至死也不会对黄小姐讲了。是问，一个连爱情都不忠贞的男人又有什么资格配作英雄呢？  </p><ul><li>** 优点4、至孝至忠**</li></ul><p>杨康是很孝的，对于完颜洪烈这个养他教他，对他倾注全部爱心的父王，他是充满了敬意的，为了完成父王的夙愿，为了民族的崛起，完颜康可以抛却荣华享受，投身草莽，终日餐风露宿而无怨无悔，每在完颜洪烈遇险时，他都能挺身而出，锐身赴难，其孝也若斯，为了金国的统一大业，为了民族的崛起，鞠躬尽瘁，死而后已，其忠也若斯。<br>（不要跟我提包惜若，那根本就是水性杨花的女子，不配作杨康的母亲！）  </p><p>呜呼，似如此至孝至忠，至情至性，有经世之才，抱负远大的好青年竟然长期被俗世误解，岂不悲哉？</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 金庸 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>甜蜜蜜---Almost a love story</title>
+      <link href="/posts/587501586/"/>
+      <url>/posts/587501586/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><div align=center>    <img src="https://i.loli.net/2021/10/08/z7a4kuePREDQd5N.jpg" width="486" height="658" />    </div><p>今年年初，无意之间在换台的时候看到了<a href="https://movie.douban.com/subject/1305164/">甜蜜蜜 (豆瓣) (douban.com)</a> 的片段，觉得不错，才从网上Down了一部。真的很不错～</p><p>这部电影叫我认识了不一样的黎明，不一样的张曼玉，不一样的陈可辛～～～～</p><p>《甜蜜蜜》的情感注入技巧是高超的，温和而细腻，尽管我不曾有黎小军和李翘的生活遭遇，但是人性本身呼应叫我有很强的感应。  </p><p>黎小军和李翘都是两个平凡的不能再平凡的去香港捞世界的年轻人，特别是黎小军初到香港的生活，叫我有些感怀，我当年刚去美国的时候。  </p><p>虽然大学学的也是英语，但是十年没有动过，已经基本忘记了，突然被孤零零的丢入一个完全陌生的环境，举目无亲，心中的恐慌和孤独如影随形～  </p><p>虽然做的是大宗机械产品的出口，但开始时因为没有人脉，不得不向牙膏推销员一样，操着烂到家的broken English 一家家公司的上门联络，受人白眼和冷遇，更是吃尽闭门羹～～～～即便是这样，也一点一点的坚持着～  </p><p>为了一个现场服务，独自开车十个小时不眠不休的赶进去，又或者开着一部老掉牙的现代闯入GPS都失效的、完全陌生的半戈壁半沙漠。  </p><p>还是回到《甜蜜蜜》吧，Almost a love story是这片的英文名字，起名起的很妙，实在说不清也道不明，小军和李翘之间的爱情故事是怎么样的，所以只能Almost了。  </p><p>我们很难猜测在纽约街头相遇以后两人的生活，褪去了铅华，褪去了欲求和内疚的两个人，是依然热火朝天地谋生，还是会平平淡淡的生活？ 陈可辛没有说，你觉得呢？  </p><p>PS:  走过了艰难的岁月以后，从零起步，我销售的某产品不仅打败众多中国竞争对手雄踞中国出口首位。同时，销售的另一项产品也一度排进中国向加拿大出口前三名。 一晒，感谢我的朋友们，感谢公司和团队们～</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>生为中国侨民，随便说说</title>
+      <link href="/posts/1830982831/"/>
+      <url>/posts/1830982831/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/08/WsB6SrHR3hODGJo.jpg" alt="src_http___photocdn.sohu.com_20110305_Img303951527.jpg_refer_http___photocdn.sohu.jpeg"></p><p>晚上约了客户吃饭聊天，离出门还有一阵子，打发一点儿时间，就利比亚撤侨随便说说吧。</p><p>生为中国人，是需要技术的，因为不同时代，中国人的含义是不一样的。从侨民和外交方面说开吧。</p><p>汉代陈汤老前辈的话很给力～～犯我强汉者，虽远必诛。</p><p>这句话是他给汉帝的汇报中的，随同汇报一起递向长安的是北匈奴郅支单于的首级。<br>大胜之后，甘延寿、陈汤给汉元帝发去那封流传千古、扬眉吐气的疏奏：<br>“臣闻天下之大义，当混为一。匈奴呼韩邪单于已称北藩，唯郅支单于叛逆，未伏其辜，大夏之西，以为强汉不能臣也。郅支单于惨毒行于民，大恶逼于天。臣延寿、臣汤将义兵，行天诛，赖陛下神灵，阴阳并应，陷阵克敌，斩郅支首及名王以下。宜悬头槁于蛮夷邸间，以示万里，明犯强汉者，虽远必诛！”</p><p>这先兄的意思就是，大汉天威，不容侵犯。可想而知，生在那个时代的中国人如果在外做侨民，受了欺负，大汉天朝一定会像今天美帝派遣特种部队全球征战一样。</p><p>汉之后，中国动荡不休，但是到了唐朝就大为改观，唐僧师傅凭着一本大唐护照和一个御弟的假名头，带着几个徒弟，一路招摇撞骗，直通西天，就是国力和护侨政策的体现。这个无需我所言，感兴趣的看西游记就行了。</p><p>同样是中国人，到了明清，就不行了，特别是混蛋明朝，非但没有强汉的雄心，反而变本加厉地迫害百姓，很多福建沿海一带人都纷纷去了南洋，等到明末清初，因为局势战乱不休，更多的百姓被迫去南洋谋生（可参看金庸《碧血剑》）。乌烟瘴气的明王朝不但不予以关照保护，反而视这些海外赤子为盗寇，这时候，随着荷兰政府有目的的入侵印尼、爪哇等地方，荷兰殖民者制造了血腥的红溪惨案。极端令人发指！详情见<a href="http://baike.baidu.com/view/139986.htm">红溪惨案</a></p><p>再之后的中国也乏善可陈，新中国统一以后，较大规模的排华就是10年以前的印尼排华事件，那是中国奉行的内陆政策，海上武力不强，而且新闻压制的厉害，只是外交部出来外强中干地抗议关注而已，吃亏的还是咱们炎黄子孙。</p><p>这次利比亚撤侨，中国算是做了一件扬眉吐气的事情，军舰军机统统上阵，前段时间，咱们买了点希腊的国债，原本是想趁着希腊危机，拉近和欧盟的距离，没想到倒是为这次撤侨铺了路，可怜克里特岛小小弹丸，涌进这么多中国人，也算我心目当中，难得的外交胜利。</p><p>行了，时间差不多了，要说的很多，也都憋着吧，大家感兴趣的Google历史去吧。</p><p>呵呵，最近总是宴酬不断，锻炼少了，腰围渐涨～～唉</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 时政 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>喀嚓一刀背后，人制还是法制？</title>
+      <link href="/posts/2797690007/"/>
+      <url>/posts/2797690007/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><div align=center>    <img src="https://i.loli.net/2021/10/08/SWTzjIn5VuErmJM.jpg"  />    </div><p>抢鲜买回《让子弹飞》的DVD，再看了一遍，心中还是唏嘘。</p><p>作为县长的马邦德是奈何不得黄四郎的，而作为麻匪的张牧之却可以为民除害。 表面的热闹背后，引人深思，深思什么，深思的是法制的欠缺和法制的凄惨。</p><p>继续看下去，张牧之以县长身份，将黄四郎的替身绑回来，并不是召开公审，走法律程序，而是不问青红皂白，手起刀落，喀嚓一下，将法律践踏到脚下。</p><p>试问你在看完这部片子以后，有否觉得不妥，还是觉得一切顺理成章呢，可能就是深入我们民族的奴性和人制观念太重，所以你才会觉得一切顺理成章的！</p><p>不想说的太多，太多会引火烧身。</p><p>有心的人多想想吧～～～</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2011年新年愿望</title>
+      <link href="/posts/1949222913/"/>
+      <url>/posts/1949222913/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>还有不到24个小时，就踏入2011年了～</strong></p><p>每年的这个时候，都会写下对来年的愿望：</p><p>首先，希望我的家人朋友都健康喜乐。</p><p>其次，希望我们爱情甜蜜，有一个可爱的兔宝宝</p><p>再次，希望腰围可以控制在2尺6，体重75kg以下。</p><p>再再次，希望薪水在2010年基础上更多，开头最好是2或者3</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《让子弹飞》是一部充满暗喻的造反教科书</title>
+      <link href="/posts/732852707/"/>
+      <url>/posts/732852707/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><div align=center><img src="https://i.loli.net/2021/10/08/P2haDoBTfKilRdQ.jpg" width="25%"></div><p><a href="https://movie.douban.com/subject/3742360/">让子弹飞 (豆瓣) (douban.com)</a>是一部好片子，也是一部充满对现实隐喻的片子。<br>片中暗喻比比皆是，以下是观影以后的拾得的几个暗喻：</p><ul><li><p>片中的鹅城，是双重比喻，一重，庶民如鹅，黄四爷，就是堵住鹅笼的黄鼠狼，只要群鹅不团结一致，他便可以一直作恶下去。 二重，鹅城，恶城，险恶之地，对比马邦德要去的康城，康城，康者，安宁，康乐，福地也。  </p></li><li><p>黄四郎，黄鼠狼也，此喻对比鹅城之暗喻。  </p></li><li><p>让子弹飞一会儿～  你现在没有看到，不等于扳机没有扣下，仇恨的子弹已经被扣下扳机，且飞一会儿吧，总会飞到的，总会有报应的。  </p></li><li><p>片头和片尾都出现的“马拉的火车” 是什么意思？ 马拉火车是非常荒诞的，这样荒诞的举动，很像唐吉可德，其实整部片子也就是塑造了一个“唐吉可德”式的张牧之。张牧之斗倒了一个马邦德，一个黄四郎，但放眼望去，其他的地方还有更多马邦德和黄四郎~，于是在结尾同样马拉的火车出现，于是，就像唐吉可德挺着生锈的长矛一次次冲向风车，张牧之就像那匹拉着火车的马，又向着下一个“鹅城”出发了。  </p></li><li><p>结尾，张牧之的手下为什么要去浦东？ 也是一个暗喻，因为那里就是下一个鹅城，那里也有一个，不，是数个“黄四郎”式的人物需要被打倒，这就是已经几乎明白地讽刺当下了。</p></li><li><p>金庸先生在《鹿鼎记》中借助韦小宝的嘴说出造反三字真言，抢钱，抢地，抢女人。《让》同样如此，分发武器以后，张牧之告诉大家就一句：拿回属于你们的东西！ 简单明了，如果换成，为了什么什么事业而献身吧，恐怕不会有这么好的动员效果。</p></li></ul><p>片中的隐喻还有很多，为了安全起见，我不想明言，比如葛优说的征税的本质～</p><div align=center><img src="https://i.loli.net/2021/10/08/Qu7kPKrIwXtq8pi.jpg" width="50%"></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>前段爱情，后段人生--《非2》要告诉我们的故事</title>
+      <link href="/posts/969825020/"/>
+      <url>/posts/969825020/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><div align=center>    <img src="https://i.loli.net/2021/10/08/gZOSGe8l1oiu9A4.jpg"  />    </div>        <p>和老婆先看的<a href="https://movie.douban.com/subject/4271894/">非诚勿扰2 (豆瓣) (douban.com)</a>，然后看的《让子弹飞》。这两部都是好片子。是诚意之作。<br>很多人喜欢把这两部片子放在一起对比，诚然，可以对比的要素有很多，服装、剪辑等等，但如果要把两部片子整个地比较，就太傻了，这就像你把美貌和智慧放在秤盘上看孰重孰轻一样。</p><p>《非2》，从内容的深度上远比第一部要好很多，其实我以为，整个地分析片子的架构，可以看到清晰的两段：前段是爱情主题，一上来便是高潮，香山和芒果的离婚仪式，然后是行动不便地老年试婚，这把婚姻和生活中不美好赤裸裸地展示出来。梁笑笑追求的是一种纯粹的感情，婚姻的形式是无所谓的，秦奋需要的是一个遮风避雨的家，这就是两人的矛盾点所在。这也是现实中无数痴男怨女所苦苦纠缠的。</p><p>整个片子的后一部分，主题是人生，围绕香山的得病，人生告别仪式是高潮。通过香山的回顾，叫人思索，人生到底是什么，到底怎么样的人生是有尊严的。  </p><p>这是《非2》好于第一部的地方，它没有企图给出一个标准答案，而仅仅是把这个盖头掀开，让你自行体会。  </p><p>我个人对《非2》有所共鸣，是因为非2限定的社会相对更接近我，同时，因为思维的成熟，使得我可以更能体会编剧和导演的用意。应该说，为了表现纯粹的矛盾冲突，导演在设定角色背景的时候还是煞费苦心的，无论香山、芒果、秦奋，笑笑都是衣食无忧的阶层，导演的用意是，用这样的一个阶层，屏去锅碗瓢盆的油烟味儿，而更加纯粹地表现感情冲突。</p><p>香山最后的遗言：不过如此。 究竟什么意思，是人生不过如此，还是他苦苦追求的有尊严的死，其实也不过如此？ 是盛大的结婚、离婚仪式，是煽情的人生告别仪式不过如此，还是一瓶50万的酒不过如此？ 还是你情我愿，尔虞我诈不过如此？ 还是失去了对生的留恋，对死的恐惧后，一切看开，不过如此？</p><p>最后的画外音，笑笑和秦奋是70岁才结婚，为什么？ 导演要告诉我们的是什么？ 是秦奋遂了笑笑，还是笑笑到老满足秦奋的结婚要求？  </p><p>我欣赏片子中财务自由后的生活状态，希望我们也能够尽快的财务自由～</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电影 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>年终岁末重开博</title>
+      <link href="/posts/3295055947/"/>
+      <url>/posts/3295055947/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i.loli.net/2021/10/09/ZH9Y6edMfSsnJLB.jpg" alt="src_http___img.it610.com_image_product_49dde382b56a4247a80a7b8c3ff234e9.jpg_refer_http___img.it610.jpeg"></p><p>关关+停停，</p><p>从04年到现在，只记得开了很多博客，记得写了很多博文，可真的又不记得到底开了多少博客，也不记得到底写了多少篇博文～～</p><p>这期间的生活就像一列没有时刻表的火车，在每一站随性停靠，而又匆匆离别。不期而遇地来，更来不及道别地走。像一片叶子，被命运的手时而托在掌心，时而，丢弃在浊流中，不能自已。</p><p>～-～-</p><p>开始的时候，我总想留下些记忆，总试着用博客去记录那些东南西北，可是，慢慢，慢慢，我发现回忆是一种负担，每次当我回眸的时候，总是发现那么多遗憾，那么多被挥霍的青春，那么多擦肩而过的机遇～，这叫我有很深的挫折感和失败感。</p><p>所以，我又花了很多时间去忘记，忘记那些不美好，忘记那些不应该，忘记那些记不住的～，因为忘记可以叫我掩耳盗铃地快乐一阵子。</p><p>如是几番折腾～以致，老婆笑我，是不是每年元旦都会开一个新博客，写一半就丢弃掉～</p><p>这叫我又产生了新的困惑—-到底为什么要继续写博客？</p><p>～-～-</p><p>当我很严肃地思考这个问题的时候，我发现自己深沉地像一头不怀好意地大灰狼，坐在那里，一声不出，眼珠乱转，等待答案像小白兔一样突然从草丛里面蹦出来。</p><p>可眼前晃来晃去的，既不是小白兔，也不是喜羊羊，而是老婆。她穿着拖鞋，她不跳，用走的。</p><p>她就是答案！ 因为她喜欢看～</p><p>～-～-</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 碎碎念 </tag>
             
         </tags>
       
