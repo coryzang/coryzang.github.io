@@ -13,7 +13,7 @@
   algolia: undefined,
   localSearch: undefined,
   translate: undefined,
-  noticeOutdate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
   highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
   copy: {
     success: '複製成功',
@@ -21,10 +21,10 @@
     noSupport: '瀏覽器不支援'
   },
   relativeDate: {
-    homepage: false,
-    post: false
+    homepage: true,
+    post: true
   },
-  runtime: '',
+  runtime: '天',
   dateSuffix: {
     just: '剛剛',
     min: '分鐘前',
@@ -39,7 +39,7 @@
     js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
     buttonText: '載入更多'
   },
-  isPhotoFigcaption: false,
+  isPhotoFigcaption: true,
   islazyload: false,
   isAnchor: false,
   percent: {
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: true,
   isToc: false,
-  postUpdate: '2024-01-23 22:07:21'
+  postUpdate: '2024-01-23 22:50:52'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
