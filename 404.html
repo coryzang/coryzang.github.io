@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: true,
   isToc: false,
-  postUpdate: '2024-01-24 17:02:43'
+  postUpdate: '2024-01-24 21:45:41'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -186,8 +186,8 @@
   btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
 
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
-  const changeContent = (content) => {
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = content => {
     if (content === '') return content
 
     content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[圖片]') // replace image link
@@ -199,13 +199,6 @@
       content = content.substring(0,150) + '...'
     }
     return content
-  }
-
-  const getIcon = (icon, mail) => {
-    if (icon) return icon
-    let defaultIcon = '?d=monsterid'
-    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
-    return iconUrl
   }
 
   const generateHtml = array => {
@@ -235,41 +228,31 @@
     window.pjax && window.pjax.refresh($dom)
   }
 
-  const getComment = () => {
-    const serverURL = 'https://ateqln0i.lc-cn-n1-shared.com'
-
-    var settings = {
-      "method": "GET",
-      "headers": {
-        "X-LC-Id": 'ATeQlN0iQg7fSHMaZ0rjT59H-gzGzoHsz',
-        "X-LC-Key": 'ZpOeDK1XhdAuW6NhKcjZT17S',
-        "Content-Type": "application/json"
-      },
+  const getComment = async () => {
+    try {
+      const res = await fetch('https://mo-gdw5h4joy-coryzang.vercel.app/api/comment?type=recent&count=6', { method: 'GET' })
+      const result = await res.json()
+      const walineArray = result.data.map(e => {
+        return {
+          'content': changeContent(e.comment),
+          'avatar': e.avatar,
+          'nick': e.nick,
+          'url': e.url + '#' + e.objectId,
+          'date': e.time || e.insertedAt
+        }
+      })
+      saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
+      generateHtml(walineArray)
+    } catch (err) {
+      console.error(err)
+      const $dom = document.querySelector('#card-newest-comments .aside-list')
+      $dom.textContent= "無法獲取評論，請確認相關配置是否正確"
     }
-
-    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
-      .then(response => response.json())
-      .then(data => {
-        const valineArray = data.results.map(function (e) {
-          return {
-            'avatar': getIcon(e.QQAvatar, e.mail),
-            'content': changeContent(e.comment),
-            'nick': e.nick,
-            'url': e.url + '#' + e.objectId,
-            'date': e.updatedAt,
-          }
-        })
-        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
-        generateHtml(valineArray)
-      }).catch(e => {
-        const $dom = document.querySelector('#card-newest-comments .aside-list')
-        $dom.textContent= "無法獲取評論，請確認相關配置是否正確"
-      }) 
   }
 
   const newestCommentInit = () => {
     if (document.querySelector('#card-newest-comments .aside-list')) {
-      const data = saveToLocal.get('valine-newest-comments')
+      const data = saveToLocal.get('waline-newest-comments')
       if (data) {
         generateHtml(JSON.parse(data))
       } else {
